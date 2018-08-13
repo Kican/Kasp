@@ -1,0 +1,14 @@
+<Project>
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <authors>Mo3in</authors>
+
+        <VersionPrefix>0.0.1</VersionPrefix>
+        <!--<VersionSuffix>preview2</VersionSuffix>-->
+        <VersionSuffix Condition=" '$(VersionSuffix)' != '' AND '$(BuildNumber)' != '' ">
+            $(VersionSuffix)-$(BuildNumber)
+        </VersionSuffix>
+    </PropertyGroup>
+
+</Project>
