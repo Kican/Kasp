@@ -4,8 +4,8 @@ using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Core {
-	public static class KaspServiceCollectionExtensions {
+namespace Kasp.Core.Extensions {
+	public static class ServiceCollectionExtensions {
 		public static KaspServiceBuilder AddKasp(this IServiceCollection services, IConfiguration configuration) {
 			services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 			services.AddAutoMapper();

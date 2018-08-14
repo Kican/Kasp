@@ -4,8 +4,8 @@ using System.Linq;
 using Kasp.Core.Middlewares;
 using Microsoft.AspNetCore.Builder;
 
-namespace Kasp.Core {
-	public static class KaspApplicationBuilderExtensions {
+namespace Kasp.Core.Extensions {
+	public static class AppBuilderExtensions {
 		public static KaspAppBuilder UseKasp(this IApplicationBuilder app) {
 			app.UseMiddleware<KaspRequestHeaderMiddleware>();
 			return new KaspAppBuilder(app);
