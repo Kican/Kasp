@@ -1,6 +1,7 @@
 using System;
 using Kasp.Db.Extensions;
 using Kasp.Db.Models;
+using Kasp.Db.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -10,15 +11,9 @@ namespace Kasp.Db.Helpers {
 			var now = DateTime.UtcNow;
 
 			foreach (var entry in changeTracker.Entries()) {
-//				if (entry.Entity is IModelChangeNotify)
-//					((IModelChangeNotify) entry.Entity).OnModified(this, entry.State);
-
 				if (entry.State == EntityState.Added) {
 					if (entry.Entity is ICreateTime)
 						((ICreateTime) entry.Entity).Create();
-
-//					if (entry.Entity is IUpdateTime)
-//						((IUpdateTime) entry.Entity).UpdateTime = now;
 				}
 
 				if (entry.State == EntityState.Modified)

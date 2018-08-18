@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Kasp.Db.Models;
+using Kasp.Db.Models.Helpers;
 using Kasp.Identity.Core.Models;
 using Microsoft.AspNetCore.Identity;
 

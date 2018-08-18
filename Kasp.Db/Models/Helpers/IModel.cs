@@ -1,4 +1,4 @@
-namespace Kasp.Db.Models {
+namespace Kasp.Db.Models.Helpers {
 	public interface IModel<TKey> {
 		TKey Id { set; get; }
 	}

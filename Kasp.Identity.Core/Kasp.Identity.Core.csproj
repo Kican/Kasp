@@ -3,6 +3,7 @@
 
     <PropertyGroup>
         <id>Kasp.Identity.Core</id>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

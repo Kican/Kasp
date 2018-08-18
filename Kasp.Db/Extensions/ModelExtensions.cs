@@ -1,5 +1,6 @@
 using System;
 using Kasp.Db.Models;
+using Kasp.Db.Models.Helpers;
 
 namespace Kasp.Db.Extensions {
 	public static class ModelExtensions {

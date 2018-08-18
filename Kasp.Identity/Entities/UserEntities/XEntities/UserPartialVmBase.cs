@@ -1,4 +1,5 @@
 using Kasp.Db.Models;
+using Kasp.Db.Models.Helpers;
 
 namespace Kasp.Identity.Entities.UserEntities.XEntities {
 	public class UserPartialVmBase : IModel {

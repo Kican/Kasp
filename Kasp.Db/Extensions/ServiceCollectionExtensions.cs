@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Kasp.Core.Extensions;
+using Kasp.Db.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

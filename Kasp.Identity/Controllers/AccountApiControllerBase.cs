@@ -18,12 +18,12 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Kasp.Identity.Controllers {
-	public abstract class BaseAccountApiController<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
+	public abstract class AccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
 		where TRegisterModel : IUserRegisterModel
 		where TUser : KaspUser
 		where TViewModel : UserPartialVmBase
 		where TEditModel : UserEditModelBase {
-		protected BaseAccountApiController(IMapper mapper, IOptions<JwtConfig> config) {
+		protected AccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config) {
 			Mapper = mapper;
 			Config = config;
 		}

@@ -4,14 +4,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Kasp.Db.Models;
+using Kasp.Db.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.Db.Data {
-	public interface IBaseRepository<TModel, TKey> where TModel : class, IModel {
+	public interface IBaseRepository<TModel, TKey> where TModel : class, IModel<TKey> {
 		DbSet<TModel> Set { get; }
 		IQueryable<TModel> BaseQuery { get; set; }
 
-		void ChangeQuery(IQueryable<TModel> query);
 
 		Task<bool> HasAsync(TKey id);
 		Task<bool> HasAsync(Expression<Func<TModel, bool>> filter);
@@ -36,7 +36,7 @@ namespace Kasp.Db.Data {
 		Task AddAsync(TModel model);
 		Task AddAsync(IEnumerable<TModel> model);
 
-		void Update(TModel model);
+		void UpdateAsync(TModel model);
 
 		Task RemoveAsync(TKey id);
 		void Remove(TModel model);
