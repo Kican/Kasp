@@ -4,6 +4,5 @@ namespace Kasp.Db.Models.Helpers {
 	}
 
 	public interface IModel : IModel<int> {
-        
 	}
 }

@@ -9,6 +9,8 @@ namespace Kasp.Db.Models {
 		public IQueryable<T> Query { get; set; }
 	}
 
+
+
 	public class Test : IModel, IEnable {
 		public int Id { get; set; }
 		public string Name { get; set; }
@@ -18,13 +20,14 @@ namespace Kasp.Db.Models {
 		public bool Enable { get; set; }
 	}
 
-	public class TestSpecification : BaseSpecification<Test> {
-		public TestSpecification() {
+
+	public class BaseTestSpecification : BaseSpecification<Test> {
+		public BaseTestSpecification() {
 			Query = Query.EnableFilter().Include(x => x.Parent);
 		}
 	}
 
-	public class TestByUser : TestSpecification {
+	public class TestByUser : BaseTestSpecification {
 		public TestByUser(HttpContext httpContext, int userId) {
 			if (httpContext.User.IsInRole("admin"))
 				Query = Query.Where(x => x.ParentId == userId);
