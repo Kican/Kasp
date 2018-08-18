@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Db.Models;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,8 @@ namespace Kasp.Db.Extensions {
 
 		public static bool IsLastPage(this IPagedList pagedList) => pagedList.PageIndex == pagedList.TotalPage;
 
-		public static Task<PagedList<IQueryable<T>, T>> ToPagedListAsync<T>(this IQueryable<T> source, int pageSize, int pageIndex = 1) {
-			return CreatePagedListCoreAsync(source, pageSize, pageIndex, (data, skip, take) => data.Skip(skip).Take(take).ToArrayAsync(), data => data.CountAsync());
+		public static Task<PagedList<IQueryable<T>, T>> ToPagedListAsync<T>(this IQueryable<T> source, int pageSize, int pageIndex = 1, CancellationToken cancellationToken = default) {
+			return CreatePagedListCoreAsync(source, pageSize, pageIndex, (data, skip, take) => data.Skip(skip).Take(take).ToArrayAsync(cancellationToken), data => data.CountAsync(cancellationToken));
 		}
 
 		public static PagedList<IEnumerable<T>, T> ToPagedList<T>(this IEnumerable<T> source, int pageSize, int pageIndex = 1) {

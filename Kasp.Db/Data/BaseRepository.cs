@@ -14,7 +14,6 @@ namespace Kasp.Db.Data {
 	public abstract class BaseRepository<TDbContext, TModel, TKey> : IBaseRepository<TModel, TKey>
 		where TDbContext : DbContext
 		where TModel : class, IModel<TKey> {
-		
 		protected BaseRepository(TDbContext db) {
 			Db = db;
 			Set = db.Set<TModel>();
@@ -77,10 +76,10 @@ namespace Kasp.Db.Data {
 
 
 		public async Task<IPagedList<TModel>> PagedListAsync(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default) =>
-			await BaseQuery.Where(expression).ToPagedListAsync(count, page);
+			await BaseQuery.Where(expression).ToPagedListAsync(count, page, cancellationToken);
 
 		public async Task<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TProject, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey> =>
-			await BaseQuery.ProjectTo<TProject>().Where(expression).ToPagedListAsync(count, page);
+			await BaseQuery.ProjectTo<TProject>().Where(expression).ToPagedListAsync(count, page, cancellationToken);
 
 		public Task<IPagedList<TModel>> PagedListAsync(ISpecification<TModel, TKey> specification, int page = 1, int count = 20, CancellationToken cancellationToken = default) {
 			throw new NotImplementedException();
@@ -90,10 +89,10 @@ namespace Kasp.Db.Data {
 			throw new NotImplementedException();
 		}
 
-		public async Task<IPagedList<TModel>> PagedListAsync(int page = 1, int count = 20, CancellationToken cancellationToken = default) => await BaseQuery.ToPagedListAsync(count, page);
+		public async Task<IPagedList<TModel>> PagedListAsync(int page = 1, int count = 20, CancellationToken cancellationToken = default) => await BaseQuery.ToPagedListAsync(count, page, cancellationToken);
 
 		public async Task<IPagedList<TProject>> PagedListAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey> =>
-			await BaseQuery.ProjectTo<TProject>().ToPagedListAsync(count, page);
+			await BaseQuery.ProjectTo<TProject>().ToPagedListAsync(count, page, cancellationToken);
 
 		public async Task AddAsync(TModel model, CancellationToken cancellationToken = default) => await Set.AddAsync(model, cancellationToken);
 

@@ -24,7 +24,7 @@ namespace Kasp.Db.Extensions {
 		}
 
 		public static KaspDbServiceBuilder AddRepositories(this KaspDbServiceBuilder builder) {
-			var repositoryTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => typeof(BaseRepository<,>).IsSubclassOfRawGeneric(x) && !x.IsInterface && !x.IsAbstract).ToList();
+			var repositoryTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => typeof(BaseRepository<,,>).IsSubclassOfRawGeneric(x) && !x.IsInterface && !x.IsAbstract).ToList();
 
 			repositoryTypes.ForEach(x => builder.Services.AddScoped(x));
 
