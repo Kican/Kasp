@@ -1,9 +1,16 @@
 using System.Threading.Tasks;
+using Kasp.CloudMessage.FireBase.Settings;
 using Kasp.CloudMessage.Models;
 using Kasp.CloudMessage.Services;
 
 namespace Kasp.CloudMessage.FireBase.Services {
 	public class FcmClient : ICloudMessageClient {
+		public FcmClient(FcmClientSettings clientSettings) {
+			ClientSettings = clientSettings;
+		}
+
+		private FcmClientSettings ClientSettings { get; }
+
 		public Task<bool> SendToUserAsync(int userId, string title) {
 			throw new System.NotImplementedException();
 		}
