@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity.Core", "Kasp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity", "Kasp.Identity\Kasp.Identity.csproj", "{B438E428-9BA0-4BA7-AE98-0D36C6CB5BC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.CloudMessage", "Kasp.CloudMessage\Kasp.CloudMessage.csproj", "{A91586C0-5178-4E55-B53B-29F570ABA083}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.CloudMessage.FireBase", "Kasp.CloudMessage.FireBase\Kasp.CloudMessage.FireBase.csproj", "{1C8079A8-DE59-4F71-99FF-F41AD6A02070}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{B438E428-9BA0-4BA7-AE98-0D36C6CB5BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B438E428-9BA0-4BA7-AE98-0D36C6CB5BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B438E428-9BA0-4BA7-AE98-0D36C6CB5BC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91586C0-5178-4E55-B53B-29F570ABA083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91586C0-5178-4E55-B53B-29F570ABA083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91586C0-5178-4E55-B53B-29F570ABA083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91586C0-5178-4E55-B53B-29F570ABA083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C8079A8-DE59-4F71-99FF-F41AD6A02070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C8079A8-DE59-4F71-99FF-F41AD6A02070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C8079A8-DE59-4F71-99FF-F41AD6A02070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C8079A8-DE59-4F71-99FF-F41AD6A02070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

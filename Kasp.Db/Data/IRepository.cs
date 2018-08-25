@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Kasp.Db.Data {
 	public interface IBaseRepository<TModel, TKey> where TModel : class, IModel<TKey> {
 		DbSet<TModel> Set { get; }
-		IQueryable<TModel> BaseQuery { get; set; }
+		IQueryable<TModel> BaseQuery { get;  }
 
 		// is exist
 		Task<bool> HasAsync(TKey id, CancellationToken cancellationToken = default);

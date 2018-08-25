@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\version.props" />
-
     <PropertyGroup>
-        <id>Kasp.Identity.Core</id>
+        <id>Kasp.CloudMessage</id>
     </PropertyGroup>
-
     <ItemGroup>
-        <ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
+      <ProjectReference Include="..\Kasp.Identity\Kasp.Identity.csproj" />
     </ItemGroup>
 </Project>

@@ -13,18 +13,19 @@ namespace Kasp.Db.Extensions {
 
 			builder.Services.AddScoped<DbContext, TDbContext>();
 
-			return new KaspDbServiceBuilder(builder.Services, builder.Configuration);
+			return new KaspDbServiceBuilder(builder.Services, builder.Configuration, typeof(TDbContext));
 		}
 
 		public static KaspDbServiceBuilder AddDataBase<TDbContext>(this KaspServiceBuilder builder, Action<DbContextOptionsBuilder> optionsAction) where TDbContext : DbContext {
 			builder.Services.AddDbContext<TDbContext>(optionsAction);
 			builder.Services.AddScoped<DbContext, TDbContext>();
 
-			return new KaspDbServiceBuilder(builder.Services, builder.Configuration);
+			return new KaspDbServiceBuilder(builder.Services, builder.Configuration, typeof(TDbContext));
 		}
 
 		public static KaspDbServiceBuilder AddRepositories(this KaspDbServiceBuilder builder) {
-			var repositoryTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => typeof(BaseRepository<,,>).IsSubclassOfRawGeneric(x) && !x.IsInterface && !x.IsAbstract).ToList();
+			var repositoryTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+				.Where(x => typeof(BaseRepository<,,>).IsSubclassOfRawGeneric(x) && !x.IsInterface && !x.IsAbstract).ToList();
 
 			repositoryTypes.ForEach(x => builder.Services.AddScoped(x));
 
@@ -33,10 +34,14 @@ namespace Kasp.Db.Extensions {
 	}
 
 	public class KaspDbServiceBuilder : KaspServiceBuilder {
-		public KaspDbServiceBuilder(IServiceCollection services, IConfiguration configuration) : base(services, configuration) {
+		public Type DbContextType { get; }
+
+		public KaspDbServiceBuilder(IServiceCollection services, IConfiguration configuration, Type dbContextType) : base(services, configuration) {
+			DbContextType = dbContextType;
 		}
 
-		public KaspDbServiceBuilder(KaspDbServiceBuilder builder, IConfiguration configuration) : base(builder.Services, configuration) {
+		public KaspDbServiceBuilder(KaspDbServiceBuilder builder, IConfiguration configuration, Type dbContextType) : base(builder.Services, configuration) {
+			DbContextType = dbContextType;
 		}
 	}
 }

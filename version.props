@@ -9,6 +9,7 @@
         <VersionSuffix Condition=" '$(VersionSuffix)' != '' AND '$(BuildNumber)' != '' ">
             $(VersionSuffix)-$(BuildNumber)
         </VersionSuffix>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
 </Project>

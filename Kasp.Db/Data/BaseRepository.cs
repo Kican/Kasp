@@ -20,7 +20,7 @@ namespace Kasp.Db.Data {
 		}
 
 		public DbSet<TModel> Set { get; }
-		public IQueryable<TModel> BaseQuery { get; set; }
+		public IQueryable<TModel> BaseQuery => Set.AsQueryable();
 
 		public TDbContext Db { get; }
 
