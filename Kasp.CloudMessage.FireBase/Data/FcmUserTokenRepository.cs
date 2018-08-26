@@ -20,8 +20,11 @@ namespace Kasp.CloudMessage.FireBase.Data {
 			var item = await GetAsync(x => x.UserId == userId, cancellationToken);
 			if (item == null)
 				await AddAsync(new FcmUserToken {UserId = userId, Token = token}, cancellationToken);
-			else
+			else {
 				item.Token = token;
+				Update(item);
+			}
+
 			await SaveAsync(cancellationToken);
 		}
 
