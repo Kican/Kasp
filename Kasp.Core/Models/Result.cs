@@ -38,8 +38,18 @@ namespace Kasp.Core.Models {
 	public class Result<T> : Result {
 		public T Data { get; set; }
 
+		public Result() {
+		}
+
 		public Result(T data) {
 			Data = data;
+		}
+
+		public static Result<string> WithError(string key, string message) {
+			var result = new Result<string>();
+			result.AddError(key, message);
+
+			return result;
 		}
 	}
 }

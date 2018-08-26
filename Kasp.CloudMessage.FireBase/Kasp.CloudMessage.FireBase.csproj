@@ -8,4 +8,8 @@
       <ProjectReference Include="..\Kasp.CloudMessage\Kasp.CloudMessage.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FcmSharp" Version="2.3.1" />
+    </ItemGroup>
+
 </Project>

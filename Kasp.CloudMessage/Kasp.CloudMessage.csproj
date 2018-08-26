@@ -6,4 +6,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Kasp.Identity\Kasp.Identity.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Extensions" />
+    </ItemGroup>
 </Project>
