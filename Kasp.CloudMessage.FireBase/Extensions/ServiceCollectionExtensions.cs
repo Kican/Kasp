@@ -6,17 +6,18 @@ using Kasp.CloudMessage.FireBase.Data;
 using Kasp.CloudMessage.FireBase.Models;
 using Kasp.CloudMessage.FireBase.Services;
 using Kasp.Db.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.CloudMessage.FireBase.Extensions {
 	public static class ServiceCollectionExtensions {
-		public static void AddFcm(this KaspDbServiceBuilder builder, string projectName, string filePath) {
+		public static void AddFcm<TDbContext>(this KaspDbServiceBuilder builder, string projectName, string filePath) where TDbContext : DbContext, IFcmDbContext {
 			builder.Services.AddSingleton<IFcmClientSettings>(FileBasedFcmClientSettings.CreateFromFile(projectName, filePath));
 
-			AddServices(builder);
+			AddServices<TDbContext>(builder);
 		}
 
-		private static void AddServices(KaspDbServiceBuilder builder) {
+		private static void AddServices<TDbContext>(KaspDbServiceBuilder builder) where TDbContext : DbContext, IFcmDbContext {
 			var fcmConfig = builder.Configuration.GetSection("Fcm");
 
 			if (fcmConfig == null)
@@ -24,7 +25,7 @@ namespace Kasp.CloudMessage.FireBase.Extensions {
 
 			builder.Services.Configure<FcmConfig>(fcmConfig);
 
-			builder.Services.AddScoped(typeof(IFcmUserTokenRepository), typeof(FcmUserTokenRepository<>).MakeGenericType(builder.DbContextType));
+			builder.Services.AddScoped<IFcmUserTokenRepository, FcmUserTokenRepository<TDbContext>>();
 
 			builder.Services.AddSingleton<IFcmHttpClient, FcmHttpClient>();
 			builder.Services.AddSingleton<IFcmClient, FcmClient>();

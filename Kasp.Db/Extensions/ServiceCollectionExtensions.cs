@@ -13,14 +13,14 @@ namespace Kasp.Db.Extensions {
 
 			builder.Services.AddScoped<DbContext, TDbContext>();
 
-			return new KaspDbServiceBuilder(builder.Services, builder.Configuration, typeof(TDbContext));
+			return new KaspDbServiceBuilder(builder.Services, builder.Configuration);
 		}
 
 		public static KaspDbServiceBuilder AddDataBase<TDbContext>(this KaspServiceBuilder builder, Action<DbContextOptionsBuilder> optionsAction) where TDbContext : DbContext {
 			builder.Services.AddDbContext<TDbContext>(optionsAction);
 			builder.Services.AddScoped<DbContext, TDbContext>();
 
-			return new KaspDbServiceBuilder(builder.Services, builder.Configuration, typeof(TDbContext));
+			return new KaspDbServiceBuilder(builder.Services, builder.Configuration);
 		}
 
 		public static KaspDbServiceBuilder AddRepositories(this KaspDbServiceBuilder builder) {
@@ -34,14 +34,10 @@ namespace Kasp.Db.Extensions {
 	}
 
 	public class KaspDbServiceBuilder : KaspServiceBuilder {
-		public Type DbContextType { get; }
-
-		public KaspDbServiceBuilder(IServiceCollection services, IConfiguration configuration, Type dbContextType) : base(services, configuration) {
-			DbContextType = dbContextType;
+		public KaspDbServiceBuilder(IServiceCollection services, IConfiguration configuration) : base(services, configuration) {
 		}
 
-		public KaspDbServiceBuilder(KaspDbServiceBuilder builder, IConfiguration configuration, Type dbContextType) : base(builder.Services, configuration) {
-			DbContextType = dbContextType;
+		public KaspDbServiceBuilder(KaspDbServiceBuilder builder, IConfiguration configuration) : base(builder.Services, configuration) {
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Db.Helpers;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.Identity {
-	public class KIdentityDbContext<TUser, TRole> : IdentityDbContext<TUser, TRole, int> where TUser : KaspUser where TRole : KaspRole {
+	public class KIdentityDbContext<TUser, TRole, TKey> : IdentityDbContext<TUser, TRole, TKey> where TUser : KaspUser<TKey> where TRole : KaspRole<TKey> where TKey : IEquatable<TKey> {
 		public KIdentityDbContext(DbContextOptions options) : base(options) {
 		}
 
@@ -32,6 +33,11 @@ namespace Kasp.Identity {
 
 		protected virtual void TrackerTrigger() {
 			EntityModifier.Use(ChangeTracker);
+		}
+	}
+
+	public class KIdentityDbContext<TUser, TRole> : KIdentityDbContext<TUser, TRole, int> where TRole : KaspRole where TUser : KaspUser {
+		public KIdentityDbContext(DbContextOptions options) : base(options) {
 		}
 	}
 }
