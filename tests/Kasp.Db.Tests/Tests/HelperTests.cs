@@ -4,6 +4,7 @@ using Kasp.Core.Tests;
 using Kasp.Db.Extensions;
 using Kasp.Db.Tests.Data.Repositories;
 using Kasp.Db.Tests.Models.NewsModel;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.DynamicLinq;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -41,7 +42,7 @@ namespace Kasp.Db.Tests.Tests {
 		}
 
 		[Fact]
-		public async Task UpdateTimeBeforeChange() {
+		public async Task UpdateTimeBeforeChangeTest() {
 			await _newsRepository.AddAsync(_model);
 			await _newsRepository.SaveAsync();
 
@@ -49,10 +50,10 @@ namespace Kasp.Db.Tests.Tests {
 		}
 
 		[Fact]
-		public async Task UpdateTimeAfterChange() {
+		public async Task UpdateTimeAfterChangeTest() {
 			await _newsRepository.AddAsync(_model);
 			await _newsRepository.SaveAsync();
-			
+
 			_model.Title = "new title";
 
 			_newsRepository.Update(_model);
@@ -60,6 +61,56 @@ namespace Kasp.Db.Tests.Tests {
 
 			Assert.NotNull(_model.UpdateTime);
 			Assert.True(_model.UpdateTime > DateTime.UtcNow.AddMinutes(-1));
+		}
+
+		[Fact]
+		public async Task EnableTrue() {
+			var model = _model;
+			model.Enable = true;
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			_output.WriteLine(model.ToString());
+			var item = await _newsRepository.BaseQuery.EnableFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+			Assert.NotNull(item);
+		}
+
+		[Fact]
+		public async Task EnableFalse() {
+			var model = _model;
+			model.Enable = false;
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			_output.WriteLine(model.ToString());
+			var item = await _newsRepository.BaseQuery.EnableFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+			Assert.Null(item);
+		}
+
+		[Fact]
+		public async Task BeforePublishTime() {
+			var model = _model;
+			model.PublishTime = DateTime.UtcNow.AddDays(1);
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			var item = await _newsRepository.BaseQuery.PublishTimeFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+			Assert.Null(item);
+		}
+
+		[Fact]
+		public async Task AfterPublishTime() {
+			var model = _model;
+			model.PublishTime = DateTime.UtcNow.AddDays(-1);
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			var item = await _newsRepository.BaseQuery.PublishTimeFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+			Assert.NotNull(item);
 		}
 	}
 }

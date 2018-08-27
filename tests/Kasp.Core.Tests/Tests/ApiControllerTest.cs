@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,7 +10,7 @@ namespace Kasp.Core.Tests.Tests {
 	public class ApiControllerTest : IClassFixture<KWebAppFactory<Startup>> {
 		public ApiControllerTest(KWebAppFactory<Startup> factory, ITestOutputHelper output) {
 			_output = output;
-			Client = factory.CreateClient();
+			Client = factory.CreateClient(new WebApplicationFactoryClientOptions {AllowAutoRedirect = true});
 		}
 
 		private HttpClient Client { get; }
@@ -32,9 +33,10 @@ namespace Kasp.Core.Tests.Tests {
 		[InlineData("/page/about-us")]
 		public async Task IndexSpa(string path) {
 			var response = await Client.GetAsync(path);
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal("index-html", await response.Content.ReadAsStringAsync());
 		}
-		
+
 		[Theory]
 		[InlineData("/api/values/get")]
 		[InlineData("/panel")]
