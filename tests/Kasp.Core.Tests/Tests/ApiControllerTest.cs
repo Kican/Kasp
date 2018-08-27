@@ -6,8 +6,8 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.Core.Tests.Tests {
-	public class ApiControllerTest : IClassFixture<CustomWebAppFactory<Startup>> {
-		public ApiControllerTest(CustomWebAppFactory<Startup> factory, ITestOutputHelper output) {
+	public class ApiControllerTest : IClassFixture<KWebAppFactory<Startup>> {
+		public ApiControllerTest(KWebAppFactory<Startup> factory, ITestOutputHelper output) {
 			_output = output;
 			Client = factory.CreateClient();
 		}

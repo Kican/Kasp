@@ -12,6 +12,6 @@ namespace Kasp.CloudMessage.FireBase.Models.UserTokenModels {
 		public string Token { get; set; }
 
 		public DateTime CreateTime { get; set; }
-		public DateTime UpdateTime { get; set; }
+		public DateTime? UpdateTime { get; set; }
 	}
 }

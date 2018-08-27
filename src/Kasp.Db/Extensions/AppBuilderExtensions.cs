@@ -5,12 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Kasp.Db.Extensions {
 	public static class AppBuilderExtensions {
 		public static KaspDbAppBuilder UseDataBase(this KaspAppBuilder builder) {
-
 			var db = builder.ApplicationBuilder.ApplicationServices.GetService<DbContext>();
 
 			var result = new KaspDbAppBuilder(builder, db);
 
-			db.Database.Migrate();
+			if (db.Database.IsInMemory())
+				db.Database.EnsureCreated();
+			else
+				db.Database.Migrate();
 
 			return result;
 		}

@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Db.Npgsql", "src\Kasp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Core.Tests", "tests\Kasp.Core.Tests\Kasp.Core.Tests.csproj", "{92C1770C-BA14-4C28-B1E0-B3E2B6297FF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Db.Tests", "tests\Kasp.Db.Tests\Kasp.Db.Tests.csproj", "{E3F1E857-1BB2-4C42-87BA-99A5F345485C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,9 @@ Global
 		{92C1770C-BA14-4C28-B1E0-B3E2B6297FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92C1770C-BA14-4C28-B1E0-B3E2B6297FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92C1770C-BA14-4C28-B1E0-B3E2B6297FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F1E857-1BB2-4C42-87BA-99A5F345485C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F1E857-1BB2-4C42-87BA-99A5F345485C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F1E857-1BB2-4C42-87BA-99A5F345485C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F1E857-1BB2-4C42-87BA-99A5F345485C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
