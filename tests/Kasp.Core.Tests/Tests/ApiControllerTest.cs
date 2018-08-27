@@ -34,6 +34,7 @@ namespace Kasp.Core.Tests.Tests {
 			var response = await Client.GetAsync(path);
 			Assert.Equal("index-html", await response.Content.ReadAsStringAsync());
 		}
+		
 		[Theory]
 		[InlineData("/api/values/get")]
 		[InlineData("/panel")]

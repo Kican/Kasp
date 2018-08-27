@@ -1,20 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Core", "Kasp.Core\Kasp.Core.csproj", "{284413A0-A454-4F70-BD64-0676DA58C6C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Core", "src\Kasp.Core\Kasp.Core.csproj", "{284413A0-A454-4F70-BD64-0676DA58C6C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Db", "Kasp.Db\Kasp.Db.csproj", "{B20E9CB1-0C74-4F29-B60F-B1D451F5A047}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Db", "src\Kasp.Db\Kasp.Db.csproj", "{B20E9CB1-0C74-4F29-B60F-B1D451F5A047}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity.Core", "Kasp.Identity.Core\Kasp.Identity.Core.csproj", "{FC62831F-E44A-4105-BDDB-6F47E14C116E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity.Core", "src\Kasp.Identity.Core\Kasp.Identity.Core.csproj", "{FC62831F-E44A-4105-BDDB-6F47E14C116E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity", "Kasp.Identity\Kasp.Identity.csproj", "{B438E428-9BA0-4BA7-AE98-0D36C6CB5BC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity", "src\Kasp.Identity\Kasp.Identity.csproj", "{B438E428-9BA0-4BA7-AE98-0D36C6CB5BC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.CloudMessage", "Kasp.CloudMessage\Kasp.CloudMessage.csproj", "{A91586C0-5178-4E55-B53B-29F570ABA083}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.CloudMessage", "src\Kasp.CloudMessage\Kasp.CloudMessage.csproj", "{A91586C0-5178-4E55-B53B-29F570ABA083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.CloudMessage.FireBase", "Kasp.CloudMessage.FireBase\Kasp.CloudMessage.FireBase.csproj", "{1C8079A8-DE59-4F71-99FF-F41AD6A02070}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.CloudMessage.FireBase", "src\Kasp.CloudMessage.FireBase\Kasp.CloudMessage.FireBase.csproj", "{1C8079A8-DE59-4F71-99FF-F41AD6A02070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Db.Npgsql", "Kasp.Db.Npgsql\Kasp.Db.Npgsql.csproj", "{F926B2B9-BE38-40B7-93FF-8BF9B34B73C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Db.Npgsql", "src\Kasp.Db.Npgsql\Kasp.Db.Npgsql.csproj", "{F926B2B9-BE38-40B7-93FF-8BF9B34B73C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Core.Tests", "Kasp.Core.Tests\Kasp.Core.Tests.csproj", "{92C1770C-BA14-4C28-B1E0-B3E2B6297FF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Core.Tests", "tests\Kasp.Core.Tests\Kasp.Core.Tests.csproj", "{92C1770C-BA14-4C28-B1E0-B3E2B6297FF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
