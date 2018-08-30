@@ -11,6 +11,7 @@ using Kasp.Identity.Core.Controllers;
 using Kasp.Identity.Entities;
 using Kasp.Identity.Entities.UserEntities;
 using Kasp.Identity.Entities.UserEntities.XEntities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,8 +60,8 @@ namespace Kasp.Identity.Controllers {
 		protected virtual async Task OnRegisterSuccess(TUser user) {
 		}
 
-		[HttpPost]
-		public virtual async Task<ActionResult<TViewModel>> Register([FromServices] UserManager<TUser> userManager, [FromBody] TRegisterModel model) {
+		[HttpPost,AllowAnonymous]
+		public virtual async Task<ActionResult<TViewModel>> Register( [FromBody] TRegisterModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = Mapper.Map<TUser>(model);
@@ -68,14 +69,14 @@ namespace Kasp.Identity.Controllers {
 			if (string.IsNullOrEmpty(user.UserName))
 				user.UserName = model.Email;
 
-			var result = await userManager.CreateAsync(user, model.Password);
-
-			if (!result.Succeeded) {
-				AddErrors(result);
-				return BadRequest(ModelState);
-			}
-
-			await OnRegisterSuccess(user);
+//			var result = await userManager.CreateAsync(user, model.Password);
+//
+//			if (!result.Succeeded) {
+//				AddErrors(result);
+//				return BadRequest(ModelState);
+//			}
+//
+//			await OnRegisterSuccess(user);
 
 			return Mapper.Map<TViewModel>(user);
 		}

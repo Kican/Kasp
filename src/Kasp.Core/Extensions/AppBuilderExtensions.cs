@@ -13,7 +13,7 @@ namespace Kasp.Core.Extensions {
 
 		public static KaspAppBuilder UseIndexSpa(this KaspAppBuilder app, string[] ignorePaths = null) {
 			var ignoreList = new List<string>();
-			ignoreList.AddRange(new[] {"/admin", "/api"});
+			ignoreList.AddRange(new[] {"/api"});
 			
 			if (ignorePaths != null)
 				ignoreList.AddRange(ignorePaths);

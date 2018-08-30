@@ -10,7 +10,7 @@ namespace Kasp.Core.Tests.Tests {
 	public class ApiControllerTest : IClassFixture<KWebAppFactory<Startup>> {
 		public ApiControllerTest(KWebAppFactory<Startup> factory, ITestOutputHelper output) {
 			_output = output;
-			Client = factory.CreateClient(new WebApplicationFactoryClientOptions {AllowAutoRedirect = true});
+			Client = factory.CreateClient();
 		}
 
 		private HttpClient Client { get; }
@@ -33,7 +33,6 @@ namespace Kasp.Core.Tests.Tests {
 		[InlineData("/page/about-us")]
 		public async Task IndexSpa(string path) {
 			var response = await Client.GetAsync(path);
-			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			Assert.Equal("index-html", await response.Content.ReadAsStringAsync());
 		}
 
