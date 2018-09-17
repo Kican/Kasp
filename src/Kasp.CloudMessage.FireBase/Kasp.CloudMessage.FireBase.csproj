@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FcmSharp" Version="2.4.0" />
+      <PackageReference Include="FcmSharp" Version="2.5.0" />
     </ItemGroup>
 
 </Project>
