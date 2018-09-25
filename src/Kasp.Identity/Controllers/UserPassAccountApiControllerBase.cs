@@ -20,18 +20,22 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Kasp.Identity.Controllers {
-	public abstract class AccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
+	public abstract class UserPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
 		where TRegisterModel : IUserRegisterModel
 		where TUser : KaspUser, new()
 		where TViewModel : UserPartialVmBase
 		where TEditModel : UserEditModelBase {
-		protected AccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config) {
+		protected UserPassAccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager) {
 			Mapper = mapper;
 			Config = config;
+			UserManager = userManager;
+			SignInManager = signInManager;
 		}
 
 		protected IOptions<JwtConfig> Config { get; }
 		protected IMapper Mapper { get; }
+		protected UserManager<TUser> UserManager { get; }
+		protected SignInManager<TUser> SignInManager { get; }
 
 		protected virtual string GetToken(List<Claim> claims) {
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Value.Key));
@@ -42,7 +46,7 @@ namespace Kasp.Identity.Controllers {
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 
-		protected virtual async Task<List<Claim>> GetClaims(UserManager<TUser> userManager, TUser user) {
+		protected virtual async Task<List<Claim>> GetClaims(TUser user) {
 			var claims = new List<Claim>();
 
 			claims.AddRange(new[] {
@@ -50,7 +54,7 @@ namespace Kasp.Identity.Controllers {
 				new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
 			});
 
-			var roles = await userManager.GetRolesAsync(user);
+			var roles = await UserManager.GetRolesAsync(user);
 
 			claims.AddRange(roles.Select(x => new Claim("role", x)));
 
@@ -84,17 +88,17 @@ namespace Kasp.Identity.Controllers {
 
 
 		[HttpPost]
-		public virtual async Task<IActionResult> Login([FromServices] UserManager<TUser> userManager, [FromServices] SignInManager<TUser> signInManager, [FromBody] LoginVM model) {
+		public virtual async Task<IActionResult> Login( [FromBody] LoginVM model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			var user = await userManager.FindByEmailAsync(model.Email);
+			var user = await UserManager.FindByEmailAsync(model.Email);
 			if (user == null) {
 				ModelState.AddModelError("", "User not found");
 			} else {
-				var result = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+				var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
 				if (result.Succeeded) {
-					var claims = await GetClaims(userManager, user);
+					var claims = await GetClaims(user);
 
 					return Ok(new {access_token = GetToken(claims)});
 				}
@@ -105,73 +109,17 @@ namespace Kasp.Identity.Controllers {
 			return BadRequest(ModelState);
 		}
 
-		[HttpPost]
-		public virtual async Task<IActionResult> RequestToTp(
-			[FromServices] UserManager<TUser> userManager,
-			[FromServices] SignInManager<TUser> signInManager,
-			[FromServices] IAuthOtpSmsSender smsSender,
-			[FromBody] ToTpRegisterViewModel model) {
-			if (!ModelState.IsValid) return BadRequest(ModelState);
-
-			var user = await userManager.FindByNameAsync(model.Phone);
-
-			var isRegistered = false;
-
-			if (user == null) {
-				user = new TUser {UserName = model.Phone, PhoneNumber = model.Phone};
-				var result = await userManager.CreateAsync(user);
-
-				if (!result.Succeeded) {
-					AddErrors(result);
-					return BadRequest(ModelState);
-				}
-
-				await OnRegisterSuccess(user);
-				isRegistered = true;
-			}
-
-			var code = await userManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider);
-			var smsResult = await smsSender.SendSmsAsync(model.Phone, code);
-			if (!smsResult.isSuccess) {
-				ModelState.AddModelError("sms", "sending-error");
-				return BadRequest(ModelState);
-			}
-
-			return Ok(new {smsResult.number, isRegister = isRegistered});
-		}
-
-		[HttpPost]
-		public virtual async Task<IActionResult> LoginToTp([FromServices] UserManager<TUser> userManager, [FromBody] ToTpLoginViewModel model) {
-			if (!ModelState.IsValid) return BadRequest(ModelState);
-
-			var user = await userManager.FindByNameAsync(model.Phone);
-			if (user == null) {
-				ModelState.AddModelError("", "User not found");
-			} else {
-				var result = await userManager.VerifyTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider, model.Code);
-
-				if (result) {
-					var claims = await GetClaims(userManager, user);
-
-					return Ok(new {access_token = GetToken(claims)});
-				}
-
-				ModelState.AddModelError("", "user/totp incurrect ...");
-			}
-
-			return BadRequest(ModelState);
-		}
 
 
 		[HttpPost]
-		public virtual async Task<ActionResult<TViewModel>> Edit([FromServices] UserManager<TUser> userManager, [FromBody] TEditModel model) {
+		public virtual async Task<ActionResult<TViewModel>> Edit( [FromBody] TEditModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			var user = await userManager.FindByIdAsync(UserId.ToString());
+			var user = await UserManager.FindByIdAsync(UserId.ToString());
 
 			user = Mapper.Map(model, user);
 
-			var result = await userManager.UpdateAsync(user);
+			var result = await UserManager.UpdateAsync(user);
 
 			if (!result.Succeeded) {
 				AddErrors(result);
@@ -202,7 +150,7 @@ namespace Kasp.Identity.Controllers {
 		}
 
 
-		private void AddErrors(IdentityResult result) {
+		protected void AddErrors(IdentityResult result) {
 			foreach (var error in result.Errors) {
 				ModelState.AddModelError(string.Empty, error.Description);
 			}

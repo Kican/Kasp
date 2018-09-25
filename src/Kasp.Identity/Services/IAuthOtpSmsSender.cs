@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Kasp.Identity.Services {
 	public interface IAuthOtpSmsSender {
-		Task<SmsResult> SendSmsAsync(string phone, string code);
+		Task<SmsResult> SendSmsAsync(string number, string code);
 	}
 	
 	public class SmsResult {
