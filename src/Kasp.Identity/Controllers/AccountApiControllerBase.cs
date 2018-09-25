@@ -11,6 +11,7 @@ using Kasp.Identity.Core.Controllers;
 using Kasp.Identity.Entities;
 using Kasp.Identity.Entities.UserEntities;
 using Kasp.Identity.Entities.UserEntities.XEntities;
+using Kasp.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Kasp.Identity.Controllers {
 	public abstract class AccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
 		where TRegisterModel : IUserRegisterModel
-		where TUser : KaspUser
+		where TUser : KaspUser, new()
 		where TViewModel : UserPartialVmBase
 		where TEditModel : UserEditModelBase {
 		protected AccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config) {
@@ -60,8 +61,8 @@ namespace Kasp.Identity.Controllers {
 		protected virtual async Task OnRegisterSuccess(TUser user) {
 		}
 
-		[HttpPost,AllowAnonymous]
-		public virtual async Task<ActionResult<TViewModel>> Register( [FromBody] TRegisterModel model) {
+		[HttpPost, AllowAnonymous]
+		public virtual async Task<ActionResult<TViewModel>> Register([FromBody] TRegisterModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = Mapper.Map<TUser>(model);
@@ -89,8 +90,7 @@ namespace Kasp.Identity.Controllers {
 			var user = await userManager.FindByEmailAsync(model.Email);
 			if (user == null) {
 				ModelState.AddModelError("", "User not found");
-			}
-			else {
+			} else {
 				var result = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
 				if (result.Succeeded) {
@@ -100,6 +100,63 @@ namespace Kasp.Identity.Controllers {
 				}
 
 				ModelState.AddModelError("", "user/pass incorrect ...");
+			}
+
+			return BadRequest(ModelState);
+		}
+
+		[HttpPost]
+		public virtual async Task<IActionResult> RequestToTp(
+			[FromServices] UserManager<TUser> userManager,
+			[FromServices] SignInManager<TUser> signInManager,
+			[FromServices] IAuthOtpSmsSender smsSender,
+			[FromBody] ToTpRegisterViewModel model) {
+			if (!ModelState.IsValid) return BadRequest(ModelState);
+
+			var user = await userManager.FindByNameAsync(model.Phone);
+
+			var isRegistered = false;
+
+			if (user == null) {
+				user = new TUser {UserName = model.Phone, PhoneNumber = model.Phone};
+				var result = await userManager.CreateAsync(user);
+
+				if (!result.Succeeded) {
+					AddErrors(result);
+					return BadRequest(ModelState);
+				}
+
+				await OnRegisterSuccess(user);
+				isRegistered = true;
+			}
+
+			var code = await userManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider);
+			var smsResult = await smsSender.SendSmsAsync(model.Phone, code);
+			if (!smsResult.isSuccess) {
+				ModelState.AddModelError("sms", "sending-error");
+				return BadRequest(ModelState);
+			}
+
+			return Ok(new {smsResult.number, isRegister = isRegistered});
+		}
+
+		[HttpPost]
+		public virtual async Task<IActionResult> LoginToTp([FromServices] UserManager<TUser> userManager, [FromBody] ToTpLoginViewModel model) {
+			if (!ModelState.IsValid) return BadRequest(ModelState);
+
+			var user = await userManager.FindByNameAsync(model.Phone);
+			if (user == null) {
+				ModelState.AddModelError("", "User not found");
+			} else {
+				var result = await userManager.VerifyTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider, model.Code);
+
+				if (result) {
+					var claims = await GetClaims(userManager, user);
+
+					return Ok(new {access_token = GetToken(claims)});
+				}
+
+				ModelState.AddModelError("", "user/totp incurrect ...");
 			}
 
 			return BadRequest(ModelState);
