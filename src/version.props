@@ -1,5 +1,4 @@
 <Project>
-
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
         <VersionPrefix>0.1.0</VersionPrefix>
@@ -11,7 +10,7 @@
 
     <PropertyGroup>
         <Authors>Mo3in</Authors>
-        <CodeAnalysisSummary>some tools for fast developing back-end dotn</CodeAnalysisSummary>
+        <CodeAnalysisSummary>some tools for fast developing back-end dotnet</CodeAnalysisSummary>
         <Description>some tools for fast developing back-end.</Description>
         <!--<PackageIconUrl>https://s3.amazonaws.com/automapper/icon.png</PackageIconUrl>-->
         <PackageProjectUrl>https://github.com/mo3in/Kasp</PackageProjectUrl>
