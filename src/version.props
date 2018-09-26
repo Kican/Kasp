@@ -11,7 +11,7 @@
 
     <PropertyGroup>
         <Authors>Mo3in</Authors>
-        <CodeAnalysisSummary>some tools for fast developing back-end</CodeAnalysisSummary>
+        <CodeAnalysisSummary>some tools for fast developing back-end </CodeAnalysisSummary>
         <Description>some tools for fast developing back-end.</Description>
         <!--<PackageIconUrl>https://s3.amazonaws.com/automapper/icon.png</PackageIconUrl>-->
         <PackageProjectUrl>https://github.com/mo3in/Kasp</PackageProjectUrl>
