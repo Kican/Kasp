@@ -21,8 +21,11 @@ namespace Kasp.Identity.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
+			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
 			services.AddEntityFrameworkInMemoryDatabase();
-			services.AddKasp(Configuration)
+			services.AddKasp(Configuration, mvc)
 				.AddDataBase<AppIdentityDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
 				.AddRepositories()
 				.AddIdentity<AppUser, KaspRole, AppIdentityDbContext>()
@@ -30,8 +33,6 @@ namespace Kasp.Identity.Tests {
 
 			services.AddAuthentication()
 				.AddJwtBearer(Configuration.GetJwtConfig());
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

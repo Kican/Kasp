@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Localization;
 
 namespace Kasp.Localization.Extensions {
 	public static class AppBuilderExtensions {
-		public static KaspAppBuilder UseLocalization(this KaspAppBuilder app, Action<LocalizationOptions> optionsAction) {
-			var options = new LocalizationOptions();
+		public static KaspAppBuilder UseLocalization(this KaspAppBuilder app, Action<RequestLocalizationOptions> optionsAction) {
+			var options = new RequestLocalizationOptions();
 			optionsAction(options);
 			app.ApplicationBuilder.UseRequestLocalization(localizationOptions => {
 				localizationOptions.AddSupportedCultures(options.SupportedCultures.ToArray());
@@ -18,7 +18,7 @@ namespace Kasp.Localization.Extensions {
 		}
 	}
 
-	public class LocalizationOptions {
+	public class RequestLocalizationOptions {
 		public List<string> SupportedCultures { get; set; }
 		public string DefaultCulture { get; set; }
 	}

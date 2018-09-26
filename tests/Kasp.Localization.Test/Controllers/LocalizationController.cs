@@ -10,8 +10,13 @@ namespace Kasp.Localization.Test.Controllers {
 		}
 
 		public IStringLocalizer<LocalizationController> Localizer { get; set; }
-		public async Task<ActionResult<string>> Index() {
-			var result = Localizer["hello"];
+
+		public ActionResult<string> Index() {
+			return Localizer["hello"].Value;
+		}
+
+		public ActionResult<string> NotExistKey() {
+			var result = Localizer["Not-Exist"];
 			return result.Value;
 		}
 	}

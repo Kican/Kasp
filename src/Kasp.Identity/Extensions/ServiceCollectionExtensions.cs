@@ -25,7 +25,6 @@ namespace Kasp.Identity.Extensions {
 			where TRole : KaspRole<TKey>
 			where TDb : KIdentityDbContext<TUser, TRole, TKey>
 			where TKey : IEquatable<TKey> {
-			
 			var identityBuilder = new KaspIdentityBuilder(builder) {
 				IdentityBuilder = builder.Services.AddIdentity<TUser, TRole>(setupAction).AddEntityFrameworkStores<TDb>().AddDefaultTokenProviders()
 			};
@@ -64,7 +63,7 @@ namespace Kasp.Identity.Extensions {
 	public class KaspIdentityBuilder : KaspDbServiceBuilder {
 		public IdentityBuilder IdentityBuilder;
 
-		public KaspIdentityBuilder(KaspDbServiceBuilder builder) : base(builder, builder.Configuration) {
+		public KaspIdentityBuilder(KaspDbServiceBuilder builder) : base(builder, builder.Configuration, builder.MvcBuilder) {
 		}
 	}
 }
