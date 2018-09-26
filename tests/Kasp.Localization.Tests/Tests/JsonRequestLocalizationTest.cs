@@ -3,15 +3,15 @@ using Kasp.Core.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Kasp.Localization.Test.Tests {
-	public class LocalizationControllerTest : IClassFixture<KWebAppFactory<StartupLocalizationResX>> {
-		public LocalizationControllerTest(KWebAppFactory<StartupLocalizationResX> factory, ITestOutputHelper output) {
+namespace Kasp.Localization.Tests.Tests {
+	public class JsonRequestLocalizationTest : IClassFixture<KWebAppFactory<StartupLocalizationJson>> {
+		public JsonRequestLocalizationTest(KWebAppFactory<StartupLocalizationJson> factory, ITestOutputHelper output) {
 			_factory = factory;
 			_output = output;
 		}
 
 		private readonly ITestOutputHelper _output;
-		private readonly KWebAppFactory<StartupLocalizationResX> _factory;
+		private readonly KWebAppFactory<StartupLocalizationJson> _factory;
 
 		[Theory]
 		[InlineData("fa-IR", "سلام")]
@@ -29,6 +29,16 @@ namespace Kasp.Localization.Test.Tests {
 			client.DefaultRequestHeaders.Add("accept-language", culture);
 			var response = await client.GetStringAsync("/api/localization/index");
 			Assert.Equal(result, response);
+		}
+
+		[Theory]
+		[InlineData("fa-IR", "سلام")]
+		[InlineData("en-US", "Hello")]
+		public async Task NotExistKey(string culture, string result) {
+			var client = _factory.CreateDefaultClient();
+			client.DefaultRequestHeaders.Add("accept-language", culture);
+			var response = await client.GetStringAsync("/api/localization/NotExistKey");
+			Assert.Equal("Not-Exist", response);
 		}
 	}
 }

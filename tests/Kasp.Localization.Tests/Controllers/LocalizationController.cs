@@ -1,9 +1,8 @@
-using System.Threading.Tasks;
 using Kasp.Core.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
-namespace Kasp.Localization.Test.Controllers {
+namespace Kasp.Localization.Tests.Controllers {
 	public class LocalizationController : ApiController {
 		public LocalizationController(IStringLocalizer<LocalizationController> localizer) {
 			Localizer = localizer;

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Localization.Test {
+namespace Kasp.Localization.Tests {
 	public class StartupLocalizationJson {
 		public StartupLocalizationJson(IConfiguration configuration) {
 			Configuration = configuration;

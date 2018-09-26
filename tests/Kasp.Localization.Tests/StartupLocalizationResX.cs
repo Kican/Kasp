@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Localization.Test {
+namespace Kasp.Localization.Tests {
 	public class StartupLocalizationResX {
 		public StartupLocalizationResX(IConfiguration configuration) {
 			Configuration = configuration;
