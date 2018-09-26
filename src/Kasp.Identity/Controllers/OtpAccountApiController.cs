@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace Kasp.Identity.Controllers {
-	public abstract class OtpAccountApiController<TUser, TRegisterModel, TViewModel, TEditModel> : UserPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel>
+	public abstract class OtpAccountApiController<TUser, TRegisterModel, TViewModel, TEditModel> : EmailPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel>
 		where TUser : KaspUser, new()
 		where TRegisterModel : IUserRegisterModel
 		where TViewModel : UserPartialVmBase
@@ -23,7 +23,7 @@ namespace Kasp.Identity.Controllers {
 		public IAuthOtpSmsSender OtpSmsSender { get; }
 
 		[HttpPost, AllowAnonymous]
-		public virtual async Task<IActionResult> RequestToTp([FromBody] ToTpRegisterViewModel model) {
+		public virtual async Task<ActionResult<PhoneRequestResponse>> PhoneRequest([FromBody] ToTpRegisterViewModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = await UserManager.FindByNameAsync(model.Phone);
@@ -50,11 +50,11 @@ namespace Kasp.Identity.Controllers {
 				return BadRequest(ModelState);
 			}
 
-			return Ok(new {smsResult.number, isRegister = isRegistered});
+			return new PhoneRequestResponse(smsResult.number, isRegistered);
 		}
 
 		[HttpPost, AllowAnonymous]
-		public virtual async Task<IActionResult> LoginToTp([FromBody] ToTpLoginViewModel model) {
+		public virtual async Task<IActionResult> LoginOtp([FromBody] ToTpLoginViewModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = await UserManager.FindByNameAsync(model.Phone);

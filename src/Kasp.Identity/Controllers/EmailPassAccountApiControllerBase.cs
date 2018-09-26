@@ -20,12 +20,12 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Kasp.Identity.Controllers {
-	public abstract class UserPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
+	public abstract class EmailPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
 		where TRegisterModel : IUserRegisterModel
 		where TUser : KaspUser, new()
 		where TViewModel : UserPartialVmBase
 		where TEditModel : UserEditModelBase {
-		protected UserPassAccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager) {
+		protected EmailPassAccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager) {
 			Mapper = mapper;
 			Config = config;
 			UserManager = userManager;

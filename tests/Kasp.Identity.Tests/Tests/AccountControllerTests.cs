@@ -18,7 +18,7 @@ namespace Kasp.Identity.Tests.Tests {
 
 		[Fact]
 		public async Task Register() {
-			var registerModel = new AppUserRegisterModel {Email = "son_games@yahoo.com", Password = "P2ssw0rd!$"};
+			var registerModel = new AppUserRegisterModel {Email = "son_gamesw@yahoo.com", Password = "P2ssw0rd!$"};
 			var response = await _client.PostAsJsonAsync("/api/account/register", registerModel);
 			_output.WriteLine(await response.Content.ReadAsStringAsync());
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);

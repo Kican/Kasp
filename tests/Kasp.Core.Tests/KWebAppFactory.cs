@@ -1,9 +1,7 @@
-using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
 
 namespace Kasp.Core.Tests {
 	public class KWebAppFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class {

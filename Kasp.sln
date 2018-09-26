@@ -20,6 +20,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Db.Tests", "tests\Kasp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity.Tests", "tests\Kasp.Identity.Tests\Kasp.Identity.Tests.csproj", "{E7093F83-BD39-4B19-A1AD-49FCC3ED2519}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Localization", "src\Kasp.Localization\Kasp.Localization.csproj", "{2A5168D6-C4FE-4520-B771-3D7685FB0E19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Localization.Test", "tests\Kasp.Localization.Test\Kasp.Localization.Test.csproj", "{6D8C2A9A-6C56-4A4E-94E3-D47B2AE0B693}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,5 +70,13 @@ Global
 		{E7093F83-BD39-4B19-A1AD-49FCC3ED2519}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7093F83-BD39-4B19-A1AD-49FCC3ED2519}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7093F83-BD39-4B19-A1AD-49FCC3ED2519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5168D6-C4FE-4520-B771-3D7685FB0E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5168D6-C4FE-4520-B771-3D7685FB0E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5168D6-C4FE-4520-B771-3D7685FB0E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5168D6-C4FE-4520-B771-3D7685FB0E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D8C2A9A-6C56-4A4E-94E3-D47B2AE0B693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D8C2A9A-6C56-4A4E-94E3-D47B2AE0B693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D8C2A9A-6C56-4A4E-94E3-D47B2AE0B693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D8C2A9A-6C56-4A4E-94E3-D47B2AE0B693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
