@@ -58,7 +58,7 @@ namespace Kasp.Localization.JsonLocalizer {
 			var filePath = Path.Combine(GetJsonRelativePath(), FileName);
 
 			if (!File.Exists(filePath))
-				File.WriteAllText(filePath, "{}");
+				File.WriteAllText(filePath, "[]");
 
 			Localization.Clear();
 			Localization.AddRange(JsonConvert.DeserializeObject<List<JsonLocalizationFormat>>(File.ReadAllText(filePath)));

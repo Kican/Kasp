@@ -18,6 +18,7 @@ namespace Kasp.Localization.Extensions {
 		}
 	}
 
+	// todo: must be rename or change
 	public class RequestLocalizationOptions {
 		public List<string> SupportedCultures { get; set; }
 		public string DefaultCulture { get; set; }
