@@ -5,7 +5,7 @@ using FcmSharp.Settings;
 using Kasp.CloudMessage.FireBase.Data;
 using Kasp.CloudMessage.FireBase.Models;
 using Kasp.CloudMessage.FireBase.Services;
-using Kasp.Db.Extensions;
+using Kasp.EF.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

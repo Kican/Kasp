@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.CloudMessage.FireBase.Models.UserTokenModels;
-using Kasp.Db.Data;
+using Kasp.EF.Data;
 
 namespace Kasp.CloudMessage.FireBase.Data {
 	public interface IFcmUserTokenRepository : IBaseRepository<FcmUserToken> {

@@ -1,9 +1,6 @@
 using Kasp.Core.Extensions;
 using Kasp.EF.Extensions;
-using Kasp.Identity.Entities.UserEntities;
-using Kasp.Identity.Extensions;
-using Kasp.Identity.Tests.Data;
-using Kasp.Identity.Tests.Models.UserModels;
+using Kasp.EF.Tests.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Identity.Tests {
-	public class StartupIdentity {
-		public StartupIdentity(IConfiguration configuration) {
+namespace Kasp.EF.Tests {
+	public class StartupDb {
+		public StartupDb(IConfiguration configuration) {
 			Configuration = configuration;
 		}
 
@@ -23,23 +20,15 @@ namespace Kasp.Identity.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddKasp(Configuration, mvc)
-				.AddDataBase<AppIdentityDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
-				.AddRepositories()
-				.AddIdentity<AppUser, KaspRole, AppIdentityDbContext>()
-				.AddJwt(Configuration.GetJwtConfig());
-
-			services.AddAuthentication()
-				.AddJwtBearer(Configuration.GetJwtConfig());
+				.AddDataBase<AppDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
+				.AddRepositories();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
 			app.UseKasp().UseDataBase();
-
-			app.UseAuthentication();
 
 			app.UseStaticFiles();
 			app.UseMvc();

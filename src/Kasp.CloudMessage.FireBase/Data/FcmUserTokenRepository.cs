@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.CloudMessage.FireBase.Models.UserTokenModels;
-using Kasp.Db.Data;
+using Kasp.EF.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.CloudMessage.FireBase.Data {

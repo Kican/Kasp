@@ -1,9 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using Kasp.Core.Extensions;
 using Kasp.EF.Extensions;
-using Kasp.Identity.Entities.UserEntities;
-using Kasp.Identity.Extensions;
-using Kasp.Identity.Tests.Data;
-using Kasp.Identity.Tests.Models.UserModels;
+using Kasp.EF.Localization.Tests.Data;
+using Kasp.Localization.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Identity.Tests {
-	public class StartupIdentity {
-		public StartupIdentity(IConfiguration configuration) {
+namespace Kasp.EF.Localization.Tests {
+	public class StartupDbLocalization {
+		public StartupDbLocalization(IConfiguration configuration) {
 			Configuration = configuration;
 		}
 
@@ -23,25 +23,25 @@ namespace Kasp.Identity.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-
 			services.AddEntityFrameworkInMemoryDatabase();
-			services.AddKasp(Configuration, mvc)
-				.AddDataBase<AppIdentityDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
-				.AddRepositories()
-				.AddIdentity<AppUser, KaspRole, AppIdentityDbContext>()
-				.AddJwt(Configuration.GetJwtConfig());
 
-			services.AddAuthentication()
-				.AddJwtBearer(Configuration.GetJwtConfig());
+			services.AddKasp(Configuration, mvc)
+				.AddDataBase<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDbTest"))
+				.AddRepositories()
+				.AddLocalization();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			app.UseKasp().UseDataBase();
+			var supportedCultures = new List<string> {"en-US", "fa-IR"};
 
-			app.UseAuthentication();
+			app.UseKasp()
+				.UseDataBase()
+				.UseLocalization(options => {
+					options.SupportedCultures = supportedCultures;
+					options.DefaultCulture = supportedCultures.Last();
+				});
 
-			app.UseStaticFiles();
 			app.UseMvc();
 		}
 	}
