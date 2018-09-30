@@ -20,18 +20,17 @@ namespace Kasp.Localization.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-			services.AddKasp(Configuration, mvc).AddLocalization();
+			var supportedCultures = new List<string> {"en-US", "fa-IR"};
+
+			services.AddKasp(Configuration, mvc)
+				.AddLocalization(builder => {
+					builder.SetCultures(supportedCultures, supportedCultures.Last());
+				});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			
-			var supportedCultures = new List<string> {"en-US", "fa-IR"};
-			
-			app.UseKasp().UseLocalization(options => {
-				options.SupportedCultures = supportedCultures;
-				options.DefaultCulture = supportedCultures.Last();
-			});
+			app.UseKasp().UseRequestLocalization();
 
 			app.UseMvc();
 		}

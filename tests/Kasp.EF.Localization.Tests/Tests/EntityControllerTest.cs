@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Kasp.Core.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Kasp.Localization.Tests.Tests {
-	public class JsonRequestLocalizationTest : KClassFixtureWebApp<StartupLocalizationJson> {
+namespace Kasp.EF.Localization.Tests.Tests {
+	public class EntityControllerTest : KClassFixtureWebApp<StartupDbLocalization> {
+
 		[Theory]
 		[InlineData("fa-IR", "سلام")]
 		[InlineData("en-US", "Hello")]
@@ -17,23 +18,14 @@ namespace Kasp.Localization.Tests.Tests {
 		[InlineData("fa-IR", "سلام")]
 		[InlineData("en-US", "Hello")]
 		public async Task HeaderLocalization(string culture, string result) {
+			
 			var client = Factory.CreateDefaultClient();
 			client.DefaultRequestHeaders.Add("accept-language", culture);
 			var response = await client.GetStringAsync("/api/localization/index");
 			Assert.Equal(result, response);
 		}
 
-		[Theory]
-		[InlineData("fa-IR", "سلام")]
-		[InlineData("en-US", "Hello")]
-		public async Task NotExistKey(string culture, string result) {
-			var client = Factory.CreateDefaultClient();
-			client.DefaultRequestHeaders.Add("accept-language", culture);
-			var response = await client.GetStringAsync("/api/localization/NotExistKey");
-			Assert.Equal("Not-Exist", response);
-		}
-
-		public JsonRequestLocalizationTest(ITestOutputHelper output, KWebAppFactory<StartupLocalizationJson> factory) : base(output, factory) {
+		public EntityControllerTest(ITestOutputHelper output, KWebAppFactory<StartupDbLocalization> factory) : base(output, factory) {
 		}
 	}
 }

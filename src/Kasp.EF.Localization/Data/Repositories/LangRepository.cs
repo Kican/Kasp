@@ -3,7 +3,7 @@ using Kasp.EF.Localization.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.EF.Localization.Data.Repositories {
-	public class LangRepository<TDbContext> : BaseRepository<TDbContext, Lang, string>, ILangRepository where TDbContext : DbContext {
+	public class LangRepository<TDbContext> : BaseRepository<TDbContext, Lang>, ILangRepository where TDbContext : DbContext {
 		public LangRepository(TDbContext db) : base(db) {
 		}
 	}

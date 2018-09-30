@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using Kasp.Core.Extensions;
 using Kasp.EF.Extensions;
+using Kasp.EF.Localization.Data.Repositories;
+using Kasp.EF.Localization.Extensions;
+using Kasp.EF.Localization.Models;
 using Kasp.EF.Localization.Tests.Data;
 using Kasp.Localization.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -25,22 +26,26 @@ namespace Kasp.EF.Localization.Tests {
 
 			services.AddEntityFrameworkInMemoryDatabase();
 
+
+			var supportedCultures = new[] {"en-US"};
+
 			services.AddKasp(Configuration, mvc)
 				.AddDataBase<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDbTest"))
-				.AddRepositories()
-				.AddLocalization();
+				.AddRepositories().AddLocalization(builder => {
+					builder.SetCultures(supportedCultures, supportedCultures[0]);
+					builder.AddDbLocalization<LocalizationDbContext>();
+				});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			var supportedCultures = new List<string> {"en-US", "fa-IR"};
+			var langRepository = app.ApplicationServices.GetService<ILangRepository>();
+			langRepository.AddAsync(new Lang() {Code = "fa-IR", Enable = true}).Wait();
+			langRepository.SaveAsync().Wait();
 
 			app.UseKasp()
 				.UseDataBase()
-				.UseLocalization(options => {
-					options.SupportedCultures = supportedCultures;
-					options.DefaultCulture = supportedCultures.Last();
-				});
+				.UseRequestLocalization(options => options.UseDb());
 
 			app.UseMvc();
 		}
