@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Linq;
 using Kasp.Core.Controllers;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,10 @@ namespace Kasp.EF.Localization.Tests.Controllers {
 		}
 
 		private RequestLocalizationOptions LocalizationOptions { get; }
+
+		public ActionResult<string> Culture() {
+			return CultureInfo.CurrentCulture.Name;
+		}
 
 		public ActionResult<string> CurrentCulture() {
 			var cultureFeature = HttpContext.Features.Get<IRequestCultureFeature>();

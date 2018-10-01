@@ -13,14 +13,14 @@ namespace Kasp.EF.Localization.Extensions {
 			var dbCultures = langRepository.ListAsync().Result;
 			
 			foreach (var dbCulture in dbCultures) {
-				var cultureInfo = new CultureInfo(dbCulture.Code);
+				var cultureInfo = new CultureInfo(dbCulture.Id);
 				builder.LocalizationOptions.SupportedCultures.Add(cultureInfo);
 				builder.LocalizationOptions.SupportedUICultures.Add(cultureInfo);
 			}
 	
-			var newsLangs = builder.LocalizationOptions.SupportedCultures.Select(x => x.Name).Except(dbCultures.Select(x => x.Code)).ToArray();
+			var newsLangs = builder.LocalizationOptions.SupportedCultures.Select(x => x.Name).Except(dbCultures.Select(x => x.Id)).ToArray();
 
-			langRepository.AddAsync(newsLangs.Select(x => new Lang {Code = x, Enable = true})).Wait();
+			langRepository.AddAsync(newsLangs.Select(x => new Lang {Id = x, Enable = true})).Wait();
 			langRepository.SaveAsync().Wait();
 		}
 	}

@@ -40,7 +40,7 @@ namespace Kasp.EF.Localization.Tests {
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
 			var langRepository = app.ApplicationServices.GetService<ILangRepository>();
-			langRepository.AddAsync(new Lang() {Code = "fa-IR", Enable = true}).Wait();
+			langRepository.AddAsync(new Lang() {Id = "fa-IR", Enable = true}).Wait();
 			langRepository.SaveAsync().Wait();
 
 			app.UseKasp()
