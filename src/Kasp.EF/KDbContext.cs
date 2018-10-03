@@ -1,11 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.EF.Helpers;
+using Kasp.EF.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.EF {
 	public class KDbContext<TDbContext> : DbContext where TDbContext : KDbContext<TDbContext> {
-		public KDbContext(DbContextOptions<TDbContext> options) : base(options) { }
+		protected KDbContext(DbContextOptions<TDbContext> options) : base(options) {
+		}
 
 		public override int SaveChanges() {
 			TrackerTrigger();
@@ -29,6 +31,15 @@ namespace Kasp.EF {
 
 		protected virtual void TrackerTrigger() {
 			EntityModifier.Use(ChangeTracker);
+		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder) {
+			base.OnModelCreating(modelBuilder);
+			EntityHelperFactory.GetHelpers().ForEach(helper => {
+				if (helper.IsGlobalFilter) {
+					
+				}
+			});
 		}
 	}
 }

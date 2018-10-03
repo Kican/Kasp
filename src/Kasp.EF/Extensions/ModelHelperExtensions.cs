@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Kasp.EF.Helpers;
 using Kasp.EF.Models.Helpers;
 
 namespace Kasp.EF.Extensions {
@@ -24,7 +25,9 @@ namespace Kasp.EF.Extensions {
 
 
 		public static IQueryable<T> AllFilters<T>(this IQueryable<T> queryable) {
-			if (typeof(IEnable).IsAssignableFrom(typeof(T))) queryable = queryable._enableFilter();
+			if (typeof(IEnable).IsAssignableFrom(typeof(T))) {
+				queryable = queryable._enableFilter();
+			}
 
 			if (typeof(IPublishTime).IsAssignableFrom(typeof(T))) queryable = queryable._publishTimeFilter();
 

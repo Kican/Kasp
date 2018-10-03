@@ -76,6 +76,19 @@ namespace Kasp.EF.Tests.Tests {
 		}
 
 		[Fact]
+		public async Task REPOSITORY_FILTERED_EnableTrue() {
+			var model = _model;
+			model.Enable = true;
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			_output.WriteLine(model.ToString());
+			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
+
+			Assert.NotNull(item);
+		}
+
+		[Fact]
 		public async Task EnableFalse() {
 			var model = _model;
 			model.Enable = false;
@@ -84,6 +97,19 @@ namespace Kasp.EF.Tests.Tests {
 
 			_output.WriteLine(model.ToString());
 			var item = await _newsRepository.BaseQuery.EnableFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+			Assert.Null(item);
+		}
+
+		[Fact]
+		public async Task REPOSITORY_FILTERED_EnableFalse() {
+			var model = _model;
+			model.Enable = false;
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			_output.WriteLine(model.ToString());
+			var item = await _newsRepository.GetFilteredAsync(x => x.Id == model.Id);
 
 			Assert.Null(item);
 		}
@@ -101,6 +127,18 @@ namespace Kasp.EF.Tests.Tests {
 		}
 
 		[Fact]
+		public async Task REPOSITORY_FILTERED_BeforePublishTime() {
+			var model = _model;
+			model.PublishTime = DateTime.UtcNow.AddDays(1);
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			var item = await _newsRepository.GetFilteredAsync(x => x.Id == model.Id);
+
+			Assert.Null(item);
+		}
+
+		[Fact]
 		public async Task AfterPublishTime() {
 			var model = _model;
 			model.PublishTime = DateTime.UtcNow.AddDays(-1);
@@ -108,6 +146,17 @@ namespace Kasp.EF.Tests.Tests {
 			await _newsRepository.SaveAsync();
 
 			var item = await _newsRepository.BaseQuery.PublishTimeFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
+
+			Assert.NotNull(item);
+		}
+		[Fact]
+		public async Task REPOSITORY_FILTERED_AfterPublishTime() {
+			var model = _model;
+			model.PublishTime = DateTime.UtcNow.AddDays(-1);
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 
 			Assert.NotNull(item);
 		}

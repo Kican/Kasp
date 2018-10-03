@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Kasp.Core.Tests;
@@ -13,19 +14,19 @@ namespace Kasp.EF.Localization.Tests.Tests {
 			PostRepository = Factory.Server.Host.Services.GetService<PostRepository>();
 
 			PostRepository.AddAsync(new Post {Title = "سلام", LangId = "fa-IR"}).Wait();
-			PostRepository.AddAsync(new Post {Title = "hello", LangId = "en-US"}).Wait();
+			PostRepository.AddAsync(new Post {Title = "Hello", LangId = "en-US"}).Wait();
 			PostRepository.SaveAsync().Wait();
 		}
 
 		private PostRepository PostRepository { get; }
 
 		[Theory]
-		[InlineData("fa-IR", "سلام")]
-		[InlineData("en-US", "Hello")]
-		public async Task Items(string culture, string result) {
+		[InlineData("fa-IR")]
+		[InlineData("en-US")]
+		public async Task Items(string culture) {
 			var response = await Client.GetAsync($"/api/Entity/List?culture={culture}&ui-culture={culture}");
 			var items = await response.Content.ReadAsAsync<Post[]>();
-			Assert.Equal(result, items[0].Title);
+			Assert.True(items.All(x => x.LangId == culture));
 		}
 	}
 }

@@ -31,7 +31,8 @@ namespace Kasp.EF.Localization.Tests {
 
 			services.AddKasp(Configuration, mvc)
 				.AddDataBase<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDbTest"))
-				.AddRepositories().AddLocalization(builder => {
+				.AddRepositories()
+				.AddLocalization(builder => {
 					builder.SetCultures(supportedCultures, supportedCultures[0]);
 					builder.AddDbLocalization<LocalizationDbContext>();
 				});
