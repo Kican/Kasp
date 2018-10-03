@@ -8,3 +8,4 @@ default entity Helpers:\
 `IUpdateTime` its add `DateTime` property as `DateTime?`  
 `IPublishTime` its add `PublishTime` property as DateTime  
 `IPriority` its add `Priority` property as int
+
