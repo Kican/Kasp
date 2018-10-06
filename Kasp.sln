@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Core", "src\Kasp.Core\Kasp.Core.csproj", "{284413A0-A454-4F70-BD64-0676DA58C6C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Identity.Core", "src\Kasp.Identity.Core\Kasp.Identity.Core.csproj", "{FC62831F-E44A-4105-BDDB-6F47E14C116E}"
