@@ -1,9 +1,7 @@
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Kasp.Tests;
-using Microsoft.AspNetCore.Mvc.Testing;
+using Kasp.Test;
 using Xunit;
 using Xunit.Abstractions;
 

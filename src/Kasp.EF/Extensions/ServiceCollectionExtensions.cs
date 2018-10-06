@@ -13,9 +13,10 @@ namespace Kasp.EF.Extensions {
 			builder.Services.AddDbContextPool<TDbContext>(optionsAction);
 			return _AddDatabase<TDbContext>(builder);
 		}
-
-		public static KaspDbServiceBuilder AddDataBase<TDbContext>(this KaspServiceBuilder builder, Action<DbContextOptionsBuilder> optionsAction) where TDbContext : DbContext {
-			builder.Services.AddDbContext<TDbContext>(optionsAction);
+		
+		public static KaspDbServiceBuilder AddDataBase<TDbContext>(this KaspServiceBuilder builder, Action<DbContextOptionsBuilder> optionsAction, ServiceLifetime lifetime = ServiceLifetime.Scoped)
+			where TDbContext : DbContext {
+			builder.Services.AddDbContext<TDbContext>(optionsAction, lifetime);
 			return _AddDatabase<TDbContext>(builder);
 		}
 

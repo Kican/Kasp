@@ -2,7 +2,7 @@ using System.Net.Http;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Kasp.Tests {
+namespace Kasp.Test {
 	public abstract class KClassFixtureWebApp<T> : IClassFixture<KWebAppFactory<T>> where T : class {
 		protected readonly ITestOutputHelper Output;
 		protected readonly KWebAppFactory<T> Factory;

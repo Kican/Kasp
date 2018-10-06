@@ -3,12 +3,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Kasp.EF.Localization.Tests.Data;
 using Kasp.EF.Localization.Tests.Models;
-using Kasp.Tests;
+using Kasp.Test;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.EF.Localization.Tests.Tests {
+	[Collection("1")]
 	public class EntityControllerTest : KClassFixtureWebApp<StartupDbLocalization> {
 		public EntityControllerTest(ITestOutputHelper output, KWebAppFactory<StartupDbLocalization> factory) : base(output, factory) {
 			PostRepository = Factory.Server.Host.Services.GetService<PostRepository>();

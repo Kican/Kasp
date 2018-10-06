@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Kasp.Tests;
+using Kasp.Test;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.Localization.Tests.Tests {
-	public class LocalizationControllerTest :KClassFixtureWebApp<StartupLocalizationResX> {
-	
+	public class LocalizationControllerTest : KClassFixtureWebApp<StartupLocalizationResX> {
 		[Theory]
 		[InlineData("fa-IR", "سلام")]
 		[InlineData("en-US", "Hello")]

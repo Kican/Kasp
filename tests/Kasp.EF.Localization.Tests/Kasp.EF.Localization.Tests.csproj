@@ -2,6 +2,6 @@
     <Import Project="..\version.tests.props" />
     <ItemGroup>
         <ProjectReference Include="..\..\src\Kasp.EF.Localization\Kasp.EF.Localization.csproj" />
-        <ProjectReference Include="..\..\src\Kasp.Tests\Kasp.Tests.csproj" />
+        <ProjectReference Include="..\Kasp.EF.Tests\Kasp.EF.Tests.csproj" />
     </ItemGroup>
 </Project>

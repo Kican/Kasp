@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using Kasp.EF.Extensions;
 using Kasp.EF.Tests.Data.Repositories;
 using Kasp.EF.Tests.Models.NewsModel;
-using Kasp.Tests;
+using Kasp.Test;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -153,8 +154,8 @@ namespace Kasp.EF.Tests.Tests {
 			Assert.NotNull(item);
 		}
 
-		public HelperTests(ITestOutputHelper output, KWebAppFactory<StartupDb> factory, NewsRepository newsRepository) : base(output, factory) {
-			_newsRepository = newsRepository;
+		public HelperTests(ITestOutputHelper output, KWebAppFactory<StartupDb> factory) : base(output, factory) {
+			_newsRepository = factory.Server.Host.Services.GetService<NewsRepository>();
 		}
 	}
 }

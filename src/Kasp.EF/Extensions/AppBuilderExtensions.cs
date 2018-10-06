@@ -4,14 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.EF.Extensions {
 	public static class AppBuilderExtensions {
-		public static KaspDbAppBuilder UseDataBase<TDbContext>(this KaspAppBuilder builder) where TDbContext : DbContext {
+		public static KaspDbAppBuilder UseDataBase<TDbContext>(this KaspAppBuilder builder, bool applyMigrates = true) where TDbContext : DbContext {
 			var db = builder.ApplicationBuilder.ApplicationServices.GetService<TDbContext>();
 
 			var result = new KaspDbAppBuilder(builder, db);
 
-			if (db.Database.IsInMemory())
-				db.Database.EnsureCreated();
-			else
+			if (applyMigrates)
 				db.Database.Migrate();
 
 			return result;

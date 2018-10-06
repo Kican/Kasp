@@ -2,7 +2,7 @@
     <Import Project="..\version.tests.props" />
     <ItemGroup>
         <ProjectReference Include="..\..\src\Kasp.Localization\Kasp.Localization.csproj" />
-        <ProjectReference Include="..\..\src\Kasp.Tests\Kasp.Tests.csproj" />
+        <ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Update="Resources\Controllers.LocalizationController.fa.resx">

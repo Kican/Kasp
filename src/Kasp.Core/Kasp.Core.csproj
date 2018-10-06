@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\version.props" />
-
     <PropertyGroup>
         <id>Kasp.Core</id>
     </PropertyGroup>
