@@ -37,7 +37,7 @@ namespace Kasp.Identity.Tests {
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			app.UseKasp().UseDataBase();
+			app.UseKasp().UseDataBase<AppIdentityDbContext>();
 
 			app.UseAuthentication();
 

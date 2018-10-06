@@ -1,27 +1,19 @@
 using System;
 using System.Threading.Tasks;
-using Kasp.Core.Tests;
 using Kasp.EF.Extensions;
 using Kasp.EF.Tests.Data.Repositories;
 using Kasp.EF.Tests.Models.NewsModel;
+using Kasp.Tests;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.EF.Tests.Tests {
-	public class HelperTests : IClassFixture<KWebAppFactory<StartupDb>> {
-		public HelperTests(KWebAppFactory<StartupDb> factory, ITestOutputHelper output) {
-			factory.CreateDefaultClient();
-			_output = output;
-			_newsRepository = factory.Server.Host.Services.GetService<NewsRepository>();
-		}
-
+	public class HelperTests : KClassFixtureWebApp<StartupDb> {
 		private readonly News _model = new News {
 			Title = "this is title", Content = "this is body"
 		};
 
-		private readonly ITestOutputHelper _output;
 		private readonly NewsRepository _newsRepository;
 
 		[Fact]
@@ -69,7 +61,7 @@ namespace Kasp.EF.Tests.Tests {
 			await _newsRepository.AddAsync(model);
 			await _newsRepository.SaveAsync();
 
-			_output.WriteLine(model.ToString());
+			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.BaseQuery.EnableFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
 
 			Assert.NotNull(item);
@@ -82,7 +74,7 @@ namespace Kasp.EF.Tests.Tests {
 			await _newsRepository.AddAsync(model);
 			await _newsRepository.SaveAsync();
 
-			_output.WriteLine(model.ToString());
+			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 
 			Assert.NotNull(item);
@@ -95,7 +87,7 @@ namespace Kasp.EF.Tests.Tests {
 			await _newsRepository.AddAsync(model);
 			await _newsRepository.SaveAsync();
 
-			_output.WriteLine(model.ToString());
+			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.BaseQuery.EnableFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
 
 			Assert.Null(item);
@@ -108,7 +100,7 @@ namespace Kasp.EF.Tests.Tests {
 			await _newsRepository.AddAsync(model);
 			await _newsRepository.SaveAsync();
 
-			_output.WriteLine(model.ToString());
+			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.GetFilteredAsync(x => x.Id == model.Id);
 
 			Assert.Null(item);
@@ -159,6 +151,10 @@ namespace Kasp.EF.Tests.Tests {
 			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 
 			Assert.NotNull(item);
+		}
+
+		public HelperTests(ITestOutputHelper output, KWebAppFactory<StartupDb> factory, NewsRepository newsRepository) : base(output, factory) {
+			_newsRepository = newsRepository;
 		}
 	}
 }

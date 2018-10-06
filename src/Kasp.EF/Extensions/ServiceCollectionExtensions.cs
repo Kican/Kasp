@@ -24,7 +24,7 @@ namespace Kasp.EF.Extensions {
 		}
 
 		private static KaspDbServiceBuilder _AddDatabase<TDbContext>(KaspServiceBuilder builder) where TDbContext : DbContext {
-			builder.Services.AddScoped<DbContext, TDbContext>();
+//			builder.Services.AddScoped<DbContext, TDbContext>();
 			return new KaspDbServiceBuilder(builder.Services, builder.Configuration, builder.MvcBuilder);
 		}
 

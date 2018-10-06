@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.EF {
 	public class KDbContext<TDbContext> : DbContext where TDbContext : KDbContext<TDbContext> {
-		protected KDbContext(DbContextOptions<TDbContext> options) : base(options) {
+		public KDbContext(DbContextOptions<TDbContext> options) : base(options) {
 		}
 
 		public override int SaveChanges() {

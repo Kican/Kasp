@@ -1,12 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-      <AssemblyName>Kasp.Localization.Tests</AssemblyName>
-      <RootNamespace>Kasp.Localization.Tests</RootNamespace>
-    </PropertyGroup>
     <Import Project="..\version.tests.props" />
     <ItemGroup>
         <ProjectReference Include="..\..\src\Kasp.Localization\Kasp.Localization.csproj" />
-        <ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
+        <ProjectReference Include="..\..\src\Kasp.Tests\Kasp.Tests.csproj" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Update="Resources\Controllers.LocalizationController.fa.resx">
@@ -19,9 +15,8 @@
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-        <None Remove="Resources\localize.json" />
         <Content Include="Resources\localize.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
 </Project>

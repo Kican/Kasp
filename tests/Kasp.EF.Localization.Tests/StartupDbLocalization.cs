@@ -45,7 +45,7 @@ namespace Kasp.EF.Localization.Tests {
 			langRepository.SaveAsync().Wait();
 
 			app.UseKasp()
-				.UseDataBase()
+				.UseDataBase<LocalizationDbContext>()
 				.UseRequestLocalization(options => options.UseDb());
 
 			app.UseMvc();

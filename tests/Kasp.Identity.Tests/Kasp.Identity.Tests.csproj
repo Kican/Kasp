@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\version.tests.props" />
+    <Import Project="..\version.tests.props"/>
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Kasp.Identity\Kasp.Identity.csproj" />
-        <ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
+        <ProjectReference Include="..\..\src\Kasp.Identity\Kasp.Identity.csproj"/>
+        <ProjectReference Include="..\..\src\Kasp.Tests\Kasp.Tests.csproj"/>
         <Content Update="appsettings.json">
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

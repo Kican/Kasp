@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Kasp.Core.Tests;
+using Kasp.Tests;
 using Xunit;
 using Xunit.Abstractions;
 

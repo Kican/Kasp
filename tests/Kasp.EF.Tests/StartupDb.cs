@@ -1,3 +1,4 @@
+using System;
 using Kasp.Core.Extensions;
 using Kasp.EF.Extensions;
 using Kasp.EF.Helpers;
@@ -22,10 +23,13 @@ namespace Kasp.EF.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-			services.AddEntityFrameworkInMemoryDatabase();
+			var connectionString = Configuration.GetConnectionString("AppDb");
+			if (Environment.GetEnvironmentVariable("APPVEYOR") != null)
+				connectionString = "Server=localhost;Database=KaspTest;User Id=postgres;Password=Password12!;";
+			
 			services.AddKasp(Configuration, mvc)
 				.AddDataBase<AppDbContext>(builder => {
-					builder.UseInMemoryDatabase("dbTest");
+					builder.UseNpgsql(connectionString);
 					builder.AddEntityHelper<IEnable, EnableEntityHelper>();
 				})
 				.AddRepositories();
@@ -33,7 +37,7 @@ namespace Kasp.EF.Tests {
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			app.UseKasp().UseDataBase();
+			app.UseKasp().UseDataBase<AppDbContext>();
 
 			app.UseStaticFiles();
 			app.UseMvc();

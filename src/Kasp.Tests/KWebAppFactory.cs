@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 
-namespace Kasp.Core.Tests {
+namespace Kasp.Tests {
 	public class KWebAppFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class {
 		protected override IWebHostBuilder CreateWebHostBuilder() {
 			return WebHost

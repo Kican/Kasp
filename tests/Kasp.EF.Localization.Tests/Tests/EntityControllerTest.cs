@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Kasp.Core.Tests;
 using Kasp.EF.Localization.Tests.Data;
 using Kasp.EF.Localization.Tests.Models;
+using Kasp.Tests;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Abstractions;

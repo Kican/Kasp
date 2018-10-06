@@ -18,8 +18,8 @@ namespace Kasp.CloudMessage.FireBase.Controllers {
 		private IFcmUserTokenRepository FcmUserTokenRepository { get; }
 		private FcmDeviceGroupService DeviceGroupService { get; }
 
-		public async Task<IActionResult> AddUserToken([FromBody]
-			FcmUserTokenEditModel model, CancellationToken cancellationToken) {
+		[HttpPost]
+		public async Task<IActionResult> AddUserToken([FromBody] FcmUserTokenEditModel model, CancellationToken cancellationToken) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			Result<string> result;
@@ -37,8 +37,8 @@ namespace Kasp.CloudMessage.FireBase.Controllers {
 			return BadRequest(result.Errors);
 		}
 
-		public async Task<IActionResult> RemoveUserToken([FromBody]
-			FcmUserTokenEditModel model, CancellationToken cancellationToken) {
+		[HttpPost]
+		public async Task<IActionResult> RemoveUserToken([FromBody] FcmUserTokenEditModel model, CancellationToken cancellationToken) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var result = await DeviceGroupService.RequestAsync(DeviceGroupRequestOperation.Remove, UserId, model.Token, cancellationToken);

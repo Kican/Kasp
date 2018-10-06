@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Kasp.Core.Tests;
 using Kasp.Data.Test.Controllers;
+using Kasp.Tests;
 using Xunit;
 using Xunit.Abstractions;
 

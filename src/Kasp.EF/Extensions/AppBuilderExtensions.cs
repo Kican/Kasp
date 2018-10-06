@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.EF.Extensions {
 	public static class AppBuilderExtensions {
-		public static KaspDbAppBuilder UseDataBase(this KaspAppBuilder builder) {
-			var db = builder.ApplicationBuilder.ApplicationServices.GetService<DbContext>();
+		public static KaspDbAppBuilder UseDataBase<TDbContext>(this KaspAppBuilder builder) where TDbContext : DbContext {
+			var db = builder.ApplicationBuilder.ApplicationServices.GetService<TDbContext>();
 
 			var result = new KaspDbAppBuilder(builder, db);
 

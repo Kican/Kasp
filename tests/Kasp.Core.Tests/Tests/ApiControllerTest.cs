@@ -2,20 +2,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Kasp.Tests;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.Core.Tests.Tests {
-	public class ApiControllerTest : IClassFixture<KWebAppFactory<Startup>> {
-		public ApiControllerTest(KWebAppFactory<Startup> factory, ITestOutputHelper output) {
-			_output = output;
-			Client = factory.CreateClient();
-		}
-
-		private HttpClient Client { get; }
-		private readonly ITestOutputHelper _output;
-
+	public class ApiControllerTest : KClassFixtureWebApp<Startup> {
 		[Fact]
 		public async Task ApiController() {
 			var response = await Client.GetAsync("api/values/get");
@@ -42,6 +35,9 @@ namespace Kasp.Core.Tests.Tests {
 		public async Task IndexSpaExcept(string path) {
 			var response = await Client.GetAsync(path);
 			Assert.NotEqual("index-html", await response.Content.ReadAsStringAsync());
+		}
+
+		public ApiControllerTest(ITestOutputHelper output, KWebAppFactory<Startup> factory) : base(output, factory) {
 		}
 	}
 }

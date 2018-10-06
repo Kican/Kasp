@@ -1,7 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\version.tests.props" />
     <ItemGroup>
+        <ProjectReference Include="..\..\src\Kasp.EF.Npgsql\Kasp.EF.Npgsql.csproj" />
         <ProjectReference Include="..\..\src\Kasp.EF\Kasp.EF.csproj" />
-        <ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
+        <Content Update="appsettings.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <ProjectReference Include="..\..\src\Kasp.Tests\Kasp.Tests.csproj" />
     </ItemGroup>
+    
 </Project>

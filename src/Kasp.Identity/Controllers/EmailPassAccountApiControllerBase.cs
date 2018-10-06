@@ -88,7 +88,7 @@ namespace Kasp.Identity.Controllers {
 
 
 		[HttpPost]
-		public virtual async Task<IActionResult> Login( [FromBody] LoginVM model) {
+		public virtual async Task<IActionResult> Login([FromBody] LoginVM model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = await UserManager.FindByEmailAsync(model.Email);
@@ -110,9 +110,8 @@ namespace Kasp.Identity.Controllers {
 		}
 
 
-
 		[HttpPost]
-		public virtual async Task<ActionResult<TViewModel>> Edit( [FromBody] TEditModel model) {
+		public virtual async Task<ActionResult<TViewModel>> Edit([FromBody] TEditModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = await UserManager.FindByIdAsync(UserId.ToString());

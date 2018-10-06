@@ -1,9 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Kasp.Core.Tests;
-using Kasp.EF.Localization.Data.Repositories;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+using Kasp.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
