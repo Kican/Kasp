@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Kasp.EF.Localization.Extensions {
 	public static class AppBuilderExtensions {
 		public static void UseDb(this KaspRequestLocalizationOptions builder) {
-			var langRepository = builder.ServiceProvider.GetService<ILangRepository>();
+			var langRepository = builder.ServiceProvider.CreateScope().ServiceProvider.GetService<ILangRepository>();
 
 			var dbCultures = langRepository.ListAsync().Result;
 			
