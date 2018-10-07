@@ -21,15 +21,17 @@ namespace Kasp.EF.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+			services.AddEntityFrameworkInMemoryDatabase();
+			
 			services.AddKasp(Configuration, mvc)
-				.AddDataBase<AppDbContext>(builder => { builder.UseNpgsql(EfTestConfig.GetConnectionString()); })
+				.AddDataBase<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
 				.AddRepositories();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext) {
 			app.UseKasp().UseTestDataBase<AppDbContext>();
-			
+
 			app.UseStaticFiles();
 			app.UseMvc();
 		}

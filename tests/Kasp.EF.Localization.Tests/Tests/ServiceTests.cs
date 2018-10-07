@@ -5,7 +5,6 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.EF.Localization.Tests.Tests {
-	[Collection("1")]
 	public class ServiceTests : KClassFixtureWebApp<StartupDbLocalization> {
 		[Fact]
 		public async Task GET_SUPPORTED_CULTURES() {

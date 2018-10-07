@@ -9,7 +9,7 @@ namespace Kasp.EF.Extensions {
 
 			var result = new KaspDbAppBuilder(builder, db);
 
-			if (applyMigrates)
+			if (applyMigrates && !db.Database.IsInMemory())
 				db.Database.Migrate();
 
 			return result;

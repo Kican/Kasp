@@ -4,4 +4,9 @@
       <ProjectReference Include="..\..\src\Kasp.Core\Kasp.Core.csproj" />
       <ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
     </ItemGroup>
+    <ItemGroup>
+        <Content Include="wwwroot\*.*">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 </Project>

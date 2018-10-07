@@ -26,10 +26,12 @@ namespace Kasp.EF.Localization.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+			services.AddEntityFrameworkInMemoryDatabase();
+			
 			var supportedCultures = new[] {"en-US"};
 
 			services.AddKasp(Configuration, mvc)
-				.AddDataBase<LocalizationDbContext>(builder => builder.UseNpgsql(EfTestConfig.GetConnectionString()), ServiceLifetime.Transient)
+				.AddDataBase<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDb"))
 				.AddRepositories()
 				.AddLocalization(builder => {
 					builder.SetCultures(supportedCultures, supportedCultures[0]);

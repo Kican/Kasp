@@ -9,7 +9,6 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.EF.Localization.Tests.Tests {
-	[Collection("1")]
 	public class EntityControllerTest : KClassFixtureWebApp<StartupDbLocalization> {
 		public EntityControllerTest(ITestOutputHelper output, KWebAppFactory<StartupDbLocalization> factory) : base(output, factory) {
 			PostRepository = Factory.Server.Host.Services.GetService<PostRepository>();
