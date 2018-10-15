@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using Kasp.Core.Extensions;
 using Kasp.EF.Extensions;
 using Kasp.Identity.Entities.UserEntities;
 using Kasp.Identity.Extensions;
+using Kasp.Identity.Services;
 using Kasp.Identity.Tests.Data;
 using Kasp.Identity.Tests.Models.UserModels;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +35,8 @@ namespace Kasp.Identity.Tests {
 
 			services.AddAuthentication()
 				.AddJwtBearer(Configuration.GetJwtConfig());
+
+			services.AddSingleton<IAuthOtpSmsSender, AuthOtpSmsSender>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +47,14 @@ namespace Kasp.Identity.Tests {
 
 			app.UseStaticFiles();
 			app.UseMvc();
+		}
+	}
+
+	public class AuthOtpSmsSender : IAuthOtpSmsSender {
+		public static string Code = "0";
+		public Task<SmsResult> SendSmsAsync(string number, string code) {
+			Code = code;
+			return Task.FromResult(new SmsResult {number = "10002000", isSuccess = true});
 		}
 	}
 }

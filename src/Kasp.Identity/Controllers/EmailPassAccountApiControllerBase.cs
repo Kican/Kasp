@@ -74,20 +74,20 @@ namespace Kasp.Identity.Controllers {
 			if (string.IsNullOrEmpty(user.UserName))
 				user.UserName = model.Email;
 
-//			var result = await userManager.CreateAsync(user, model.Password);
-//
-//			if (!result.Succeeded) {
-//				AddErrors(result);
-//				return BadRequest(ModelState);
-//			}
-//
-//			await OnRegisterSuccess(user);
+			var result = await UserManager.CreateAsync(user, model.Password);
+
+			if (!result.Succeeded) {
+				AddErrors(result);
+				return BadRequest(ModelState);
+			}
+
+			await OnRegisterSuccess(user);
 
 			return Mapper.Map<TViewModel>(user);
 		}
 
 
-		[HttpPost]
+		[HttpPost, AllowAnonymous]
 		public virtual async Task<IActionResult> Login([FromBody] LoginVM model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -129,17 +129,17 @@ namespace Kasp.Identity.Controllers {
 		}
 
 		[HttpGet]
-		public virtual async Task<ActionResult<TViewModel>> Info([FromServices] UserManager<TUser> userManager) {
-			return await userManager.Users.ProjectTo<TViewModel>().FirstOrDefaultAsync(x => x.Id == UserId);
+		public virtual async Task<ActionResult<TViewModel>> Info() {
+			return await UserManager.Users.ProjectTo<TViewModel>().FirstOrDefaultAsync(x => x.Id == UserId);
 		}
 
 
 		[HttpPost]
-		public virtual async Task<IActionResult> ChangePassword([FromServices] UserManager<TUser> userManager, [FromBody] ChangePasswordVm model) {
+		public virtual async Task<IActionResult> ChangePassword([FromBody] ChangePasswordVm model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
-			var user = await userManager.FindByIdAsync(UserId.ToString());
+			var user = await UserManager.FindByIdAsync(UserId.ToString());
 
-			var result = await userManager.ChangePasswordAsync(user, model.Current, model.NewPass);
+			var result = await UserManager.ChangePasswordAsync(user, model.Current, model.NewPass);
 
 			if (result.Succeeded)
 				return Ok();
