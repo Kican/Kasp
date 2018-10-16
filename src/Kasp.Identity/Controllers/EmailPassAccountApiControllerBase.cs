@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,7 +12,6 @@ using Kasp.Identity.Core.Controllers;
 using Kasp.Identity.Entities;
 using Kasp.Identity.Entities.UserEntities;
 using Kasp.Identity.Entities.UserEntities.XEntities;
-using Kasp.Identity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +20,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Kasp.Identity.Controllers {
-	public abstract class EmailPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
+	public abstract class
+		EmailPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel> : AuthApiController
 		where TRegisterModel : IUserRegisterModel
 		where TUser : KaspUser, new()
 		where TViewModel : UserPartialVmBase
 		where TEditModel : UserEditModelBase {
-		protected EmailPassAccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager) {
+		protected EmailPassAccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config,
+			UserManager<TUser> userManager, SignInManager<TUser> signInManager) {
 			Mapper = mapper;
 			Config = config;
 			UserManager = userManager;
@@ -37,13 +39,28 @@ namespace Kasp.Identity.Controllers {
 		protected UserManager<TUser> UserManager { get; }
 		protected SignInManager<TUser> SignInManager { get; }
 
-		protected virtual string GetToken(List<Claim> claims) {
+		protected async virtual Task<TokenResponse> GetToken(IEnumerable<Claim> claims) {
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Value.Key));
-			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
+			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
-			var token = new JwtSecurityToken(Config.Value.Issuer, Config.Value.Issuer, claims, expires: DateTime.Now.AddMinutes(Config.Value.Expire), signingCredentials: creds);
+			var token = new JwtSecurityToken(Config.Value.Issuer, Config.Value.Issuer, claims,
+				expires: DateTime.UtcNow.AddMinutes(Config.Value.Expire), signingCredentials: credentials);
+			var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-			return new JwtSecurityTokenHandler().WriteToken(token);
+
+			return new TokenResponse() {
+				AccessToken = accessToken,
+				RefreshToken = GenerateRefreshToken(),
+				Expires = token.ValidTo.Ticks
+			};
+		}
+
+		public virtual string GenerateRefreshToken() {
+			var randomNumber = new byte[32];
+			using (var rng = RandomNumberGenerator.Create()) {
+				rng.GetBytes(randomNumber);
+				return Convert.ToBase64String(randomNumber);
+			}
 		}
 
 		protected virtual async Task<List<Claim>> GetClaims(TUser user) {
@@ -88,23 +105,28 @@ namespace Kasp.Identity.Controllers {
 
 
 		[HttpPost, AllowAnonymous]
-		public virtual async Task<IActionResult> Login([FromBody] LoginVM model) {
-			if (!ModelState.IsValid) return BadRequest(ModelState);
+		public virtual async Task<ActionResult<TokenResponse>> Token([FromBody] TokenRequest model) {
+			if (model.GrandType == GrandType.Password) {
+				var user = await UserManager.FindByNameAsync(model.Username);
 
-			var user = await UserManager.FindByEmailAsync(model.Email);
-			if (user == null) {
-				ModelState.AddModelError("", "User not found");
-			} else {
-				var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
-
-				if (result.Succeeded) {
-					var claims = await GetClaims(user);
-
-					return Ok(new {access_token = GetToken(claims)});
+				if (user == null) {
+					ModelState.AddModelError("", "user-not-found");
 				}
+				else {
+					var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
-				ModelState.AddModelError("", "user/pass incorrect ...");
+					if (result.Succeeded) {
+						var claims = await GetClaims(user);
+
+						return await GetToken(claims);
+					}
+
+					ModelState.AddModelError("", "user/pass-incorrect");
+				}
 			}
+			else if (model.GrandType == GrandType.RefreshToken) {
+			}
+
 
 			return BadRequest(ModelState);
 		}
