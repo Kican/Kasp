@@ -38,6 +38,7 @@ namespace Kasp.Identity.Controllers {
 		protected IMapper Mapper { get; }
 		protected UserManager<TUser> UserManager { get; }
 		protected SignInManager<TUser> SignInManager { get; }
+	
 
 		protected async virtual Task<TokenResponse> GetToken(IEnumerable<Claim> claims) {
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Value.Key));
@@ -102,6 +103,31 @@ namespace Kasp.Identity.Controllers {
 
 			return Mapper.Map<TViewModel>(user);
 		}
+		
+		
+		[HttpPost, AllowAnonymous]
+		public virtual async Task<ActionResult<TokenResponse>> Login([FromBody] LoginVM model) {
+			if (!ModelState.IsValid) return BadRequest(ModelState);
+
+			var user = await UserManager.FindByEmailAsync(model.Email);
+			if (user == null) {
+				ModelState.AddModelError("", "User not found");
+			} else {
+				var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+				if (result.Succeeded) {
+					var claims = await GetClaims(user);
+
+					return await GetToken(claims);
+				}
+
+				ModelState.AddModelError("", "user/pass incorrect ...");
+			}
+
+			return BadRequest(ModelState);
+		}
+
+
 
 
 		[HttpPost, AllowAnonymous]

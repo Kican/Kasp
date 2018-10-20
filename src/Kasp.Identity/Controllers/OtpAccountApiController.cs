@@ -54,7 +54,7 @@ namespace Kasp.Identity.Controllers {
 		}
 
 		[HttpPost, AllowAnonymous]
-		public virtual async Task<IActionResult> LoginOtp([FromBody] ToTpLoginViewModel model) {
+		public virtual async Task<ActionResult<TokenResponse>> LoginOtp([FromBody] ToTpLoginViewModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = await UserManager.FindByNameAsync(model.Phone);
@@ -66,7 +66,7 @@ namespace Kasp.Identity.Controllers {
 				if (result) {
 					var claims = await GetClaims(user);
 
-					return Ok(new {access_token = GetToken(claims)});
+					return await GetToken(claims);
 				}
 
 				ModelState.AddModelError("", "user/totp incurrect ...");
