@@ -30,12 +30,11 @@ namespace Kasp.Identity.Tests.Tests {
 		[Fact]
 		public async Task REGISTER_AND_LOGIN_OTP() {
 			var response = await Client.PostAsJsonAsync("/api/account/PhoneRequest", new {Phone = "00000000"});
-			
+
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-			response = await Client.PostAsJsonAsync("/api/account/LoginOtp",
-				new {Phone = "00000000", AuthOtpSmsSender.Code});
-			
+			response = await Client.PostAsJsonAsync("/api/account/LoginOtp", new {Phone = "00000000", AuthOtpSmsSender.Code});
+
 			Output.WriteLine(await response.Content.ReadAsStringAsync());
 
 			var result = await response.Content.ReadAsAsync<BearerLoginResult>();
@@ -58,8 +57,7 @@ namespace Kasp.Identity.Tests.Tests {
 		}
 
 
-		public AccountControllerTests(ITestOutputHelper output, KWebAppFactory<StartupIdentity> factory) : base(output,
-			factory) {
+		public AccountControllerTests(ITestOutputHelper output, KWebAppFactory<StartupIdentity> factory) : base(output, factory) {
 		}
 	}
 
