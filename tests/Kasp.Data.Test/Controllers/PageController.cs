@@ -8,7 +8,6 @@ namespace Kasp.Data.Test.Controllers {
 			return Ok(pageable);
 		}
 	}
-
 	public class Pageable : IPage {
 		public int Page { get; set; }
 		public int Count { get; set; }
