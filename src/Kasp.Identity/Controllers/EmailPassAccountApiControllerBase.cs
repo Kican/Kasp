@@ -56,7 +56,7 @@ namespace Kasp.Identity.Controllers {
 			};
 		}
 
-		public virtual string GenerateRefreshToken() {
+		protected virtual string GenerateRefreshToken() {
 			var randomNumber = new byte[32];
 			using (var rng = RandomNumberGenerator.Create()) {
 				rng.GetBytes(randomNumber);

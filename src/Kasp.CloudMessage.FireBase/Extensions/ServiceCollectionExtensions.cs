@@ -29,8 +29,8 @@ namespace Kasp.CloudMessage.FireBase.Extensions {
 
 			builder.Services.AddSingleton<IFcmHttpClient, FcmHttpClient>();
 			builder.Services.AddSingleton<IFcmClient, FcmClient>();
-			builder.Services.AddSingleton<FcmDeviceGroupService>();
-			builder.Services.AddSingleton<IFcmService, FcmService>();
+			builder.Services.AddScoped<FcmDeviceGroupService>();
+			builder.Services.AddScoped<IFcmService, FcmService>();
 
 			builder.Services.AddHttpClient<FcmApiHttpClient>();
 		}
