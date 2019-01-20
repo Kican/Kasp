@@ -1,5 +1,5 @@
 namespace Kasp.FormBuilder.Models {
-    public interface IFormComponentTitle {
+    public interface IComponentTitle {
         string Title { get; set; }
     }
 }
