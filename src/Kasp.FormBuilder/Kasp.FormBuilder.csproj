@@ -2,15 +2,10 @@
     <Import Project="..\version.props" />
 
     <PropertyGroup>
-        <id>Kasp.Ef</id>
+        <id>Kasp.FormBuilder</id>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
-      <ProjectReference Include="..\Kasp.Data\Kasp.Data.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.9.2" />
     </ItemGroup>
 </Project>

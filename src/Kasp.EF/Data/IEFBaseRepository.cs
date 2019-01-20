@@ -73,6 +73,6 @@ namespace Kasp.EF.Data {
 		Task<int> SaveAsync(CancellationToken cancellationToken = default);
 	}
 
-	public interface IBaseRepository<TModel> : IBaseRepository<TModel, int> where TModel : class, IModel {
+	public interface IEFBaseRepository<TModel> : IBaseRepository<TModel, int> where TModel : class, IModel {
 	}
 }

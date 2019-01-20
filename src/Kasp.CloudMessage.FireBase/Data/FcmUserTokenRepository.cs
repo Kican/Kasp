@@ -7,7 +7,7 @@ using Kasp.EF.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.CloudMessage.FireBase.Data {
-	public class FcmUserTokenRepository<TDbContext> : BaseRepository<TDbContext, FcmUserToken>, IFcmUserTokenRepository where TDbContext : DbContext, IFcmDbContext {
+	public class FcmUserTokenRepository<TDbContext> : IefEfBaseRepository<TDbContext, FcmUserToken>, IFcmUserTokenRepository where TDbContext : DbContext, IFcmDbContext {
 		public FcmUserTokenRepository(TDbContext db) : base(db) {
 		}
 

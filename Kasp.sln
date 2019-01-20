@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Test", "src\Kasp.Test\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Test.EF", "src\Kasp.Test.EF\Kasp.Test.EF.csproj", "{2CCBD68E-F90F-46CA-BE6B-CA00F34BB484}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.FormBuilder", "src\Kasp.FormBuilder\Kasp.FormBuilder.csproj", "{FE54BB94-2284-4A42-92EC-9466ED433418}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.FormBuilder.Tests", "tests\Kasp.FormBuilder.Tests\Kasp.FormBuilder.Tests.csproj", "{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,5 +117,13 @@ Global
 		{2CCBD68E-F90F-46CA-BE6B-CA00F34BB484}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CCBD68E-F90F-46CA-BE6B-CA00F34BB484}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CCBD68E-F90F-46CA-BE6B-CA00F34BB484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE54BB94-2284-4A42-92EC-9466ED433418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE54BB94-2284-4A42-92EC-9466ED433418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE54BB94-2284-4A42-92EC-9466ED433418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE54BB94-2284-4A42-92EC-9466ED433418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
