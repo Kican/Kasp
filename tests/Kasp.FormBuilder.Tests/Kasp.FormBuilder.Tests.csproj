@@ -4,8 +4,5 @@
       <ProjectReference Include="..\..\src\Kasp.FormBuilder\Kasp.FormBuilder.csproj" />
       <ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Tests" />
-    </ItemGroup>
     
 </Project>

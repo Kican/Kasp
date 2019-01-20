@@ -4,7 +4,7 @@ using Kasp.FormBuilder.Models;
 
 namespace Kasp.FormBuilder.Services {
     public interface IFormBuilder {
-        Task<IFormComponent> FromModel<TModel>() where TModel : class;
-        Task<IFormComponent> FromModel(Type type);
+        Task<IComponent> FromModel<TModel>() where TModel : class;
+        Task<IComponent> FromModel(Type type);
     }
 }

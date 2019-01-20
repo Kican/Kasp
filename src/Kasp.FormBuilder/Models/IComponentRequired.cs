@@ -1,5 +1,5 @@
 namespace Kasp.FormBuilder.Models {
-    public interface IFormComponentRequired {
+    public interface IComponentRequired {
         bool Required { get; set; }
     }
 }
