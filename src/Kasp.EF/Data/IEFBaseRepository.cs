@@ -10,7 +10,7 @@ using Kasp.EF.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.EF.Data {
-	public interface IBaseRepository<TModel, TKey> where TModel : class, IModel<TKey> {
+	public interface IEFBaseRepository<TModel, TKey> where TModel : class, IModel<TKey> {
 		DbSet<TModel> Set { get; }
 		IQueryable<TModel> BaseQuery { get; }
 
@@ -73,6 +73,6 @@ namespace Kasp.EF.Data {
 		Task<int> SaveAsync(CancellationToken cancellationToken = default);
 	}
 
-	public interface IEFBaseRepository<TModel> : IBaseRepository<TModel, int> where TModel : class, IModel {
+	public interface IEFBaseRepository<TModel> : IEFBaseRepository<TModel, int> where TModel : class, IModel {
 	}
 }

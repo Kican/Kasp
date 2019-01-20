@@ -24,7 +24,7 @@ namespace Kasp.EF.Tests {
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddKasp(Configuration, mvc)
 				.AddDataBase<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
-				.AddRepositories();
+				.AddEFRepositories();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

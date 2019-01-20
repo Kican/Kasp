@@ -12,7 +12,7 @@ using Kasp.EF.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.EF.Data {
-	public abstract class EFBaseRepository<TDbContext, TModel, TKey> : IBaseRepository<TModel, TKey>
+	public abstract class EFBaseRepository<TDbContext, TModel, TKey> : IEFBaseRepository<TModel, TKey>
 		where TDbContext : DbContext
 		where TModel : class, IModel<TKey> {
 		protected EFBaseRepository(TDbContext db) {
@@ -175,8 +175,8 @@ namespace Kasp.EF.Data {
 		public TDbContext Db { get; }
 	}
 
-	public abstract class IefEfBaseRepository<TDbContext, TModel> : EFBaseRepository<TDbContext, TModel, int>, IEFBaseRepository<TModel> where TModel : class, IModel where TDbContext : DbContext {
-		protected IefEfBaseRepository(TDbContext db) : base(db) {
+	public abstract class EFBaseRepository<TDbContext, TModel> : EFBaseRepository<TDbContext, TModel, int>, IEFBaseRepository<TModel> where TModel : class, IModel where TDbContext : DbContext {
+		protected EFBaseRepository(TDbContext db) : base(db) {
 		}
 	}
 }

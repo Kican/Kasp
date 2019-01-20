@@ -32,7 +32,7 @@ namespace Kasp.EF.Localization.Tests {
 
 			services.AddKasp(Configuration, mvc)
 				.AddDataBase<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDb"))
-				.AddRepositories()
+				.AddEFRepositories()
 				.AddLocalization(builder => {
 					builder.SetCultures(supportedCultures, supportedCultures[0]);
 					builder.AddDbLocalization<LocalizationDbContext>();

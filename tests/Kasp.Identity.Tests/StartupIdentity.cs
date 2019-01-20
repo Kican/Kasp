@@ -29,7 +29,7 @@ namespace Kasp.Identity.Tests {
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddKasp(Configuration, mvc)
 				.AddDataBase<AppIdentityDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
-				.AddRepositories()
+				.AddEFRepositories()
 				.AddIdentity<AppUser, KaspRole, AppIdentityDbContext>()
 				.AddJwt(Configuration.GetJwtConfig());
 

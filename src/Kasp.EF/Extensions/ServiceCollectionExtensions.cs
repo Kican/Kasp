@@ -29,12 +29,14 @@ namespace Kasp.EF.Extensions {
 			return new KaspDbServiceBuilder(builder.Services, builder.Configuration, builder.MvcBuilder);
 		}
 
-		public static KaspDbServiceBuilder AddRepositories(this KaspDbServiceBuilder builder) {
-			var repositoryTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
-				.Where(x => typeof(EFBaseRepository<,,>).IsSubclassOfRawGeneric(x) && !x.IsInterface && !x.IsAbstract).ToList();
-
-			repositoryTypes.ForEach(x => builder.Services.AddScoped(x));
-
+		public static KaspDbServiceBuilder AddEFRepositories(this KaspDbServiceBuilder builder) {
+			builder.Services.Scan(selector => {
+				selector.FromApplicationDependencies()
+					.AddClasses(x => x.AssignableTo(typeof(IEFBaseRepository<,>)))
+					.AsSelfWithInterfaces()
+					.WithScopedLifetime();
+			});
+			
 			return builder;
 		}
 	}
