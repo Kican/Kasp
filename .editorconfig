@@ -1,7 +1,13 @@
 # .NET Code Style Settings
-[*.{cs,csx,cake,vb}]
+[*]
+indent_style = tab
+charset = utf-8
+max_line_length = 200
+
+[*.{cs, csx, cake, vb}]
 csharp_new_line_before_open_brace = none
 csharp_new_line_before_else = false
+csharp_max_line_length = 200
 csharp_new_line_before_catch = false
 csharp_new_line_before_finally = false
 csharp_new_line_before_members_in_object_initializers = true
