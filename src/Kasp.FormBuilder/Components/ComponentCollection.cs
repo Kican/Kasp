@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Kasp.FormBuilder.Components {
     public class ComponentCollection : Collection<IComponent> {
-        public IComponent Add<TFilterType>() where TFilterType : IComponent {
-            return Add(TFilterType);
-        }
+//        public IComponent Add<TFilterType>() where TFilterType : IComponent {
+//            return Add(TFilterType);
+//        }
 
 
     }
