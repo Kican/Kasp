@@ -5,10 +5,8 @@ using Xunit.Abstractions;
 
 namespace Kasp.FormBuilder.Tests {
 	public class UnitTest1 : KClassFixtureWebApp<Startup> {
-		private IFormBuilder FormBuilder { get; }
 
-		public UnitTest1(ITestOutputHelper output, KWebAppFactory<Startup> factory, IFormBuilder formBuilder) : base(output, factory) {
-			FormBuilder = formBuilder;
+		public UnitTest1(ITestOutputHelper output, KWebAppFactory<Startup> factory) : base(output, factory) {
 		}
 
 		[Fact]
