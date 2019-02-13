@@ -17,7 +17,7 @@ namespace Kasp.FormBuilder.Tests {
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddFormBuilder(options => {
-				options.Components.Add<>()
+//				options.Components.Add<>()
 			});
 		}
 
