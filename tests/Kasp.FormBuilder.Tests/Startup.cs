@@ -15,11 +15,9 @@ namespace Kasp.FormBuilder.Tests {
 
         public void ConfigureServices(IServiceCollection services) {
             services.AddMvc(options => {
-                options.Filters.add
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddFormBuilder(options => {
-	            options.Components.Add<>()
             });
         }
 

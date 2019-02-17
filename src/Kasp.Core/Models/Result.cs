@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Kasp.Core.Models {
 	public class Result {
@@ -44,9 +45,10 @@ namespace Kasp.Core.Models {
 		public Result(T data) {
 			Data = data;
 		}
+	
 
-		public static Result<string> WithError(string key, string message) {
-			var result = new Result<string>();
+		public static Result<T> WithError(string key, string message) {
+			var result = new Result<T>();
 			result.AddError(key, message);
 
 			return result;
