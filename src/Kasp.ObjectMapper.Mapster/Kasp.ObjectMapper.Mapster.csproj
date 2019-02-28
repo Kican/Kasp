@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\version.props"/>
+
+	<PropertyGroup>
+		<id>Kasp.ObjectMapper.Mapster</id>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.ObjectMapper\Kasp.ObjectMapper.csproj"/>
+	</ItemGroup>
+
+
+</Project>

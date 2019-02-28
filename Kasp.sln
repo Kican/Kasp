@@ -39,6 +39,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.FormBuilder", "src\Kas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.FormBuilder.Tests", "tests\Kasp.FormBuilder.Tests\Kasp.FormBuilder.Tests.csproj", "{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.ObjectMapper", "src\Kasp.ObjectMapper\Kasp.ObjectMapper.csproj", "{14297FD2-EFAE-4D35-8853-5F812791DC47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.ObjectMapper.AutoMapper", "src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj", "{4205E401-FC1C-4FDC-AE38-877DE1782E8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.ObjectMapper.Mapster", "src\Kasp.ObjectMapper.Mapster\Kasp.ObjectMapper.Mapster.csproj", "{8D374BEA-5CA8-4B6F-840B-5CD2A04DCB4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.ObjectMapper.Tests", "tests\Kasp.ObjectMapper.Tests\Kasp.ObjectMapper.Tests.csproj", "{05F15CF2-B929-4075-9598-2E6A18699020}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,5 +133,21 @@ Global
 		{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE54A13A-FDFC-46F6-AA8E-AEB9F671C573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14297FD2-EFAE-4D35-8853-5F812791DC47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14297FD2-EFAE-4D35-8853-5F812791DC47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14297FD2-EFAE-4D35-8853-5F812791DC47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14297FD2-EFAE-4D35-8853-5F812791DC47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4205E401-FC1C-4FDC-AE38-877DE1782E8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4205E401-FC1C-4FDC-AE38-877DE1782E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4205E401-FC1C-4FDC-AE38-877DE1782E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4205E401-FC1C-4FDC-AE38-877DE1782E8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D374BEA-5CA8-4B6F-840B-5CD2A04DCB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D374BEA-5CA8-4B6F-840B-5CD2A04DCB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D374BEA-5CA8-4B6F-840B-5CD2A04DCB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D374BEA-5CA8-4B6F-840B-5CD2A04DCB4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F15CF2-B929-4075-9598-2E6A18699020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F15CF2-B929-4075-9598-2E6A18699020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F15CF2-B929-4075-9598-2E6A18699020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F15CF2-B929-4075-9598-2E6A18699020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
