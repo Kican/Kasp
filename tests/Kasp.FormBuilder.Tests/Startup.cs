@@ -12,7 +12,7 @@ namespace Kasp.FormBuilder.Tests {
 		}
 
 		public IConfiguration Configuration { get; }
-
+    
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

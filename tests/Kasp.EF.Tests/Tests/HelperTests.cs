@@ -155,7 +155,8 @@ namespace Kasp.EF.Tests.Tests {
 		}
 
 		public HelperTests(ITestOutputHelper output, KWebAppFactory<StartupDb> factory) : base(output, factory) {
-			_newsRepository = factory.Server.Host.Services.GetService<NewsRepository>();
+			_newsRepository = GetService<NewsRepository>();
 		}
+		
 	}
 }

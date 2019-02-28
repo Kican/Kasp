@@ -4,15 +4,14 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.FormBuilder.Tests {
-    public class UnitTest1 : KClassFixtureWebApp<Startup> {
-        private IFormBuilder FormBuilder { get; }
+	public class UnitTest1 : KClassFixtureWebApp<Startup> {
 
-        public UnitTest1(ITestOutputHelper output, KWebAppFactory<Startup> factory, IFormBuilder formBuilder) : base(output, factory) {
-            FormBuilder = formBuilder;
-        }
+		public UnitTest1(ITestOutputHelper output, KWebAppFactory<Startup> factory) : base(output, factory) {
+		}
 
-        [Fact]
-        public void Test1() {
-        }
-    }
+		[Fact]
+		public void Test1() {
+			Assert.True(1 == 2 - 1);
+		}
+	}
 }
