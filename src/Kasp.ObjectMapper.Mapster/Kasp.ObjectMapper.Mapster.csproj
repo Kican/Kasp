@@ -10,5 +10,8 @@
 		<ProjectReference Include="..\Kasp.ObjectMapper\Kasp.ObjectMapper.csproj"/>
 	</ItemGroup>
 
-
+	<ItemGroup>
+		<PackageReference Include="Mapster" Version="3.3.2"/>
+	</ItemGroup>
+	
 </Project>
