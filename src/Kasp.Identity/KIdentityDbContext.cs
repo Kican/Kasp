@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Kasp.EF.Helpers;
+using Kasp.Data.EF.Helpers;
 using Kasp.Identity.Entities.UserEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

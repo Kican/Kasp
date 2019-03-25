@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\version.tests.props" />
-    <ItemGroup>
-        <ProjectReference Include="..\..\src\Kasp.EF.Localization\Kasp.EF.Localization.csproj" />
-        <ProjectReference Include="..\Kasp.EF.Tests\Kasp.EF.Tests.csproj" />
-    </ItemGroup>
-</Project>

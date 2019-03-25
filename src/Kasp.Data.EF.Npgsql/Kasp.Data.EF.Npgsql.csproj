@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\version.props" />
+
+    <PropertyGroup>
+        <id>Kasp.EF.Npgsql</id>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Kasp.Data.EF\Kasp.Data.EF.csproj" />
+    </ItemGroup>
+</Project>

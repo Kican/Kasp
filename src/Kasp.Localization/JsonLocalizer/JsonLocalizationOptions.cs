@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Text;
 
 namespace Kasp.Localization.JsonLocalizer {

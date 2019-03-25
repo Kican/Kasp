@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.tests.props" />
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Kasp.CloudMessage.FireBase\Kasp.CloudMessage.FireBase.csproj" />
+	  <ProjectReference Include="..\..\src\Kasp.Test.EF\Kasp.Test.EF.csproj" />
+	</ItemGroup>
+
+</Project>

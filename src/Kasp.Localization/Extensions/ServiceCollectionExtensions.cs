@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Kasp.Core.Extensions;
 using Kasp.Localization.JsonLocalizer;
 using Microsoft.AspNetCore.Builder;

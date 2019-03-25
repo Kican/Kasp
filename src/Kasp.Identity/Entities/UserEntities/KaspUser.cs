@@ -1,5 +1,5 @@
 using System;
-using Kasp.EF.Models.Helpers;
+using Kasp.Data.EF.Models.Helpers;
 using Kasp.Identity.Core.Models;
 
 namespace Kasp.Identity.Entities.UserEntities {

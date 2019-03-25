@@ -6,8 +6,6 @@ using Kasp.Identity.Services;
 using Kasp.Identity.Tests.Models.UserModels;
 using Kasp.Identity.Tests.Models.UserModels.XModels;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 
 namespace Kasp.Identity.Tests.Controllers {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\version.props" />
 
     <PropertyGroup>
@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Kasp.EF\Kasp.EF.csproj" />
+        <ProjectReference Include="..\Kasp.Data.EF\Kasp.Data.EF.csproj" />
         <ProjectReference Include="..\Kasp.Identity.Core\Kasp.Identity.Core.csproj" />
     </ItemGroup>
 </Project>

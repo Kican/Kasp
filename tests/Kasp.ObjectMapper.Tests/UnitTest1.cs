@@ -1,4 +1,3 @@
-using System;
 using Kasp.ObjectMapper.Extensions;
 using Kasp.ObjectMapper.Tests.Models;
 using Xunit;

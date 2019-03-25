@@ -1,5 +1,5 @@
 using Kasp.Core.Extensions;
-using Kasp.EF.Extensions;
+using Kasp.Data.EF.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

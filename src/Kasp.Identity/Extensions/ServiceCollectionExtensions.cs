@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using Kasp.EF.Extensions;
+using Kasp.Data.EF.Extensions;
 using Kasp.Identity.Entities;
 using Kasp.Identity.Entities.UserEntities;
 using Microsoft.AspNetCore.Authentication;

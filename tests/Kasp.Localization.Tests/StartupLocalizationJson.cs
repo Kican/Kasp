@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Kasp.Core.Extensions;
 using Kasp.Localization.Extensions;
-using Kasp.Localization.JsonLocalizer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
