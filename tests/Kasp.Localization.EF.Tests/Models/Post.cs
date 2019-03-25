@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models.Helpers;
 using Kasp.Localization.EF.Models;
 using Kasp.Localization.EF.Models.Helpers;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Data.EF.Models;
+using Kasp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.Data.EF.Extensions {

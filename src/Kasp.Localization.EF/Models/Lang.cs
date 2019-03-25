@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models.Helpers;
 
 namespace Kasp.Localization.EF.Models {
 	public class Lang : IModel<string>, IEnable, IPriority {

@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models.Helpers;
 
 namespace Kasp.Data.EF.Extensions {
 	public static class ModelHelperExtensions {

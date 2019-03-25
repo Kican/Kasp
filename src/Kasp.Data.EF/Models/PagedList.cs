@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Kasp.Data.Models;
 
 namespace Kasp.Data.EF.Models {
 	public class PagedList<TSource, TElement> : IPagedList<TElement> {

@@ -8,7 +8,8 @@ using AutoMapper.QueryableExtensions;
 using Kasp.Data.EF.Extensions;
 using Kasp.Data.EF.Helpers;
 using Kasp.Data.EF.Models;
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models;
+using Kasp.Data.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.Data.EF.Data {

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Kasp.Data.EF.Models {
+namespace Kasp.Data {
 	public interface IPagedList : IList {
 		int PageIndex { get; }
 

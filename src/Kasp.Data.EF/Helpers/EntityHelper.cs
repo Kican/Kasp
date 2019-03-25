@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Kasp.Data.EF.Extensions;
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 

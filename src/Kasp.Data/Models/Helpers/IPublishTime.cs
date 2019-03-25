@@ -1,6 +1,6 @@
 using System;
 
-namespace Kasp.Data.EF.Models.Helpers {
+namespace Kasp.Data.Models.Helpers {
 	public interface IPublishTime {
 		DateTime PublishTime { set; get; }
 	}

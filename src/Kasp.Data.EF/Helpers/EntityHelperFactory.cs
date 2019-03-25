@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models.Helpers;
 
 namespace Kasp.Data.EF.Helpers {
 	public class EntityHelperFactory {

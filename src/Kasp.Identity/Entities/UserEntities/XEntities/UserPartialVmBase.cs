@@ -1,4 +1,4 @@
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models.Helpers;
 
 namespace Kasp.Identity.Entities.UserEntities.XEntities {
 	public class UserPartialVmBase : IModel {

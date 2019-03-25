@@ -1,4 +1,4 @@
-namespace Kasp.Data.EF.Models.Helpers {
+namespace Kasp.Data.Models.Helpers {
 	public interface IEnable {
 		bool Enable { get; set; }
 	}

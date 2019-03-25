@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Kasp.Data.EF.Models.Helpers;
+using Kasp.Data.Models.Helpers;
 
 namespace Kasp.CloudMessage.FireBase.Models.UserTokenModels {
 	public class FcmUserToken : IModel, ICreateTime, IUpdateTime {
