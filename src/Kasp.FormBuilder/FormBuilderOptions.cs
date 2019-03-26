@@ -2,6 +2,6 @@ using Kasp.FormBuilder.Components;
 
 namespace Kasp.FormBuilder {
     public class FormBuilderOptions {
-        public ComponentCollection Components { get; } = new ComponentCollection();
+        public ComponentHandlerCollection ComponentHandlers { get; } = new ComponentHandlerCollection();
     }
 }

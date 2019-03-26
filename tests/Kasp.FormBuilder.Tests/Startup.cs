@@ -11,14 +11,12 @@ namespace Kasp.FormBuilder.Tests {
 			Configuration = configuration;
 		}
 
-		public IConfiguration Configuration { get; }
-    
-		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+		private IConfiguration Configuration { get; }
 
-			services.AddFormBuilder(options => {
-//				options.Components.Add<>()
-			});
+		public void ConfigureServices(IServiceCollection services) {
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			services.AddFormBuilder(options => { });
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

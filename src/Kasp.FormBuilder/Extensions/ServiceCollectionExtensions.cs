@@ -12,7 +12,10 @@ namespace Kasp.FormBuilder.Extensions {
 
 		public static IServiceCollection AddFormBuilder(this IServiceCollection services, Action<FormBuilderOptions> setupAction) {
 			services.AddFormBuilder();
-			services.Configure<FormBuilderOptions>(setupAction);
+			
+			var options = new FormBuilderOptions();
+			setupAction(options);
+			services.AddSingleton(options);
 
 			return services;
 		}

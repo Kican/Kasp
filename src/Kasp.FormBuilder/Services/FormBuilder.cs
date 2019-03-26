@@ -3,13 +3,17 @@ using System.Threading.Tasks;
 using Kasp.FormBuilder.Models;
 
 namespace Kasp.FormBuilder.Services {
-    public class FormBuilder : IFormBuilder {
-        public Task<IComponent> FromModel<TModel>() where TModel : class {
-            throw new NotImplementedException();
-        }
+	public class FormBuilder : IFormBuilder {
+		public FormBuilder(FormBuilderOptions formBuilderOptions) {
+			FormBuilderOptions = formBuilderOptions;
+		}
 
-        public Task<IComponent> FromModel(Type type) {
-            throw new NotImplementedException();
-        }
-    }
+		private FormBuilderOptions FormBuilderOptions { get; }
+
+		public async Task<IComponent> FromModel<TModel>() where TModel : class => await FromModel(typeof(TModel));
+
+		public async Task<IComponent> FromModel(Type type) {
+			return FormBuilderOptions.ComponentHandlers.FindHandler(type).Process();
+		}
+	}
 }
