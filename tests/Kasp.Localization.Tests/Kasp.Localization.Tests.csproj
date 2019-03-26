@@ -1,22 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\version.tests.props" />
-    <ItemGroup>
-        <ProjectReference Include="..\..\src\Kasp.Localization\Kasp.Localization.csproj" />
-        <ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <EmbeddedResource Update="Resources\Controllers.LocalizationController.fa.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Controllers.LocalizationController.en.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-        </EmbeddedResource>
-        <Content Update="Resources/localize.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="Resources\localize.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.tests.props" />
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Kasp.Localization\Kasp.Localization.csproj" />
+		<ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Controllers.LocalizationController.fa.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Controllers.LocalizationController.en.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<Content Update="Resources/localize.json">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\localize.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 </Project>
