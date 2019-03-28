@@ -17,12 +17,10 @@ namespace Kasp.FormBuilder.Components.Elements {
 	}
 
 	public class DateTimeComponentResolver : BaseComponentResolver<DateTimeComponent> {
-		public override Task<DateTimeComponent> ResolveAsync(Type type) {
-			throw new NotImplementedException();
+		public override async Task<DateTimeComponent> ResolveAsync(Type type) {
+			return Component;
 		}
 
-		public override Task<DateTimeComponent> ResolveAsync(PropertyInfo propertyInfo) {
-			throw new NotImplementedException();
-		}
+		public override Task<DateTimeComponent> ResolveAsync(PropertyInfo propertyInfo) => ResolveAsync(propertyInfo.PropertyType);
 	}
 }

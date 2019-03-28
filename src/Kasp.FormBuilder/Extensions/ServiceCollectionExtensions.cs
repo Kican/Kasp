@@ -18,7 +18,7 @@ namespace Kasp.FormBuilder.Extensions {
 			services.AddSingleton(options);
 
 			foreach (var handler in options.ComponentHandlers)
-				services.AddTransient(typeof(IComponentHandler), handler);
+				services.AddTransient(handler.GetResolverType());
 
 			return services;
 		}

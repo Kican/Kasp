@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Kasp.FormBuilder.Services;
@@ -8,17 +9,26 @@ namespace Kasp.FormBuilder.Components.Layouts {
 		public override bool IsOwner(PropertyInfo propertyInfo) => IsOwner(propertyInfo.PropertyType);
 
 		public override bool IsOwner(Type type) {
-			return type.IsClass && type.GetProperties().Length > 0;
+			return type.IsClass && type.GetProperties().Length > 0 && !type.IsPrimitive && type.Name != "String";
 		}
 	}
 
 	public class LinearLayoutComponentResolver : BaseComponentResolver<LinearLayoutComponent> {
-		public override Task<LinearLayoutComponent> ResolveAsync(Type type) {
-			throw new NotImplementedException();
+		public LinearLayoutComponentResolver(IFormBuilder formBuilder) {
+			FormBuilder = formBuilder;
+		}
+		private IFormBuilder FormBuilder { get; }
+		
+		public override async Task<LinearLayoutComponent> ResolveAsync(Type type) {
+			Component.Children = new List<IComponent>();
+
+			foreach (var property in type.GetProperties()) {
+				Component.Children.Add(await FormBuilder.FromProperty(property));
+			}
+
+			return Component;
 		}
 
-		public override Task<LinearLayoutComponent> ResolveAsync(PropertyInfo propertyInfo) {
-			throw new NotImplementedException();
-		}
+		public override Task<LinearLayoutComponent> ResolveAsync(PropertyInfo propertyInfo) => ResolveAsync(propertyInfo.PropertyType);
 	}
 }

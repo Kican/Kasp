@@ -9,9 +9,6 @@ namespace Kasp.FormBuilder.Components {
 
 		public abstract bool IsOwner(PropertyInfo propertyInfo);
 		public abstract bool IsOwner(Type type);
-
-		public virtual IComponent Process() {
-			return Component;
-		}
+		public Type GetResolverType() => typeof(TComponentResolver);
 	}
 }

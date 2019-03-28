@@ -17,7 +17,7 @@ namespace Kasp.FormBuilder.Tests {
 		[Fact]
 		public async Task Test1() {
 			var form = await FormBuilder.FromModel<ContactUs>();
-			Output.WriteLine(JsonConvert.SerializeObject(form));
+			Output.WriteLine(JsonConvert.SerializeObject(form,new JsonSerializerSettings(){NullValueHandling = NullValueHandling.Ignore}));
 			Assert.True(1 == 2 - 1);
 		}
 	}
