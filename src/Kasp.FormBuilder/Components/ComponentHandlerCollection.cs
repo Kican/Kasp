@@ -1,14 +1,36 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using Kasp.FormBuilder.Components.Elements;
+using Kasp.FormBuilder.Components.Layouts;
 
 namespace Kasp.FormBuilder.Components {
-	public class ComponentHandlerCollection : Collection<IComponentHandler> {
+	public class ComponentHandlerCollection : IEnumerable<Type> {
+		private ICollection<Type> Handlers { get; } = new List<Type>();
+
 		public ComponentHandlerCollection() {
-			Add(new DateTimeComponentHandler());
-			Add(new TextFieldComponentHandler());
+			Add<LinearLayoutComponentHandler>();
+
+			Add<DateTimeComponentHandler>();
+			Add<TextFieldComponentHandler>();
 		}
 
-		public IComponentHandler FindHandler(Type type) => this.First(x => x.IsOwner(type));
+		public void Add<THandler>() where THandler : class, IComponentHandler {
+			Handlers.Add(typeof(THandler));
+		}
+
+		public void Remove<THandler>() where THandler : class, IComponentHandler {
+			Handlers.Remove(typeof(THandler));
+		}
+
+//		public IComponentHandler FindHandler(Type type) => this.First(x => x.IsOwner(type));
+		public IEnumerator<Type> GetEnumerator() {
+			return Handlers.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() {
+			return GetEnumerator();
+		}
 	}
 }

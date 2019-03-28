@@ -1,21 +1,24 @@
 using System;
+using Kasp.FormBuilder.Components;
 using Kasp.FormBuilder.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.FormBuilder.Extensions {
 	public static class ServiceCollectionExtensions {
 		public static IServiceCollection AddFormBuilder(this IServiceCollection services) {
-			services.AddTransient<IFormBuilder, Services.FormBuilder>();
-
+			services.AddFormBuilder(options => { });
 			return services;
 		}
 
 		public static IServiceCollection AddFormBuilder(this IServiceCollection services, Action<FormBuilderOptions> setupAction) {
-			services.AddFormBuilder();
-			
+			services.AddTransient<IFormBuilder, Services.FormBuilder>();
+
 			var options = new FormBuilderOptions();
 			setupAction(options);
 			services.AddSingleton(options);
+
+			foreach (var handler in options.ComponentHandlers)
+				services.AddTransient(typeof(IComponentHandler), handler);
 
 			return services;
 		}

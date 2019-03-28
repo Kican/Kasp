@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Kasp.FormBuilder.Components;
 using Kasp.FormBuilder.Models;
 
 namespace Kasp.FormBuilder.Services {
@@ -13,7 +14,8 @@ namespace Kasp.FormBuilder.Services {
 		public async Task<IComponent> FromModel<TModel>() where TModel : class => await FromModel(typeof(TModel));
 
 		public async Task<IComponent> FromModel(Type type) {
-			return FormBuilderOptions.ComponentHandlers.FindHandler(type).Process();
+//			return FormBuilderOptions.ComponentHandlers.FindHandler(type).Process();
+			throw new NotImplementedException();
 		}
 	}
 }

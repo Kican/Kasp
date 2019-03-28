@@ -1,8 +1,7 @@
 using System;
 using System.Reflection;
-using Kasp.FormBuilder.Models;
 
-namespace Kasp.FormBuilder {
+namespace Kasp.FormBuilder.Components {
 	public interface IComponentHandler {
 		bool IsOwner(PropertyInfo propertyInfo);
 		bool IsOwner(Type type);
