@@ -21,6 +21,9 @@ namespace Kasp.FormBuilder.Components.Elements {
 			return Component;
 		}
 
-		public override Task<DateTimeComponent> ResolveAsync(PropertyInfo propertyInfo) => ResolveAsync(propertyInfo.PropertyType);
+		public override Task<DateTimeComponent> ResolveAsync(PropertyInfo propertyInfo) {
+			Component.Name = propertyInfo.Name;
+			return ResolveAsync(propertyInfo.PropertyType);
+		}
 	}
 }
