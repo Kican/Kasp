@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\version.tests.props" />
-    <ItemGroup>
-      <ProjectReference Include="..\..\src\Kasp.FormBuilder\Kasp.FormBuilder.csproj" />
-      <ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
-    </ItemGroup>
-    
+	<Import Project="..\version.tests.props"/>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Kasp.FormBuilder\Kasp.FormBuilder.csproj"/>
+		<ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj"/>
+	</ItemGroup>
+
 </Project>

@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.tests.props" />
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Kasp.FormBuilder.FluentValidation\Kasp.FormBuilder.FluentValidation.csproj" />
+		<ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.props"/>
+
+	<PropertyGroup>
+		<id>Kasp.FormBuilder.FluentValidation</id>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.FormBuilder\Kasp.FormBuilder.csproj"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation.AspNetCore" Version="8.2.0"/>
+	</ItemGroup>
+
+</Project>
