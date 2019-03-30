@@ -6,10 +6,8 @@ using Kasp.FormBuilder.Services;
 
 namespace Kasp.FormBuilder.Components.Layouts {
 	public class LinearLayoutComponentHandler : BaseLayoutComponentHandler<LinearLayoutComponent, LinearLayoutComponentResolver> {
-		public override bool IsOwner(PropertyInfo propertyInfo) => IsOwner(propertyInfo.PropertyType);
-
-		public override bool IsOwner(Type type) {
-			return type.IsClass && type.GetProperties().Length > 0 && !type.IsPrimitive && type.Name != "String";
+		public override bool IsOwner(ComponentOptions options) {
+			return options.Type.IsClass && options.Type.GetProperties().Length > 0 && !options.Type.IsPrimitive && options.Type.Name != "String";
 		}
 	}
 
@@ -17,18 +15,17 @@ namespace Kasp.FormBuilder.Components.Layouts {
 		public LinearLayoutComponentResolver(IFormBuilder formBuilder) {
 			FormBuilder = formBuilder;
 		}
+
 		private IFormBuilder FormBuilder { get; }
-		
-		public override async Task<LinearLayoutComponent> ResolveAsync(Type type) {
+
+		public override async Task<LinearLayoutComponent> ResolveAsync(ComponentOptions options) {
 			Component.Children = new List<IComponent>();
 
-			foreach (var property in type.GetProperties()) {
+			foreach (var property in options.Type.GetProperties()) {
 				Component.Children.Add(await FormBuilder.FromProperty(property));
 			}
 
 			return Component;
 		}
-
-		public override Task<LinearLayoutComponent> ResolveAsync(PropertyInfo propertyInfo) => ResolveAsync(propertyInfo.PropertyType);
 	}
 }

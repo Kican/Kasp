@@ -18,17 +18,35 @@ namespace Kasp.FormBuilder.Services {
 		public async Task<IComponent> FromModel<TModel>() where TModel : class => await FromModel(typeof(TModel));
 
 		public async Task<IComponent> FromModel(Type type) {
-			var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(type).GetResolverType();
+			var options = GetOptions(type);
+
+			var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(options).GetResolverType();
 			var resolver = (IComponentResolver) ServiceProvider.GetService(resolverType);
 
-			return await resolver.ResolveAsync(type);
+			return await resolver.ResolveAsync(options);
 		}
 
 		public async Task<IComponent> FromProperty(PropertyInfo type) {
-			var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(type).GetResolverType();
+			var options = GetOptions(type);
+			var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(options).GetResolverType();
 			var resolver = (IComponentResolver) ServiceProvider.GetService(resolverType);
 
-			return await resolver.ResolveAsync(type);
+			return await resolver.ResolveAsync(options);
+		}
+
+		private ComponentOptions GetOptions(Type type) {
+			return new ComponentOptions {
+				Type = type,
+				Name = type.Name
+			};
+		}
+		
+		private ComponentOptions GetOptions(PropertyInfo propertyInfo) {
+			return new ComponentOptions {
+				Type = propertyInfo.PropertyType,
+				PropertyInfo = propertyInfo,
+				Name = propertyInfo.Name
+			};
 		}
 	}
 }
