@@ -1,8 +1,6 @@
-using Kasp.FormBuilder.Models;
-
 namespace Kasp.FormBuilder.Validators {
-    public class MaxValidator : IValidator {
-        public string Name => "max";
-        public int Value { get; set; }
-    }
+	public class MaxValidator : BaseValidator {
+		public override string Name => "max";
+		public int Value { get; set; }
+	}
 }
