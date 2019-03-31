@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Threading.Tasks;
 using Kasp.FormBuilder.Components;
@@ -35,18 +37,20 @@ namespace Kasp.FormBuilder.Services {
 		}
 
 		private ComponentOptions GetOptions(Type type) {
-			return new ComponentOptions {
-				Type = type,
-				Name = type.Name
-			};
+			return new ComponentOptions {Type = type, Name = type.Name};
 		}
-		
+
 		private ComponentOptions GetOptions(PropertyInfo propertyInfo) {
-			return new ComponentOptions {
-				Type = propertyInfo.PropertyType,
-				PropertyInfo = propertyInfo,
-				Name = propertyInfo.Name
-			};
+			var attributeValidators = propertyInfo.GetCustomAttributes<ValidationAttribute>();
+
+			var validators = new List<IValidator>();
+			foreach (var validationAttribute in attributeValidators) {
+				var validator = FormBuilderOptions.ValidatorCollection.Convert(validationAttribute);
+				if (validator != null)
+					validators.Add(validator);
+			}
+
+			return new ComponentOptions {Type = propertyInfo.PropertyType, PropertyInfo = propertyInfo, Name = propertyInfo.Name, Validators = validators};
 		}
 	}
 }

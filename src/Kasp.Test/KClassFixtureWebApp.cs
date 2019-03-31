@@ -20,6 +20,7 @@ namespace Kasp.Test {
 		}
 
 		protected TService GetService<TService>() => ServiceProvider.GetService<TService>();
+		protected object GetService(Type type) => ServiceProvider.GetService(type);
 
 		protected TService GetRequiredService<TService>() => ServiceProvider.GetRequiredService<TService>();
 	}

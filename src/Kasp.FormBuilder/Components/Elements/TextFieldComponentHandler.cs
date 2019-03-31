@@ -10,6 +10,7 @@ namespace Kasp.FormBuilder.Components.Elements {
 	public class TextFieldComponentResolver : BaseComponentResolver<TextFieldComponent> {
 		public override Task<TextFieldComponent> ResolveAsync(ComponentOptions type) {
 			Component.Name = type.Name;
+			Component.Validators = type.Validators;
 			return Task.FromResult(Component);
 		}
 	}
