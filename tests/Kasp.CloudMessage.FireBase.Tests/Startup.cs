@@ -24,13 +24,13 @@ namespace Kasp.CloudMessage.FireBase.Tests {
 
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddKasp(Configuration, mvc)
-				.AddDataBase<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
-				.AddEFRepositories()
-				.AddFcm<AppDbContext>("test", "test.json");
+				.AddDataBase<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"));
+//				.AddEFRepositories()
+//				.AddFcm<AppDbContext>("test", "test.json");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext) {
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
 			app.UseKasp().UseTestDataBase<AppDbContext>();
 
 			app.UseStaticFiles();
