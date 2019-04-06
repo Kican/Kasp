@@ -1,18 +1,24 @@
 language: csharp
 
 matrix:
-  include:
-    - os: linux # Ubuntu 14.04
-      dist: trusty
-      sudo: required
-      dotnet: 2.2.202
-      mono: latest
+	include:
+		- os: linux # Ubuntu 14.04
+		  dist: trusty
+		  sudo: required
+		  dotnet: 2.2.202
+		  mono: latest
 
 
 branches:
-  only:
-    - master
+	only:
+		- master
 
 script:
-  - dotnet restore
-  - dotnet test
+	- dotnet restore
+	- dotnet test
+
+addons:
+	apt:
+		sources:
+			- sourceline: 'deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main'
+			  key_url: 'https://packages.microsoft.com/keys/microsoft.asc'
