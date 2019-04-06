@@ -4,6 +4,9 @@ indent_style = tab
 charset = utf-8
 max_line_length = 200
 
+[*.yml]
+indent_style = space
+
 [*.{cs, csx, cake, vb}]
 csharp_new_line_before_open_brace = none
 csharp_new_line_before_else = false

@@ -1,22 +1,22 @@
 language: csharp
 
 matrix:
-	include:
-		- os: linux
-		  dist: xenial
-		  sudo: required
-		  dotnet: 2.2.202
-		  mono: none
+  include:
+    - os: linux
+      dist: xenial
+      sudo: required
+      dotnet: 2.2.202
+      mono: none
 
 branches:
-	only:
-		- master
-		- dev
+  only:
+    - master
+    - dev
 
 script:
-	- dotnet restore
-	- dotnet test
+  - dotnet restore
+  - dotnet test
 
 global:
-	- DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
-	- DOTNET_CLI_TELEMETRY_OPTOUT=1
+  - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+  - DOTNET_CLI_TELEMETRY_OPTOUT=1
