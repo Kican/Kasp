@@ -8,10 +8,10 @@ matrix:
 		  dotnet: 2.2.202
 		  mono: latest
 
-
 branches:
 	only:
 		- master
+		- dev
 
 script:
 	- dotnet restore
