@@ -14,7 +14,7 @@ namespace Kasp.FormBuilder.Extensions {
 			services.AddTransient<IFormBuilder, Services.FormBuilder>();
 			services.AddTransient<IValidatorResolver, MvcValidatorResolver>();
 
-			var options = new FormBuilderOptions();
+			var options = new FormBuilderOptions(services);
 			setupAction(options);
 			services.AddSingleton(options);
 

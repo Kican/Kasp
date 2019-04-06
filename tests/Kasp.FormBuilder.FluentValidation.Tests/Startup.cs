@@ -1,6 +1,7 @@
 using System.Linq;
 using FluentValidation.AspNetCore;
 using Kasp.FormBuilder.Extensions;
+using Kasp.FormBuilder.FluentValidation.Extensions;
 using Kasp.FormBuilder.FluentValidation.Parsers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,13 +22,8 @@ namespace Kasp.FormBuilder.FluentValidation.Tests {
 				.AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining(typeof(Startup)))
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-
-			services.AddScoped<IValidatorResolver, FluentValidationValidatorResolver>();
-
 			services.AddFormBuilder(options => {
-				options.ValidatorCollection.Add(new NotNullValidatorParser());
-				options.ValidatorCollection.Add(new MaximumLengthValidatorParser());
-				options.ValidatorCollection.Add(new LengthValidatorParser());
+				options.AddFluentValidation();
 			});
 		}
 

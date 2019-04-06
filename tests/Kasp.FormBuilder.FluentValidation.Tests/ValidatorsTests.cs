@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Kasp.FormBuilder.Components;
 using Kasp.FormBuilder.Components.Elements;
 using Kasp.FormBuilder.Components.Layouts;
 using Kasp.FormBuilder.FluentValidation.Tests.Models;
@@ -15,25 +17,35 @@ namespace Kasp.FormBuilder.FluentValidation.Tests {
 
 		private IFormBuilder FormBuilder { get; }
 
+		private async Task<T> GetFieldAsync<T>(string name) where T : IComponent {
+			var result = (LinearLayoutComponent) await FormBuilder.FromModel<Person>();
+			return (T) result.Children.Find(x => x.Name == name);
+		}
+
 		[Fact]
 		public async void NotNullValidator() {
-			var result = (LinearLayoutComponent) await FormBuilder.FromModel<Person>();
-			var textField = (TextFieldComponent) result.Children.Find(x => x.Name == nameof(Person.Name));
-			Assert.Contains(textField.Validators, validator => validator.Name == new RequiredValidator().Name);
+			var field = await GetFieldAsync<TextFieldComponent>(nameof(Person.Name));
+			Assert.Contains(field.Validators, validator => validator.Name == new RequiredValidator().Name);
 		}
 
 		[Fact]
 		public async void MaximumLengthValidator() {
-			var result = (LinearLayoutComponent) await FormBuilder.FromModel<Person>();
-			var textField = (TextFieldComponent) result.Children.Find(x => x.Name == nameof(Person.Family));
-			Assert.Contains(textField.Validators, validator => validator.Name == new MaxLengthValidator().Name);
+			var field = await GetFieldAsync<TextFieldComponent>(nameof(Person.Family));
+			Assert.Contains(field.Validators, validator => validator.Name == new MaxLengthValidator().Name);
 		}
 
 		[Fact]
 		public async void LengthValidator() {
-			var result = (LinearLayoutComponent) await FormBuilder.FromModel<Person>();
-			var textField = (TextFieldComponent) result.Children.Find(x => x.Name == nameof(Person.Name));
-			Assert.Contains(textField.Validators, validator => validator.Name == new RangeLengthValidator().Name);
+			var field = await GetFieldAsync<TextFieldComponent>(nameof(Person.Name));
+			Assert.Contains(field.Validators, validator => validator.Name == new RangeLengthValidator().Name);
+		}
+
+		[Fact]
+		public async void MvcRequired_Email_MaxLength() {
+			var field = await GetFieldAsync<TextFieldComponent>(nameof(Person.Email));
+			Assert.Contains(field.Validators, validator => validator.Name == new MaxLengthValidator().Name);
+			Assert.Contains(field.Validators, validator => validator.Name == new RequiredValidator().Name);
+			Assert.Contains(field.Validators, validator => validator.Name == new EmailValidator().Name);
 		}
 	}
 }

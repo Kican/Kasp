@@ -5,6 +5,7 @@ namespace Kasp.FormBuilder.FluentValidation.Tests.Models.Validators {
 		public PersonValidator() {
 			RuleFor(x => x.Name).NotNull().Length(10, 100);
 			RuleFor(x => x.Family).NotNull().MaximumLength(100);
+			RuleFor(x => x.Email).EmailAddress().MaximumLength(100);
 		}
 	}
 }
