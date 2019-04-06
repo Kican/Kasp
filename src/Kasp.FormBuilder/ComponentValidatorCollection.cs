@@ -24,7 +24,7 @@ namespace Kasp.FormBuilder {
 		Type SourceType { get; }
 	}
 
-	public abstract class BaseValidatorParser<TAttribute, TValidator> : IValidatorParser where TAttribute : Attribute where TValidator : IValidator {
+	public abstract class BaseValidatorParser<TAttribute, TValidator> : IValidatorParser where TValidator : IValidator where TAttribute : class {
 		public abstract TValidator Parse(TAttribute attribute);
 
 		public IValidator Process(object @class) => Parse(@class as TAttribute);

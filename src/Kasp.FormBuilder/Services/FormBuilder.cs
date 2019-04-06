@@ -9,13 +9,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.FormBuilder.Services {
 	public class FormBuilder : IFormBuilder {
-		public FormBuilder(FormBuilderOptions formBuilderOptions, IServiceProvider serviceProvider) {
+		public FormBuilder(FormBuilderOptions formBuilderOptions, IServiceProvider serviceProvider, IEnumerable<IValidatorResolver> validatorResolvers) {
 			FormBuilderOptions = formBuilderOptions;
 			ServiceProvider = serviceProvider;
+			ValidatorResolvers = validatorResolvers;
 		}
 
 		private FormBuilderOptions FormBuilderOptions { get; }
 		private IServiceProvider ServiceProvider { get; }
+		private IEnumerable<IValidatorResolver> ValidatorResolvers { get; }
 
 		public async Task<IComponent> FromModel<TModel>() where TModel : class => await FromModel(typeof(TModel));
 
@@ -30,6 +32,7 @@ namespace Kasp.FormBuilder.Services {
 
 		public async Task<IComponent> FromProperty(PropertyInfo type) {
 			var options = GetOptions(type);
+
 			var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(options).GetResolverType();
 			var resolver = (IComponentResolver) ServiceProvider.GetService(resolverType);
 
@@ -41,14 +44,10 @@ namespace Kasp.FormBuilder.Services {
 		}
 
 		private ComponentOptions GetOptions(PropertyInfo propertyInfo) {
-			var attributeValidators = propertyInfo.GetCustomAttributes<ValidationAttribute>();
-
 			var validators = new List<IValidator>();
-			foreach (var validationAttribute in attributeValidators) {
-				var validator = FormBuilderOptions.ValidatorCollection.Convert(validationAttribute);
-				if (validator != null)
-					validators.Add(validator);
-			}
+			
+			foreach (var resolver in ValidatorResolvers)
+				validators.AddRange(resolver.GetValidators(propertyInfo));
 
 			return new ComponentOptions {Type = propertyInfo.PropertyType, PropertyInfo = propertyInfo, Name = propertyInfo.Name, Validators = validators};
 		}

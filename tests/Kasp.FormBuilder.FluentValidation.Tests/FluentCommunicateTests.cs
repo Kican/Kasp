@@ -16,12 +16,16 @@ namespace Kasp.FormBuilder.FluentValidation.Tests {
 		public void GetModelValidator() {
 			var validatorType = typeof(IValidator<>).MakeGenericType(typeof(Person));
 
+			var nameProp = typeof(Person).GetProperty(nameof(Person.Name));
+
 			var validator = GetService(validatorType) as PersonValidator;
 
 			var validators = validator.First(x=> (x as PropertyRule).PropertyName == "Name");
 
 			Assert.IsType<PersonValidator>(validator);
 		}
+
+
 	}
 
 }

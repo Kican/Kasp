@@ -1,6 +1,7 @@
 using System.Linq;
 using FluentValidation.AspNetCore;
 using Kasp.FormBuilder.Extensions;
+using Kasp.FormBuilder.FluentValidation.Parsers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,14 @@ namespace Kasp.FormBuilder.FluentValidation.Tests {
 				.AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining(typeof(Startup)))
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-			services.AddFormBuilder();
+
+			services.AddScoped<IValidatorResolver, FluentValidationValidatorResolver>();
+
+			services.AddFormBuilder(options => {
+				options.ValidatorCollection.Add(new NotNullValidatorParser());
+				options.ValidatorCollection.Add(new MaximumLengthValidatorParser());
+				options.ValidatorCollection.Add(new LengthValidatorParser());
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,6 +12,7 @@ namespace Kasp.FormBuilder.Extensions {
 
 		public static IServiceCollection AddFormBuilder(this IServiceCollection services, Action<FormBuilderOptions> setupAction) {
 			services.AddTransient<IFormBuilder, Services.FormBuilder>();
+			services.AddTransient<IValidatorResolver, MvcValidatorResolver>();
 
 			var options = new FormBuilderOptions();
 			setupAction(options);
