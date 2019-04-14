@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Kasp.Core.Controllers;
 using Kasp.Data.Models.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace Kasp.Data {
 		}
 
 		protected TRepository Repository { get; }
+		protected IMapper Mapper { get; }
 
 		[HttpGet]
 		public async Task<ActionResult<TViewModel>> Get(TKey id) {
@@ -26,19 +28,26 @@ namespace Kasp.Data {
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<TViewModel>> Create(TInsertModel id) {
-			var item = await Repository.GetAsync<TViewModel>(id);
+		public async Task<ActionResult<TViewModel>> Create(TInsertModel model) {
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
 
-			if (item == null)
-				return NotFound();
-			return item;
+			var item = Mapper.Map<TModel>(model);
+			await Repository.AddAsync(item);
+			await Repository.SaveAsync();
+
+			return Mapper.Map<TViewModel>(item);
 		}
-		
+
 		[HttpDelete]
-		public async Task<Action<>>
+		public async Task<IActionResult> Remove(TKey id) {
+			await Repository.RemoveAsync(id);
+			await Repository.SaveAsync();
+			return Ok();
+		}
 	}
 
-	public abstract class CrudControllerBase<TRepository, TModel, TInsertModel, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TModel, TModel, TModel, int>
+	public abstract class CrudControllerBase<TRepository, TModel, TInsertModel, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TViewModel, TInsertModel, TEditModel, int>
 		where TRepository : IBaseRepository<TModel, int>
 		where TViewModel : IModel
 		where TEditModel : IModel
