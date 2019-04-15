@@ -5,6 +5,9 @@ namespace Kasp.ObjectMapper {
 		TDestination MapTo<TDestination>(object source);
 		TDestination MapTo<TDestination>(object source, TDestination destination);
 
-		TDestination MapTo<TDestination>(IQueryable source);
+		IQueryable<TDestination> MapTo<TDestination>(IQueryable source);
+	}
+
+	public interface IObjectMapper<T> where T : IObjectMapper {
 	}
 }

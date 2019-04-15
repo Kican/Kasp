@@ -4,6 +4,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\Kasp.ObjectMapper\Kasp.ObjectMapper.csproj" />
+	  <ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\version.tests.props" />
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj" />
+	  <ProjectReference Include="..\Kasp.ObjectMapper.Tests\Kasp.ObjectMapper.Tests.csproj" />
+	</ItemGroup>
+
+</Project>

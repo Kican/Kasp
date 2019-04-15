@@ -7,7 +7,7 @@ namespace Kasp.ObjectMapper.Tests {
 		[Fact]
 		public void Test1() {
 			var user = new User();
-			var userVm = user.MapTo<UserVm>();
+//			var userVm = user.MapTo<UserVm>();
 		}
 	}
 }
