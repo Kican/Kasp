@@ -1,8 +1,7 @@
-using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using Kasp.Core.Controllers;
 using Kasp.Data.Models.Helpers;
+using Kasp.ObjectMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kasp.Data {
@@ -11,17 +10,17 @@ namespace Kasp.Data {
 		where TViewModel : IModel<TKey>
 		where TEditModel : IModel<TKey>
 		where TModel : class, IModel<TKey> {
-		protected CrudControllerBase(TRepository repository) {
+		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) {
 			Repository = repository;
+			ObjectMapper = objectMapper;
 		}
 
 		protected TRepository Repository { get; }
-		protected IMapper Mapper { get; }
+		protected IObjectMapper ObjectMapper { get; }
 
 		[HttpGet]
 		public async Task<ActionResult<TViewModel>> Get(TKey id) {
 			var item = await Repository.GetAsync<TViewModel>(id);
-
 			if (item == null)
 				return NotFound();
 			return item;
@@ -32,11 +31,11 @@ namespace Kasp.Data {
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			var item = Mapper.Map<TModel>(model);
+			var item = ObjectMapper.MapTo<TModel>(model);
 			await Repository.AddAsync(item);
 			await Repository.SaveAsync();
 
-			return Mapper.Map<TViewModel>(item);
+			return ObjectMapper.MapTo<TViewModel>(item);
 		}
 
 		[HttpDelete]
@@ -52,21 +51,21 @@ namespace Kasp.Data {
 		where TViewModel : IModel
 		where TEditModel : IModel
 		where TModel : class, IModel {
-		protected CrudControllerBase(TRepository repository) : base(repository) {
+		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
 		}
 	}
 
 	public abstract class CrudControllerBase<TRepository, TModel, TKey> : CrudControllerBase<TRepository, TModel, TModel, TModel, TModel, TKey>
 		where TRepository : IBaseRepository<TModel, TKey>
 		where TModel : class, IModel<TKey> {
-		protected CrudControllerBase(TRepository repository) : base(repository) {
+		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
 		}
 	}
 
 	public abstract class CrudControllerBase<TRepository, TModel> : CrudControllerBase<TRepository, TModel, TModel, TModel, TModel>
 		where TRepository : IBaseRepository<TModel, int>
 		where TModel : class, IModel {
-		protected CrudControllerBase(TRepository repository) : base(repository) {
+		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
 		}
 	}
 }

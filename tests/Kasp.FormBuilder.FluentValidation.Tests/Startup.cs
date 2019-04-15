@@ -1,11 +1,11 @@
-using System.Linq;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Kasp.FormBuilder.Extensions;
 using Kasp.FormBuilder.FluentValidation.Extensions;
-using Kasp.FormBuilder.FluentValidation.Parsers;
+using Kasp.FormBuilder.FluentValidation.Tests.Models;
+using Kasp.FormBuilder.FluentValidation.Tests.Models.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,12 +19,11 @@ namespace Kasp.FormBuilder.FluentValidation.Tests {
 
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddMvc()
-				.AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining(typeof(Startup)))
-				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+				.AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-			services.AddFormBuilder(options => {
-				options.AddFluentValidation();
-			});
+			services.AddTransient<IValidator<ValidatorTestModel>, ValidatorTestModelValidator>();
+
+			services.AddFormBuilder(options => { options.AddFluentValidation(); });
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

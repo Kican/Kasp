@@ -2,7 +2,7 @@
 	<Import Project="..\version.tests.props" />
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Kasp.FormBuilder.FluentValidation\Kasp.FormBuilder.FluentValidation.csproj" />
-		<ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
+		<ProjectReference Include="..\Kasp.FormBuilder.Tests\Kasp.FormBuilder.Tests.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using Kasp.Identity.Entities;
 using Kasp.Identity.Entities.UserEntities;
 using Kasp.Identity.Entities.UserEntities.XEntities;
 using Kasp.Identity.Services;
+using Kasp.ObjectMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +15,6 @@ namespace Kasp.Identity.Controllers {
 		where TRegisterModel : IUserRegisterModel
 		where TViewModel : UserPartialVmBase
 		where TEditModel : UserEditModelBase {
-		protected OtpAccountApiController(IMapper mapper, IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager, IAuthOtpSmsSender otpSmsSender) : base(mapper,
-			config, userManager, signInManager) {
-			OtpSmsSender = otpSmsSender;
-		}
-
 		public IAuthOtpSmsSender OtpSmsSender { get; }
 
 		[HttpPost, AllowAnonymous]
@@ -73,6 +68,12 @@ namespace Kasp.Identity.Controllers {
 			}
 
 			return BadRequest(ModelState);
+		}
+
+		protected OtpAccountApiController(IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager, IObjectMapper objectMapper, IAuthOtpSmsSender otpSmsSender) :
+			base(config, userManager,
+				signInManager, objectMapper) {
+			OtpSmsSender = otpSmsSender;
 		}
 	}
 }

@@ -7,8 +7,15 @@ namespace Kasp.FormBuilder {
 	public class ComponentValidatorCollection : Collection<IValidatorParser> {
 		public ComponentValidatorCollection() {
 			Add(new RequiredAttributeParser());
+			
 			Add(new MaxLengthAttributeParser());
-			Add(new StringLengthAttributeParser());
+			Add(new MinLengthAttributeParser());
+			Add(new RangeLengthAttributeParser());
+			
+			Add(new RangeAttributeParser());
+			
+			
+			Add(new EmailAddressAttributeParser());
 		}
 
 		public IValidator Convert(object @object) {

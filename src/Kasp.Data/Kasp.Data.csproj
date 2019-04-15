@@ -7,5 +7,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
+      <ProjectReference Include="..\Kasp.ObjectMapper\Kasp.ObjectMapper.csproj" />
     </ItemGroup>
 </Project>

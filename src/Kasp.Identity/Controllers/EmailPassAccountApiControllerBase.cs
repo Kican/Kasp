@@ -6,12 +6,12 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Kasp.Identity.Core.Controllers;
 using Kasp.Identity.Entities;
 using Kasp.Identity.Entities.UserEntities;
 using Kasp.Identity.Entities.UserEntities.XEntities;
+using Kasp.ObjectMapper;
+using Kasp.ObjectMapper.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,19 +26,20 @@ namespace Kasp.Identity.Controllers {
 		where TUser : KaspUser, new()
 		where TViewModel : UserPartialVmBase
 		where TEditModel : UserEditModelBase {
-		protected EmailPassAccountApiControllerBase(IMapper mapper, IOptions<JwtConfig> config,
-			UserManager<TUser> userManager, SignInManager<TUser> signInManager) {
-			Mapper = mapper;
+		protected EmailPassAccountApiControllerBase(IOptions<JwtConfig> config,
+			UserManager<TUser> userManager, SignInManager<TUser> signInManager, IObjectMapper objectMapper) {
 			Config = config;
 			UserManager = userManager;
 			SignInManager = signInManager;
+			ObjectMapper = objectMapper;
 		}
 
 		protected IOptions<JwtConfig> Config { get; }
-		protected IMapper Mapper { get; }
 		protected UserManager<TUser> UserManager { get; }
 		protected SignInManager<TUser> SignInManager { get; }
-	
+
+		protected IObjectMapper ObjectMapper { get; }
+
 
 		protected async virtual Task<TokenResponse> GetToken(IEnumerable<Claim> claims) {
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Value.Key));
@@ -49,11 +50,7 @@ namespace Kasp.Identity.Controllers {
 			var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
 
-			return new TokenResponse() {
-				AccessToken = accessToken,
-				RefreshToken = GenerateRefreshToken(),
-				Expires = token.ValidTo.Ticks
-			};
+			return new TokenResponse() {AccessToken = accessToken, RefreshToken = GenerateRefreshToken(), Expires = token.ValidTo.Ticks};
 		}
 
 		protected virtual string GenerateRefreshToken() {
@@ -67,10 +64,7 @@ namespace Kasp.Identity.Controllers {
 		protected virtual async Task<List<Claim>> GetClaims(TUser user) {
 			var claims = new List<Claim>();
 
-			claims.AddRange(new[] {
-				new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-				new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-			});
+			claims.AddRange(new[] {new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),});
 
 			var roles = await UserManager.GetRolesAsync(user);
 
@@ -87,7 +81,7 @@ namespace Kasp.Identity.Controllers {
 		public virtual async Task<ActionResult<TViewModel>> Register([FromBody] TRegisterModel model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			var user = Mapper.Map<TUser>(model);
+			var user = ObjectMapper.MapTo<TUser>(model);
 
 			if (string.IsNullOrEmpty(user.UserName))
 				user.UserName = model.Email;
@@ -101,10 +95,10 @@ namespace Kasp.Identity.Controllers {
 
 			await OnRegisterSuccess(user);
 
-			return Mapper.Map<TViewModel>(user);
+			return ObjectMapper.MapTo<TViewModel>(user);
 		}
-		
-		
+
+
 		[HttpPost, AllowAnonymous]
 		public virtual async Task<ActionResult<TokenResponse>> Login([FromBody] LoginVM model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -128,8 +122,6 @@ namespace Kasp.Identity.Controllers {
 		}
 
 
-
-
 		[HttpPost, AllowAnonymous]
 		public virtual async Task<ActionResult<TokenResponse>> Token([FromBody] TokenRequest model) {
 			if (model.GrandType == GrandType.Password) {
@@ -137,8 +129,7 @@ namespace Kasp.Identity.Controllers {
 
 				if (user == null) {
 					ModelState.AddModelError("", "user-not-found");
-				}
-				else {
+				} else {
 					var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
 					if (result.Succeeded) {
@@ -149,8 +140,7 @@ namespace Kasp.Identity.Controllers {
 
 					ModelState.AddModelError("", "user/pass-incorrect");
 				}
-			}
-			else if (model.GrandType == GrandType.RefreshToken) {
+			} else if (model.GrandType == GrandType.RefreshToken) {
 			}
 
 
@@ -164,7 +154,7 @@ namespace Kasp.Identity.Controllers {
 
 			var user = await UserManager.FindByIdAsync(UserId.ToString());
 
-			user = Mapper.Map(model, user);
+			user = ObjectMapper.MapTo(model, user);
 
 			var result = await UserManager.UpdateAsync(user);
 
@@ -173,12 +163,12 @@ namespace Kasp.Identity.Controllers {
 				return BadRequest(ModelState);
 			}
 
-			return Mapper.Map<TViewModel>(user);
+			return ObjectMapper.MapTo<TViewModel>(user);
 		}
 
 		[HttpGet]
 		public virtual async Task<ActionResult<TViewModel>> Info() {
-			return await UserManager.Users.ProjectTo<TViewModel>().FirstOrDefaultAsync(x => x.Id == UserId);
+			return await UserManager.Users.MapTo<TViewModel>().FirstOrDefaultAsync(x => x.Id == UserId);
 		}
 
 

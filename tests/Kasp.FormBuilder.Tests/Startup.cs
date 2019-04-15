@@ -1,8 +1,6 @@
-using System.Linq;
 using Kasp.FormBuilder.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,9 +13,7 @@ namespace Kasp.FormBuilder.Tests {
 		private IConfiguration Configuration { get; }
 
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc(options => {
-				var x = options.ModelValidatorProviders.ToList();
-			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc();
 
 			services.AddFormBuilder();
 		}
