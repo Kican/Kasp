@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\version.tests.props" />
     <ItemGroup>
         <ProjectReference Include="..\..\src\Kasp.Identity\Kasp.Identity.csproj" />
+        <ProjectReference Include="..\..\src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj" />
         <ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
 
         <Content Include="appsettings.json">

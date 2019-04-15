@@ -10,5 +10,9 @@
 		<ProjectReference Include="..\Kasp.ObjectMapper\Kasp.ObjectMapper.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+	</ItemGroup>
+
 
 </Project>
