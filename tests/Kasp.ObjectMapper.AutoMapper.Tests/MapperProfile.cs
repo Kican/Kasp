@@ -6,6 +6,8 @@ namespace Kasp.ObjectMapper.AutoMapper.Tests {
 		public MapperProfile() {
 			CreateMap<User, UserVm>()
 				.ForMember(x => x.FullName, y => y.MapFrom(z => z.Name + " " + z.Family));
+
+			CreateMap<User, UserUpdateModel>().ReverseMap();
 		}
 	}
 }

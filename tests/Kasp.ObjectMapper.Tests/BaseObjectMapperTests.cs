@@ -18,5 +18,14 @@ namespace Kasp.ObjectMapper.Tests {
 			var userVm = ObjectMapper.MapTo<UserVm>(_user);
 			Assert.True(userVm.Id == _user.Id && userVm.FullName == _user.Name + " " + _user.Family);
 		}
+
+		[Fact]
+		public void PatchMap() {
+			var user = new User {Id = 2, Name = "mo3in", Family = "hente", Email = "moein.h@f.com"};
+			var userVm = new UserUpdateModel {Id = 2, Name = "reza", Family = "sadeghi"};
+
+			var result = ObjectMapper.MapTo(userVm, user);
+			Assert.True(result.Id == user.Id && result.Name == userVm.Name && result.Email == user.Email && result.Family == userVm.Family);
+		}
 	}
 }

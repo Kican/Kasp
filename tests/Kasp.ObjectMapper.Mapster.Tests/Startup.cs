@@ -16,10 +16,19 @@ namespace Kasp.ObjectMapper.Mapster.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
+			TypeAdapterConfig.GlobalSettings.AllowImplicitDestinationInheritance = true;
+
+			
+			TypeAdapterConfig<User, UserUpdateModel>
+				.NewConfig()
+				.IgnoreNullValues(true)
+				.TwoWays();
+			
+
 			TypeAdapterConfig<User, UserVm>
 				.NewConfig()
 				.Map(dest => dest.FullName, src => $"{src.Name} {src.Family}");
-			
+
 			services.AddObjectMapper<Mapster>();
 
 			services.AddMvc();
