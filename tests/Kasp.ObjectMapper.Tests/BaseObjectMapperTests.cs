@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Kasp.ObjectMapper.Extensions;
 using Kasp.ObjectMapper.Tests.Models;
 using Kasp.Test;
 using Xunit;
@@ -11,17 +13,27 @@ namespace Kasp.ObjectMapper.Tests {
 
 		public IObjectMapper ObjectMapper { get; }
 
-		User _user = new User {Id = 10, Name = "mo3in", Family = "hente"};
+		public List<User> _users = new List<User> {new User {Id = 10, Name = "mo3in", Family = "hente"}};
+
 
 		[Fact]
 		public void Map() {
-			var userVm = ObjectMapper.MapTo<UserVm>(_user);
-			Assert.True(userVm.Id == _user.Id && userVm.FullName == _user.Name + " " + _user.Family);
+			var user = _users[0];
+			var userVm = ObjectMapper.MapTo<UserVm>(user);
+			Assert.True(userVm.Id == user.Id && userVm.FullName == user.Name + " " + user.Family);
+		}
+
+
+		[Fact]
+		public void MapExtension() {
+			var user = _users[0];
+			var userVm = user.MapTo<UserVm>();
+			Assert.True(userVm.Id == user.Id && userVm.FullName == user.Name + " " + user.Family);
 		}
 
 		[Fact]
 		public void PatchMap() {
-			var user = new User {Id = 2, Name = "mo3in", Family = "hente", Email = "moein.h@f.com"};
+			var user = _users[0];
 			var userVm = new UserUpdateModel {Id = 2, Name = "reza", Family = "sadeghi"};
 
 			var result = ObjectMapper.MapTo(userVm, user);
