@@ -6,6 +6,7 @@ namespace Kasp.FormBuilder.FluentValidation.Tests.Models.Validators {
 			RuleFor(x => x.Required).NotNull();
 
 			RuleFor(x => x.MinLength).MinimumLength(10);
+			RuleFor(x => x.MaxLength).MaximumLength(100);
 			
 			RuleFor(x => x.Min).GreaterThanOrEqualTo(100);
 			RuleFor(x => x.Max).LessThanOrEqualTo(10);

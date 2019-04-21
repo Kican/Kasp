@@ -13,11 +13,11 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.FormBuilder.Tests {
-	public abstract class BaseModelValidatorTest<TModel> : KClassFixtureWebApp<Startup> where TModel : class, ITestValidatorModel {
+	public abstract class BaseModelValidatorTest<TModel, TStartup> : KClassFixtureWebApp<TStartup> where TModel : class, ITestValidatorModel where TStartup : class {
 		private IFormBuilder FormBuilder { get; }
 		private LinearLayoutComponent Form;
 
-		protected BaseModelValidatorTest(ITestOutputHelper output, KWebAppFactory<Startup> factory) : base(output, factory) {
+		protected BaseModelValidatorTest(ITestOutputHelper output, KWebAppFactory<TStartup> factory) : base(output, factory) {
 			FormBuilder = GetService<IFormBuilder>();
 			Form = FormBuilder.FromModel<TModel>().Result as LinearLayoutComponent;
 		}

@@ -20,10 +20,10 @@ namespace Kasp.FormBuilder.FluentValidation.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddMvc()
 				.AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
-
-			services.AddTransient<IValidator<ValidatorTestModel>, ValidatorTestModelValidator>();
-
-			services.AddFormBuilder(options => { options.AddFluentValidation(); });
+			
+			services.AddFormBuilder(options => {
+				options.AddFluentValidation();
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

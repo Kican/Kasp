@@ -23,14 +23,17 @@ namespace Kasp.FormBuilder.FluentValidation {
 			if (validatorService == null)
 				return new IValidator[] { };
 
-			var propRule = validatorService.First(x => ((PropertyRule) x).PropertyName == propertyInfo.Name);
+			var propRule = validatorService.FirstOrDefault(x => ((PropertyRule) x).PropertyName == propertyInfo.Name);
 			var validators = new List<IValidator>();
 
-			foreach (var fluentValidator in propRule.Validators) {
-				var validator = FormBuilderOptions.ValidatorCollection.Convert(fluentValidator);
-				if (validator != null)
-					validators.Add(validator);
-			}
+			if (propRule == null || !propRule.Validators.Any())
+				return validators.ToArray();
+
+			validators
+				.AddRange(propRule.Validators.Select(fluentValidator =>
+					FormBuilderOptions.ValidatorCollection.Convert(fluentValidator))
+					.Where(validator => validator != null)
+				);
 
 			return validators.ToArray();
 		}

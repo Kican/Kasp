@@ -4,7 +4,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.FormBuilder.Tests {
-	public class MvcModelValidatorsTests : BaseModelValidatorTest<MvcAttributeValidatorTestModel> {
+	public class MvcModelValidatorsTests : BaseModelValidatorTest<MvcAttributeValidatorTestModel, Startup> {
 		public MvcModelValidatorsTests(ITestOutputHelper output, KWebAppFactory<Startup> factory) : base(output, factory) {
 		}
 

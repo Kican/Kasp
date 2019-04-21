@@ -6,14 +6,14 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Kasp.FormBuilder.FluentValidation.Tests {
-	public class ValidatorsTests : BaseModelValidatorTest<ValidatorTestModel> {
-		public ValidatorsTests(ITestOutputHelper output, KWebAppFactory<FormBuilder.Tests.Startup> factory) : base(output, factory) {
-			var valid = GetService<IValidator<ValidatorTestModel>>();
+	public class ValidatorsTests : BaseModelValidatorTest<ValidatorTestModel, Startup> {
+		public ValidatorsTests(ITestOutputHelper output, KWebAppFactory<Startup> factory) : base(output, factory) {
 		}
 
 		[Fact]
 		public void T1() {
-			Assert.True(true);
+			var validator = GetService<IValidator<ValidatorTestModel>>();
+			Assert.NotNull(validator);
 		}
 	}
 }
