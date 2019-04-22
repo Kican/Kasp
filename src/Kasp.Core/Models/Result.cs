@@ -33,6 +33,10 @@ namespace Kasp.Core.Models {
 
 			return result;
 		}
+		
+		public static Result NoError() {
+			return new Result();
+		}
 	}
 
 	public class Result<T> : Result {
