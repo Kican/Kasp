@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Kasp.Core.Controllers;
 using Kasp.Data.Models.Helpers;
 using Kasp.ObjectMapper;
+using Kasp.ObjectMapper.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kasp.Data {
@@ -27,7 +28,7 @@ namespace Kasp.Data {
 		}
 
 		[HttpPost]
-		public virtual async Task<ActionResult<TViewModel>> Create(TInsertModel model) {
+		public virtual async Task<ActionResult<TViewModel>> Create([FromBody] TInsertModel model) {
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
@@ -36,6 +37,18 @@ namespace Kasp.Data {
 			await Repository.SaveAsync();
 
 			return ObjectMapper.MapTo<TViewModel>(item);
+		}
+
+		[HttpPatch]
+		public virtual async Task<ActionResult<TViewModel>> Edit(TKey key, [FromBody] TEditModel model) {
+			var item = await Repository.GetAsync(key);
+			if (item == null)
+				return BadRequest();
+
+			item = ObjectMapper.MapTo(model, item);
+			Repository.Update(item);
+			await Repository.SaveAsync();
+			return item.MapTo<TViewModel>();
 		}
 
 		[HttpDelete]
