@@ -33,10 +33,8 @@ namespace Kasp.Core.Models {
 
 			return result;
 		}
-		
-		public static Result NoError() {
-			return new Result();
-		}
+
+		public static Result NoError() => new Result();
 	}
 
 	public class Result<T> : Result {
@@ -48,7 +46,7 @@ namespace Kasp.Core.Models {
 		public Result(T data) {
 			Data = data;
 		}
-	
+
 
 		public static Result<T> WithError(string key, string message) {
 			var result = new Result<T>();
