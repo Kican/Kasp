@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
 using Kasp.ObjectMapper;
 using Kasp.ObjectMapper.Extensions;
@@ -9,7 +10,7 @@ namespace Kasp.Data {
 	public abstract class CrudControllerBase<TRepository, TModel, TViewModel, TInsertModel, TEditModel, TKey> : ControllerBase
 		where TRepository : IBaseRepository<TModel, TKey>
 		where TInsertModel : IModel<TKey>
-		where TViewModel : IModel<TKey>
+		where TViewModel : class, IModel<TKey>
 		where TEditModel : IModel<TKey>
 		where TModel : class, IModel<TKey> {
 		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) {
@@ -28,6 +29,11 @@ namespace Kasp.Data {
 			return item;
 		}
 
+		[HttpGet("{id}")]
+		public virtual async Task<ActionResult<PagedResult<TViewModel>>> Paged(IPage page) {
+			return (await Repository.PagedListAsync<TViewModel>(page.Page, page.Count)).ToPagedResult();
+		}
+
 		// todo: must be upsert (update + insert)
 		[HttpPut]
 		public virtual async Task<ActionResult<TViewModel>> Put([FromBody] TInsertModel model) {
@@ -41,11 +47,15 @@ namespace Kasp.Data {
 			return ObjectMapper.MapTo<TViewModel>(item);
 		}
 
-		[HttpPatch]
+		[HttpPatch("{id}")]
 		public virtual async Task<ActionResult<TViewModel>> Edit(TKey key, [FromBody] TEditModel model) {
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
 			var item = await Repository.GetAsync(key);
+
 			if (item == null)
-				return BadRequest();
+				return NotFound();
 
 			item = ObjectMapper.MapTo(model, item);
 			Repository.Update(item);
@@ -53,7 +63,7 @@ namespace Kasp.Data {
 			return item.MapTo<TViewModel>();
 		}
 
-		[HttpDelete]
+		[HttpDelete("{id}")]
 		public virtual async Task<IActionResult> Remove(TKey id) {
 			await Repository.RemoveAsync(id);
 			await Repository.SaveAsync();
@@ -63,7 +73,7 @@ namespace Kasp.Data {
 
 	public abstract class CrudControllerBase<TRepository, TModel, TInsertModel, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TViewModel, TInsertModel, TEditModel, int>
 		where TRepository : IBaseRepository<TModel, int>
-		where TViewModel : IModel
+		where TViewModel : class, IModel
 		where TEditModel : IModel
 		where TModel : class, IModel
 		where TInsertModel : IModel<int> {
