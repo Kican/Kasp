@@ -19,7 +19,7 @@ namespace Kasp.Data {
 		protected IObjectMapper ObjectMapper { get; }
 
 		[HttpGet]
-		public async Task<ActionResult<TViewModel>> Get(TKey id) {
+		public virtual async Task<ActionResult<TViewModel>> Get(TKey id) {
 			var item = await Repository.GetAsync<TViewModel>(id);
 			if (item == null)
 				return NotFound();
@@ -27,7 +27,7 @@ namespace Kasp.Data {
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<TViewModel>> Create(TInsertModel model) {
+		public virtual async Task<ActionResult<TViewModel>> Create(TInsertModel model) {
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
@@ -39,7 +39,7 @@ namespace Kasp.Data {
 		}
 
 		[HttpDelete]
-		public async Task<IActionResult> Remove(TKey id) {
+		public virtual async Task<IActionResult> Remove(TKey id) {
 			await Repository.RemoveAsync(id);
 			await Repository.SaveAsync();
 			return Ok();
