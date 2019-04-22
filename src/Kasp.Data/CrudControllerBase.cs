@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
-using Kasp.Core.Controllers;
 using Kasp.Data.Models.Helpers;
 using Kasp.ObjectMapper;
 using Kasp.ObjectMapper.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kasp.Data {
-	public abstract class CrudControllerBase<TRepository, TModel, TViewModel, TInsertModel, TEditModel, TKey> : ApiController
+	[Route("api/[controller]")]
+	public abstract class CrudControllerBase<TRepository, TModel, TViewModel, TInsertModel, TEditModel, TKey> : ControllerBase
 		where TRepository : IBaseRepository<TModel, TKey>
+		where TInsertModel : IModel<TKey>
 		where TViewModel : IModel<TKey>
 		where TEditModel : IModel<TKey>
 		where TModel : class, IModel<TKey> {
@@ -19,7 +20,7 @@ namespace Kasp.Data {
 		protected TRepository Repository { get; }
 		protected IObjectMapper ObjectMapper { get; }
 
-		[HttpGet]
+		[HttpGet("{id}")]
 		public virtual async Task<ActionResult<TViewModel>> Get(TKey id) {
 			var item = await Repository.GetAsync<TViewModel>(id);
 			if (item == null)
@@ -27,8 +28,9 @@ namespace Kasp.Data {
 			return item;
 		}
 
-		[HttpPost]
-		public virtual async Task<ActionResult<TViewModel>> Create([FromBody] TInsertModel model) {
+		// todo: must be upsert (update + insert)
+		[HttpPut]
+		public virtual async Task<ActionResult<TViewModel>> Put([FromBody] TInsertModel model) {
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
@@ -63,7 +65,8 @@ namespace Kasp.Data {
 		where TRepository : IBaseRepository<TModel, int>
 		where TViewModel : IModel
 		where TEditModel : IModel
-		where TModel : class, IModel {
+		where TModel : class, IModel
+		where TInsertModel : IModel<int> {
 		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
 		}
 	}
