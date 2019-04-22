@@ -29,7 +29,7 @@ namespace Kasp.Data {
 			return item;
 		}
 
-		[HttpGet("{id}")]
+		[HttpGet]
 		public virtual async Task<ActionResult<PagedResult<TViewModel>>> Paged(IPage page) {
 			return (await Repository.PagedListAsync<TViewModel>(page.Page, page.Count)).ToPagedResult();
 		}
