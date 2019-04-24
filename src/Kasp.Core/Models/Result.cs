@@ -46,6 +46,15 @@ namespace Kasp.Core.Models {
 		public Result(T data) {
 			Data = data;
 		}
+		
+		public Result<T> AddError(string key, string[] messages) {
+			if (Errors.ContainsKey(key))
+				Errors[key].AddRange(messages);
+			else
+				Errors.Add(key, messages.ToList());
+
+			return this;
+		}
 
 
 		public static Result<T> WithError(string key, string message) {
