@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-        <VersionPrefix>0.4.4</VersionPrefix>
+        <VersionPrefix>0.4.5</VersionPrefix>
         <!--<VersionSuffix>preview2</VersionSuffix>-->
         <VersionSuffix Condition=" '$(VersionSuffix)' != '' AND '$(BuildNumber)' != '' ">
             $(VersionSuffix)-$(BuildNumber)
