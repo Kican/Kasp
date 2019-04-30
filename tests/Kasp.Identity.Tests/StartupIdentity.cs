@@ -6,6 +6,7 @@ using Kasp.Identity.Extensions;
 using Kasp.Identity.Services;
 using Kasp.Identity.Tests.Data;
 using Kasp.Identity.Tests.Models.UserModels;
+using Kasp.ObjectMapper.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
