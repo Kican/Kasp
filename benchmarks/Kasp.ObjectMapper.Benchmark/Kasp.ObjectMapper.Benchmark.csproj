@@ -12,7 +12,7 @@
 		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj" />
 		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.Mapster\Kasp.ObjectMapper.Mapster.csproj" />
 		<PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
-		<PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" Version="1.1.1-rc.114" />
+		<PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" Version="1.1.118" />
 	</ItemGroup>
 
 </Project>
