@@ -12,6 +12,6 @@ namespace Kasp.ObjectMapper.AutoMapper {
 
 		public TDestination MapTo<TDestination>(object source) => Mapper.Map<TDestination>(source);
 		public TDestination MapTo<TSource, TDestination>(TSource source, TDestination destination) => Mapper.Map(source, destination);
-		public IQueryable<TDestination> MapTo<TDestination>(IQueryable source) => source.ProjectTo<TDestination>();
+		public IQueryable<TDestination> MapTo<TDestination>(IQueryable source) => source.ProjectTo<TDestination>(Mapper.ConfigurationProvider);
 	}
 }
