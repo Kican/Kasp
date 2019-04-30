@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Kasp.FormBuilder.Extensions;
 
 namespace Kasp.FormBuilder.Components.Elements {
 	public class DateTimeComponentHandler : BaseComponentHandler<DateTimeComponent, DateTimeComponentResolver> {
@@ -13,9 +14,9 @@ namespace Kasp.FormBuilder.Components.Elements {
 	}
 
 	public class DateTimeComponentResolver : BaseComponentResolver<DateTimeComponent> {
-
 		public override Task<DateTimeComponent> ResolveAsync(ComponentOptions type) {
 			Component.Name = type.Name;
+			Component.Title = type.PropertyInfo.GetDisplayName();
 			return Task.FromResult(Component);
 		}
 	}

@@ -5,9 +5,11 @@ namespace Kasp.FormBuilder.Tests.Models {
 	public class ContactUs {
 		[Required]
 		[EmailAddress, StringLength(60, MinimumLength = 10)]
+		[Display(Name = "email address")]
 		public string Email { get; set; }
 
 		[Required]
+		[Display(Name = "your name")]
 		public string Name { get; set; }
 
 		public string PhoneNumber { get; set; }
