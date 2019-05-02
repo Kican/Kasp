@@ -48,11 +48,11 @@ namespace Kasp.Data {
 		}
 
 		[HttpPatch("{id}")]
-		public virtual async Task<ActionResult<TViewModel>> Edit(TKey key, [FromBody] TEditModel model) {
+		public virtual async Task<ActionResult<TViewModel>> Edit(TKey id, [FromBody] TEditModel model) {
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			var item = await Repository.GetAsync(key);
+			var item = await Repository.GetAsync(id);
 
 			if (item == null)
 				return NotFound();
