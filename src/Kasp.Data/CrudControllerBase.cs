@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kasp.Data {
 	[Route("api/[controller]")]
-	public abstract class CrudControllerBase<TRepository, TModel, TViewModel, TInsertModel, TEditModel, TKey> : ControllerBase
+	public abstract class CrudControllerBase<TRepository, TModel, TViewModel, TPartialVm, TInsertModel, TEditModel, TKey> : ControllerBase
 		where TRepository : IBaseRepository<TModel, TKey>
 		where TInsertModel : IModel<TKey>
 		where TViewModel : class, IModel<TKey>
 		where TEditModel : IModel<TKey>
+		where TPartialVm : class, IModel<TKey>
 		where TModel : class, IModel<TKey> {
 		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) {
 			Repository = repository;
@@ -30,8 +31,8 @@ namespace Kasp.Data {
 		}
 
 		[HttpGet]
-		public virtual async Task<ActionResult<PagedResult<TViewModel>>> Paged(IPage page) {
-			return (await Repository.PagedListAsync<TViewModel>(page.Page, page.Count)).ToPagedResult();
+		public virtual async Task<ActionResult<PagedResult<TPartialVm>>> Paged(IPage page) {
+			return (await Repository.PagedListAsync<TPartialVm>(page.Page, page.Count)).ToPagedResult();
 		}
 
 		// todo: must be upsert (update + insert)
@@ -71,26 +72,24 @@ namespace Kasp.Data {
 		}
 	}
 
-	public abstract class CrudControllerBase<TRepository, TModel, TInsertModel, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TViewModel, TInsertModel, TEditModel, int>
+	public abstract class
+		CrudControllerBase<TRepository, TModel, TInsertModel, TPartialVm, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TInsertModel, TPartialVm, TViewModel, TEditModel, int>
+		where TRepository : IBaseRepository<TModel, int>
+		where TViewModel : class, IModel
+		where TEditModel : IModel
+		where TModel : class, IModel
+		where TInsertModel : class, IModel<int>
+		where TPartialVm : class, IModel<int> {
+		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
+		}
+	}
+
+	public abstract class CrudControllerBase<TRepository, TModel, TInsertModel, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TViewModel, TViewModel, TInsertModel, TEditModel, int>
 		where TRepository : IBaseRepository<TModel, int>
 		where TViewModel : class, IModel
 		where TEditModel : IModel
 		where TModel : class, IModel
 		where TInsertModel : IModel<int> {
-		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
-		}
-	}
-
-	public abstract class CrudControllerBase<TRepository, TModel, TKey> : CrudControllerBase<TRepository, TModel, TModel, TModel, TModel, TKey>
-		where TRepository : IBaseRepository<TModel, TKey>
-		where TModel : class, IModel<TKey> {
-		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
-		}
-	}
-
-	public abstract class CrudControllerBase<TRepository, TModel> : CrudControllerBase<TRepository, TModel, TModel, TModel, TModel>
-		where TRepository : IBaseRepository<TModel, int>
-		where TModel : class, IModel {
 		protected CrudControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
 		}
 	}
