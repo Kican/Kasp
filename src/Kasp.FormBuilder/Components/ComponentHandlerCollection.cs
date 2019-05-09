@@ -10,6 +10,8 @@ namespace Kasp.FormBuilder.Components {
 
 			Add<DateTimeComponentHandler>();
 			Add<TextFieldComponentHandler>();
+			Add<NumberFieldComponentHandler>();
+			Add<EnumComponentHandler>();
 		}
 
 		public void Add<THandler>() where THandler : class, IComponentHandler, new() {

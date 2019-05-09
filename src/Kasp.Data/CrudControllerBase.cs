@@ -73,7 +73,7 @@ namespace Kasp.Data {
 	}
 
 	public abstract class
-		CrudControllerBase<TRepository, TModel, TInsertModel, TPartialVm, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TInsertModel, TPartialVm, TViewModel, TEditModel, int>
+		CrudControllerBase<TRepository, TModel, TViewModel, TPartialVm, TInsertModel, TEditModel> : CrudControllerBase<TRepository, TModel, TViewModel, TPartialVm, TInsertModel, TEditModel, int>
 		where TRepository : IBaseRepository<TModel, int>
 		where TViewModel : class, IModel
 		where TEditModel : IModel
@@ -84,7 +84,7 @@ namespace Kasp.Data {
 		}
 	}
 
-	public abstract class CrudControllerBase<TRepository, TModel, TInsertModel, TViewModel, TEditModel> : CrudControllerBase<TRepository, TModel, TViewModel, TViewModel, TInsertModel, TEditModel, int>
+	public abstract class CrudControllerBase<TRepository, TViewModel, TModel, TInsertModel, TEditModel> : CrudControllerBase<TRepository, TModel, TViewModel, TViewModel, TInsertModel, TEditModel, int>
 		where TRepository : IBaseRepository<TModel, int>
 		where TViewModel : class, IModel
 		where TEditModel : IModel
