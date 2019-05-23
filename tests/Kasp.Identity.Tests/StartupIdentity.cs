@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AutoMapper;
 using Kasp.Core.Extensions;
 using Kasp.Data.EF.Extensions;
 using Kasp.Identity.Entities.UserEntities;
@@ -9,6 +10,7 @@ using Kasp.Identity.Tests.Models.UserModels;
 using Kasp.ObjectMapper.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,18 +26,22 @@ namespace Kasp.Identity.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddEntityFrameworkInMemoryDatabase();
-			services.AddKasp(Configuration, mvc)
-				.AddDataBase<AppIdentityDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
-				.AddEFRepositories()
-				.AddIdentity<AppUser, KaspRole, AppIdentityDbContext>()
+			services.AddDbContextPool<AppIdentityDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
+				.AddEFRepositories();
+
+			services.AddIdentity<AppUser, KaspRole>()
+				.AddEntityFrameworkStores<AppIdentityDbContext>()
+				.AddDefaultTokenProviders()
 				.AddJwt(Configuration.GetJwtConfig());
 
 			services.AddAuthentication()
 				.AddJwtBearer(Configuration.GetJwtConfig());
+
+			services.AddAutoMapper(typeof(StartupIdentity));
+			services.AddObjectMapper<ObjectMapper.AutoMapper.AutoMapper>();
 
 			services.AddSingleton<IAuthOtpSmsSender, AuthOtpSmsSender>();
 		}
@@ -46,6 +52,8 @@ namespace Kasp.Identity.Tests {
 
 			app.UseAuthentication();
 
+			app.UseObjectMapper();
+
 			app.UseStaticFiles();
 			app.UseMvc();
 		}
@@ -53,6 +61,7 @@ namespace Kasp.Identity.Tests {
 
 	public class AuthOtpSmsSender : IAuthOtpSmsSender {
 		public static string Code = "0";
+
 		public Task<SmsResult> SendSmsAsync(string number, string code) {
 			Code = code;
 			return Task.FromResult(new SmsResult {number = "10002000", isSuccess = true});

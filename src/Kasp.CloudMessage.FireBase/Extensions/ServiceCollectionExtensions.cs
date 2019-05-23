@@ -11,13 +11,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.CloudMessage.FireBase.Extensions {
 	public static class ServiceCollectionExtensions {
-		public static void AddFcm<TDbContext>(this KaspDbServiceBuilder builder, string projectName, string filePath) where TDbContext : DbContext, IFcmDbContext {
-			builder.Services.AddSingleton<IFcmClientSettings>(FileBasedFcmClientSettings.CreateFromFile(projectName, filePath));
+		public static void AddFcm<TDbContext>(this IServiceCollection builder, string projectName, string filePath) where TDbContext : DbContext, IFcmDbContext {
+			builder.AddSingleton<IFcmClientSettings>(FileBasedFcmClientSettings.CreateFromFile(projectName, filePath));
 
 			AddServices<TDbContext>(builder);
 		}
 
-		private static void AddServices<TDbContext>(KaspDbServiceBuilder builder) where TDbContext : DbContext, IFcmDbContext {
+		private static void AddServices<TDbContext>(IServiceCollection builder) where TDbContext : DbContext, IFcmDbContext {
 			var fcmConfig = builder.Configuration.GetSection("Fcm");
 
 			if (fcmConfig == null)

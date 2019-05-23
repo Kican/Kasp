@@ -23,19 +23,20 @@ namespace Kasp.Localization.EF.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddEntityFrameworkInMemoryDatabase();
-			
+
 			var supportedCultures = new[] {"en-US"};
 
-			services.AddKasp(Configuration, mvc)
-				.AddDataBase<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDb"))
-				.AddEFRepositories()
-				.AddLocalization(builder => {
-					builder.SetCultures(supportedCultures, supportedCultures[0]);
-					builder.AddDbLocalization<LocalizationDbContext>();
-				});
+			services
+				.AddDbContextPool<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDb"))
+				.AddEFRepositories();
+			
+			services.AddLocalization(builder => {
+				builder.SetCultures(supportedCultures, supportedCultures[0]);
+				builder.AddDbLocalization<LocalizationDbContext>();
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

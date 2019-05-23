@@ -2,32 +2,35 @@ using System;
 using Kasp.Core.Extensions;
 using Kasp.Localization.JsonLocalizer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
 namespace Kasp.Localization.Extensions {
 	public static class ServiceCollectionExtensions {
-		public static KaspServiceBuilder AddLocalization(this KaspServiceBuilder builder, Action<KaspLocalizationOptionBuilder> optionsAction) {
-			var options = new KaspLocalizationOptionBuilder(builder.Services) {
+		public static IServiceCollection AddLocalization(this IServiceCollection builder, Action<KaspLocalizationOptionBuilder> optionsAction) {
+			var options = new KaspLocalizationOptionBuilder(builder) {
 				LocalizationOptions = new KaspLocalizationOptions()
 			};
 
 			optionsAction?.Invoke(options);
 
-			builder.Services.AddLocalization(localizationOptions => localizationOptions.ResourcesPath = options.LocalizationOptions.ResourcesPath);
-			builder.MvcBuilder.AddViewLocalization(localizationOptions => localizationOptions.ResourcesPath = options.LocalizationOptions.ResourcesPath);
+			builder.AddLocalization(localizationOptions => localizationOptions.ResourcesPath = options.LocalizationOptions.ResourcesPath);
+			builder.Configure<MvcBuilder>(mvcBuilder => {
+				mvcBuilder.AddViewLocalization(localizationOptions => localizationOptions.ResourcesPath = options.LocalizationOptions.ResourcesPath);
+			});
 //			builder.MvcBuilder.AddDataAnnotationsLocalization(options => options.)
 
-			builder.Services.AddMemoryCache();
+			builder.AddMemoryCache();
 
 			if (options.LocalizationOptions.StringLocalizerFactory != null)
-				builder.Services.AddSingleton(typeof(IStringLocalizerFactory), options.LocalizationOptions.StringLocalizerFactory);
+				builder.AddSingleton(typeof(IStringLocalizerFactory), options.LocalizationOptions.StringLocalizerFactory);
 
 			if (options.LocalizationOptions.StringLocalizerFactory != null)
-				builder.Services.AddSingleton(typeof(IStringLocalizer), options.LocalizationOptions.StringLocalizer);
+				builder.AddSingleton(typeof(IStringLocalizer), options.LocalizationOptions.StringLocalizer);
 
 
-			builder.Services.Configure<RequestLocalizationOptions>(localizationOptions => {
+			builder.Configure<RequestLocalizationOptions>(localizationOptions => {
 				localizationOptions.AddSupportedCultures(options.SupportedCultures.ToArray());
 				localizationOptions.AddSupportedUICultures(options.SupportedCultures.ToArray());
 				localizationOptions.SetDefaultCulture(options.DefaultCulture);

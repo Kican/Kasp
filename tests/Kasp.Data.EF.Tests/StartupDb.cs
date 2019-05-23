@@ -22,8 +22,7 @@ namespace Kasp.Data.EF.Tests {
 			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddEntityFrameworkInMemoryDatabase();
-			services.AddKasp(Configuration, mvc)
-				.AddDataBase<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
+			services.AddDbContextPool<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
 				.AddEFRepositories();
 		}
 
