@@ -18,21 +18,21 @@ namespace Kasp.CloudMessage.FireBase.Extensions {
 		}
 
 		private static void AddServices<TDbContext>(IServiceCollection builder) where TDbContext : DbContext, IFcmDbContext {
-			var fcmConfig = builder.Configuration.GetSection("Fcm");
+			// var fcmConfig = builder.GetSection("Fcm");
 
-			if (fcmConfig == null)
-				throw new NullReferenceException("you must define fcm config");
+//			if (fcmConfig == null)
+//				throw new NullReferenceException("you must define fcm config");
 
-			builder.Services.Configure<FcmConfig>(fcmConfig);
+			// builder.Configure<FcmConfig>(fcmConfig);
 
-			builder.Services.AddScoped<IFcmUserTokenRepository, FcmUserTokenRepository<TDbContext>>();
+			builder.AddScoped<IFcmUserTokenRepository, FcmUserTokenRepository<TDbContext>>();
 
-			builder.Services.AddSingleton<IFcmHttpClient, FcmHttpClient>();
-			builder.Services.AddSingleton<IFcmClient, FcmClient>();
-			builder.Services.AddScoped<FcmDeviceGroupService>();
-			builder.Services.AddScoped<IFcmService, FcmService>();
+			builder.AddSingleton<IFcmHttpClient, FcmHttpClient>();
+			builder.AddSingleton<IFcmClient, FcmClient>();
+			builder.AddScoped<FcmDeviceGroupService>();
+			builder.AddScoped<IFcmService, FcmService>();
 
-			builder.Services.AddHttpClient<FcmApiHttpClient>();
+			builder.AddHttpClient<FcmApiHttpClient>();
 		}
 	}
 }
