@@ -41,8 +41,22 @@ namespace Kasp.Data {
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			var item = ObjectMapper.MapTo<TModel>(model);
-			await Repository.AddAsync(item);
+			TModel item;
+			if (model.Id == null || model.Id.Equals(0)) {
+				item = ObjectMapper.MapTo<TModel>(model);
+				await Repository.AddAsync(item);
+			} else {
+				item = await Repository.GetAsync(model.Id);
+				if (item == null) {
+					ModelState.AddModelError("", "item-not-found");
+					return BadRequest(ModelState);
+				}
+
+				item = ObjectMapper.MapTo(model, item);
+				Repository.Update(item);
+			}
+
+
 			await Repository.SaveAsync();
 
 			return ObjectMapper.MapTo<TViewModel>(item);

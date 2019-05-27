@@ -1,9 +1,8 @@
-using System;
-using System.Reflection;
 using System.Threading.Tasks;
+using Kasp.FormBuilder.Components.Elements;
 using Kasp.FormBuilder.Extensions;
 
-namespace Kasp.FormBuilder.Components.Elements {
+namespace Kasp.FormBuilder.Components.Handlers {
 	public class TextFieldComponentHandler : BaseComponentHandler<TextFieldComponent, TextFieldComponentResolver> {
 		public override bool IsOwner(ComponentOptions options) => true;
 	}

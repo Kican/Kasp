@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Kasp.FormBuilder.Components.Elements;
+using Kasp.FormBuilder.Components.Handlers;
 using Kasp.FormBuilder.Components.Layouts;
 
 namespace Kasp.FormBuilder.Components {

@@ -1,9 +1,9 @@
 using System;
-using System.Reflection;
 using System.Threading.Tasks;
+using Kasp.FormBuilder.Components.Elements;
 using Kasp.FormBuilder.Extensions;
 
-namespace Kasp.FormBuilder.Components.Elements {
+namespace Kasp.FormBuilder.Components.Handlers {
 	public class DateTimeComponentHandler : BaseComponentHandler<DateTimeComponent, DateTimeComponentResolver> {
 		public override bool IsOwner(ComponentOptions options) {
 			return options.Type == typeof(DateTimeOffset) ||
