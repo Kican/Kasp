@@ -8,6 +8,7 @@ using Xunit.Abstractions;
 namespace Kasp.FormBuilder.FluentValidation.Tests {
 	public class ValidatorsTests : BaseModelValidatorTest<ValidatorTestModel, Startup> {
 		public ValidatorsTests(ITestOutputHelper output, KWebAppFactory<Startup> factory) : base(output, factory) {
+			var x = GetService<IValidator<ValidatorTestModel>>();
 		}
 
 		[Fact]

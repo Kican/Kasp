@@ -12,5 +12,13 @@ namespace Kasp.FormBuilder.Tests {
 		public void T1() {
 			Assert.True(true);
 		}
+
+		public override void Max() {
+			Assert.True(true);
+		}
+
+		public override void Min() {
+			Assert.True(true);
+		}
 	}
 }

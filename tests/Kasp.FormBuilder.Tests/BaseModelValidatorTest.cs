@@ -33,38 +33,38 @@ namespace Kasp.FormBuilder.Tests {
 		private T GetField<T>(string name) where T : IComponent => (T) Form.Children.Find(x => x.Name == name);
 
 		[Fact]
-		public void Required() {
+		public virtual void Required() {
 			var field = GetField<TextFieldComponent>(nameof(ITestValidatorModel.Required));
 			AssertValidator<RequiredValidator>(field.Validators);
 		}
 
 		[Fact]
-		public void MaxLength() {
+		public virtual void MaxLength() {
 			var field = GetField<TextFieldComponent>(nameof(ITestValidatorModel.MaxLength));
 			AssertValidator<MaxLengthValidator>(field.Validators, validator => validator.Length == 100);
 		}
 
 		[Fact]
-		public void MinLength() {
+		public virtual void MinLength() {
 			var field = GetField<TextFieldComponent>(nameof(ITestValidatorModel.MinLength));
 			AssertValidator<MinLengthValidator>(field.Validators, validator => validator.Length == 10);
 		}
 
 		[Fact]
-		public void RangeLength() {
+		public virtual void RangeLength() {
 			var field = GetField<TextFieldComponent>(nameof(ITestValidatorModel.RangeLength));
 			AssertValidator<RangeLengthValidator>(field.Validators, validator => validator.Max == 100 && validator.Min == 10);
 		}
 
 
 		[Fact]
-		public void Max() {
+		public virtual void Max() {
 			var field = GetField<TextFieldComponent>(nameof(ITestValidatorModel.Max));
 			AssertValidator<MaxValidator>(field.Validators, validator => validator.Value == 100);
 		}
 
 		[Fact]
-		public void Min() {
+		public virtual void Min() {
 			var field = GetField<TextFieldComponent>(nameof(ITestValidatorModel.Min));
 			AssertValidator<MinValidator>(field.Validators, validator => validator.Value == 10);
 		}

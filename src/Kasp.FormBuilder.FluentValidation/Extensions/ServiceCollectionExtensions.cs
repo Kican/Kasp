@@ -17,6 +17,10 @@ namespace Kasp.FormBuilder.FluentValidation.Extensions {
 			validatorCollection.Add(new MinimumLengthValidatorParser());
 			validatorCollection.Add(new LengthValidatorParser());
 			validatorCollection.Add(new EmailValidatorParser());
+			
+			validatorCollection.Add(new LessThanOrEqualValidatorParser());
+			validatorCollection.Add(new GreaterThanOrEqualValidatorParser());
+			validatorCollection.Add(new InclusiveBetweenValidatorParser());
 		}
 	}
 }

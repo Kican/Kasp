@@ -29,10 +29,8 @@ namespace Kasp.FormBuilder.FluentValidation {
 			if (propRule == null || !propRule.Validators.Any())
 				return validators.ToArray();
 
-			validators
-				.AddRange(propRule.Validators.Select(fluentValidator =>
-					FormBuilderOptions.ValidatorCollection.Convert(fluentValidator))
-					.Where(validator => validator != null)
+			validators.AddRange(propRule.Validators.Select(fluentValidator =>
+						FormBuilderOptions.ValidatorCollection.Convert(fluentValidator)).Where(validator => validator != null)
 				);
 
 			return validators.ToArray();
