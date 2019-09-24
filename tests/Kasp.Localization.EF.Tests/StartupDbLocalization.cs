@@ -32,11 +32,13 @@ namespace Kasp.Localization.EF.Tests {
 			services
 				.AddDbContextPool<LocalizationDbContext>(builder => builder.UseInMemoryDatabase("LocalizationDb"))
 				.AddEFRepositories();
-			
+
 			services.AddLocalization(builder => {
 				builder.SetCultures(supportedCultures, supportedCultures[0]);
 				builder.AddDbLocalization<LocalizationDbContext>();
 			});
+
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +46,15 @@ namespace Kasp.Localization.EF.Tests {
 			var builder = app.UseKasp()
 				.UseTestDataBase<LocalizationDbContext>();
 
-			var langRepository = app.ApplicationServices.GetService<ILangRepository>();
+			var langRepository = app.ApplicationServices.CreateScope().ServiceProvider.GetService<ILangRepository>();
 			langRepository.AddAsync(new Lang {Id = "fa-IR", Enable = true}).Wait();
 			langRepository.SaveAsync().Wait();
 
 			builder.UseRequestLocalization(options => options.UseDb());
 
-			app.UseMvc();
+			app.UseRouting();
+
+			app.UseEndpoints(routeBuilder => routeBuilder.MapControllers());
 		}
 	}
 }

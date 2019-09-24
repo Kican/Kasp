@@ -26,13 +26,17 @@ namespace Kasp.Localization.Tests {
 				builder.UseJson();
 				builder.SetCultures(supportedCultures, supportedCultures.Last());
 			});
+
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
 			app.UseKasp().UseRequestLocalization();
+			
+			app.UseRouting();
 
-			app.UseMvc();
+			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}
 }

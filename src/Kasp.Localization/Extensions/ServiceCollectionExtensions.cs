@@ -1,8 +1,6 @@
 using System;
-using Kasp.Core.Extensions;
 using Kasp.Localization.JsonLocalizer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -16,7 +14,7 @@ namespace Kasp.Localization.Extensions {
 			optionsAction?.Invoke(options);
 
 			builder.AddLocalization(localizationOptions => localizationOptions.ResourcesPath = options.LocalizationOptions.ResourcesPath);
-			builder.Configure<MvcBuilder>(mvcBuilder => {
+			builder.Configure<IMvcBuilder>(mvcBuilder => {
 				mvcBuilder.AddViewLocalization(localizationOptions => localizationOptions.ResourcesPath = options.LocalizationOptions.ResourcesPath);
 			});
 //			builder.MvcBuilder.AddDataAnnotationsLocalization(options => options.)

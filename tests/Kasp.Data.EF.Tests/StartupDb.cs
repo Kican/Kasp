@@ -19,11 +19,11 @@ namespace Kasp.Data.EF.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			var mvc = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddDbContextPool<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
 				.AddEFRepositories();
+
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,7 +31,8 @@ namespace Kasp.Data.EF.Tests {
 			app.UseKasp().UseTestDataBase<AppDbContext>();
 
 			app.UseStaticFiles();
-			app.UseMvc();
+			app.UseRouting();
+			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}
 }

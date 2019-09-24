@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Kasp.Core.Extensions;
 using Kasp.Localization.EF.Tests.Data;
 using Kasp.Localization.EF.Tests.Models;
 using Kasp.Test;

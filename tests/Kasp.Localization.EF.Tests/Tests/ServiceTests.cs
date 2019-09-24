@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Kasp.Core.Extensions;
 using Kasp.Test;
 using Xunit;
 using Xunit.Abstractions;
