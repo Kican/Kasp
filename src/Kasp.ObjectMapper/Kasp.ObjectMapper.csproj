@@ -1,9 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<Import Project="..\version.props" />
 
 	<PropertyGroup>
-		<id>Kasp.ObjectMapper</id>
+		<PackageId>Kasp.ObjectMapper</PackageId>
+		<IsPackable>true</IsPackable>
+		<OutputType>library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
