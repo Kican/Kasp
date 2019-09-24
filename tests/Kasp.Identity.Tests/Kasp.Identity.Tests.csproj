@@ -3,11 +3,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Kasp.Identity\Kasp.Identity.csproj" />
         <ProjectReference Include="..\..\src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj" />
-        <ProjectReference Include="..\Kasp.Core.Tests\Kasp.Core.Tests.csproj" />
-
-        <Content Include="appsettings.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
+        <ProjectReference Include="..\..\src\Kasp.Test.EF\Kasp.Test.EF.csproj" />
     </ItemGroup>
 </Project>

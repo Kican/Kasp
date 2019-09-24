@@ -13,14 +13,11 @@ namespace Kasp.FormBuilder.Tests {
 		private IConfiguration Configuration { get; }
 
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc();
-
 			services.AddFormBuilder();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			app.UseMvc();
+		public void Configure(IApplicationBuilder app) {
 		}
 	}
 }

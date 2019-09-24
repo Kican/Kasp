@@ -8,6 +8,7 @@ using Kasp.Identity.Services;
 using Kasp.Identity.Tests.Data;
 using Kasp.Identity.Tests.Models.UserModels;
 using Kasp.ObjectMapper.Extensions;
+using Kasp.Test.EF.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -44,18 +45,22 @@ namespace Kasp.Identity.Tests {
 			services.AddObjectMapper<ObjectMapper.AutoMapper.AutoMapper>();
 
 			services.AddSingleton<IAuthOtpSmsSender, AuthOtpSmsSender>();
+
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			app.UseKasp().UseDataBase<AppIdentityDbContext>();
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+			app.UseKasp().UseTestDataBase<AppIdentityDbContext>();
 
 			app.UseAuthentication();
-
+			app.UseAuthorization();
+			
 			app.UseObjectMapper();
 
 			app.UseStaticFiles();
-			app.UseMvc();
+			app.UseRouting();
+			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}
 
