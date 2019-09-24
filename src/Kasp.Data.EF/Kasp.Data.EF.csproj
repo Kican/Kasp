@@ -2,7 +2,7 @@
     <Import Project="..\version.props" />
 
     <PropertyGroup>
-        <id>Kasp.Ef</id>
+        <PackageId>Kasp.EF</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -10,6 +10,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.17" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.19" />
     </ItemGroup>
 </Project>

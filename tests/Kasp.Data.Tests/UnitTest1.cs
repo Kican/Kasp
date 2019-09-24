@@ -4,6 +4,7 @@ using Kasp.Data.Test.Controllers;
 using Kasp.Test;
 using Xunit;
 using Xunit.Abstractions;
+using System.Text.Json;
 
 namespace Kasp.Data.Test {
 	public class PageControllerTest : KClassFixtureWebApp<Startup> {
@@ -15,7 +16,7 @@ namespace Kasp.Data.Test {
 		[InlineData(2, 10)]
 		public async Task Test1(int page, int count) {
 			var response = await Client.GetAsync($"/api/page/PageBind?page={page}&count={count}");
-			var result = await response.Content.ReadAsAsync<Pageable>();
+			var result = await JsonSerializer.DeserializeAsync<Pageable>(await response.Content.ReadAsStreamAsync());
 			Assert.True(result.Page == page && result.Count == count);
 		}
 	}
