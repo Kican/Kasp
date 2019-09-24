@@ -3,7 +3,6 @@ using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
 using Kasp.ObjectMapper;
 using Kasp.ObjectMapper.Extensions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Kasp.Data {
 	[Route("api/[controller]")]
