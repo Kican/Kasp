@@ -1,10 +1,6 @@
-using Kasp.Core.Extensions;
 using Kasp.Data.EF.Extensions;
 using Kasp.Data.EF.Tests.Data;
-using Kasp.Test.EF.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +23,7 @@ namespace Kasp.Data.EF.Tests {
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext dbContext) {
-			app.UseKasp().UseTestDataBase<AppDbContext>();
-
+		public void Configure(IApplicationBuilder app) {
 			app.UseStaticFiles();
 			app.UseRouting();
 			app.UseEndpoints(builder => builder.MapControllers());

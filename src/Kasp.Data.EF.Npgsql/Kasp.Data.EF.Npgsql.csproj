@@ -3,7 +3,7 @@
     <Import Project="..\version.props" />
 
     <PropertyGroup>
-        <id>Kasp.EF.Npgsql</id>
+        <PackageId>Kasp.Data.EF.Npgsql</PackageId>
     </PropertyGroup>
 
     <ItemGroup>

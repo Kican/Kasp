@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Kasp.Core.Extensions {
 	public static class HttpExtensions {
 		public static async Task<T> ReadAsAsync<T>(this HttpContent content) {
-			return await JsonSerializer.DeserializeAsync<T>(await content.ReadAsStreamAsync());
+			return await JsonSerializer.DeserializeAsync<T>(await content.ReadAsStreamAsync(), new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
 		}
 
 		public static Task<HttpResponseMessage> PostAsJsonAsync<T>(this HttpClient client, string requestUri, T value) {

@@ -1,8 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
     <Import Project="..\version.props" />
 
     <PropertyGroup>
-        <PackageId>Kasp.EF</PackageId>
+        <PackageId>Kasp.Data.EF</PackageId>
+		<IsPackable>true</IsPackable>
+		<OutputType>library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>

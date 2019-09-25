@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Kasp.Core.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,15 +16,16 @@ namespace Kasp.Data.Test {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+		public void Configure(IApplicationBuilder app) {
 			app.UseKasp();
 
 			app.UseStaticFiles();
-			app.UseMvc();
+			app.UseRouting();
+			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}
 }
