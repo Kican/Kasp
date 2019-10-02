@@ -1,4 +1,5 @@
 using Kasp.Core.Extensions;
+using Kasp.Core.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,15 +16,18 @@ namespace Kasp.Core.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			app.UseKasp().UseIndexSpa(new[] {"/panel"});
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+			app.UseKasp()
+				.UseExceptionHandler()
+				.UseIndexSpa(new[] {"/panel"});
 
 			app.UseStaticFiles();
-			app.UseMvc();
+			app.UseRouting();
+			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}
 }
