@@ -20,8 +20,8 @@ namespace Kasp.Localization.EF.Extensions {
 	
 			var newsLangs = builder.LocalizationOptions.SupportedCultures.Select(x => x.Name).Except(dbCultures.Select(x => x.Id)).ToArray();
 
-			langRepository.AddAsync(newsLangs.Select(x => new Lang {Id = x, Enable = true})).Wait();
-			langRepository.SaveAsync().Wait();
+			langRepository.AddAsync(newsLangs.Select(x => new Lang {Id = x, Enable = true})).AsTask().Wait();
+			langRepository.SaveAsync().AsTask().Wait();
 		}
 	}
 }

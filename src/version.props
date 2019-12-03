@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <VersionPrefix>0.5.0</VersionPrefix>
 		<LangVersion>latest</LangVersion>
         <!--<VersionSuffix>preview2</VersionSuffix>-->
@@ -15,7 +15,7 @@
         <Description>some tools for fast developing back-end.</Description>
         <!--<PackageIconUrl>https://s3.amazonaws.com/automapper/icon.png</PackageIconUrl>-->
         <PackageProjectUrl>https://github.com/mo3in/Kasp</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/mo3in/Kasp/blob/master/LICENSE</PackageLicenseUrl>
+        <licence>https://github.com/mo3in/Kasp/blob/master/LICENSE</licence>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/mo3in/Kasp</RepositoryUrl>
         <LangVersion>latest</LangVersion>

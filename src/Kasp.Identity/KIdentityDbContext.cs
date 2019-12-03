@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.Identity {
-	public class KIdentityDbContext<TUser, TRole, TKey> : IdentityDbContext<TUser, TRole, TKey> where TUser : KaspUser<TKey> where TRole : KaspRole<TKey> where TKey : IEquatable<TKey> {
+	public class KIdentityDbContext<TUser, TRole, TKey> : IdentityDbContext<TUser, TRole, TKey> where TUser : KaspUser<TKey> where TRole : KaspRole<TKey> where TKey : unmanaged, IEquatable<TKey> {
 		public KIdentityDbContext(DbContextOptions options) : base(options) {
 		}
 

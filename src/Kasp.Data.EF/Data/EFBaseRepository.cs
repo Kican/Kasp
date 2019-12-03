@@ -13,7 +13,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Kasp.Data.EF.Data {
 	public abstract class EFBaseRepository<TDbContext, TModel, TKey> : IEFBaseRepository<TModel, TKey>
 		where TDbContext : DbContext
-		where TModel : class, IModel<TKey> {
+		where TModel : class, IModel<TKey>
+		where TKey :  IEquatable<TKey> {
 		protected EFBaseRepository(TDbContext db) {
 			Db = db;
 			Set = db.Set<TModel>();
@@ -22,121 +23,73 @@ namespace Kasp.Data.EF.Data {
 		public DbSet<TModel> Set { get; }
 		public virtual IQueryable<TModel> BaseQuery => Set.AsQueryable();
 
-		public virtual async Task<bool> HasAsync(TKey id, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<bool> HasAsync(TKey id, CancellationToken cancellationToken = default) {
 			return await BaseQuery.AnyAsync(x => x.Id.Equals(id), cancellationToken);
 		}
 
-		public virtual async Task<bool> HasAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<bool> HasAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
 			return await BaseQuery.AnyAsync(filter, cancellationToken);
 		}
 
-		public virtual async Task<bool> HasFilteredAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
-			return await FilteredQuery.AnyAsync(filter, cancellationToken);
-		}
 
-		public virtual async Task<TModel> GetAsync(TKey id, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<TModel> GetAsync(TKey id, CancellationToken cancellationToken = default) {
 			return await BaseQuery.FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
 		}
 
-		public virtual async Task<TModel> GetFilteredAsync(TKey id, CancellationToken cancellationToken = default) {
-			return await FilteredQuery.FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
-		}
-
-		public virtual async Task<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.MapTo<TProject>().FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
 		}
 
-		public virtual async Task<TProject> GetFilteredAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await FilteredQuery.MapTo<TProject>().FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
-		}
-
-		public virtual async Task<TModel> GetAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<TModel> GetAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
 			return await BaseQuery.FirstOrDefaultAsync(filter, cancellationToken);
 		}
 
-		public virtual async Task<TModel> GetFilteredAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
-			return await FilteredQuery.FirstOrDefaultAsync(filter, cancellationToken);
-		}
-
-		public virtual async Task<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.Where(filter).MapTo<TProject>().FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public virtual async Task<TProject> GetFilteredAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await FilteredQuery.Where(filter).MapTo<TProject>().FirstOrDefaultAsync(cancellationToken);
-		}
-
-		public virtual async Task<ICollection<TModel>> ListAsync(CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<IEnumerable<TModel>> ListAsync(CancellationToken cancellationToken = default) {
 			return await BaseQuery.ToArrayAsync(cancellationToken);
 		}
 
-		public virtual async Task<ICollection<TModel>> ListFilteredAsync(CancellationToken cancellationToken = default) {
-			return await FilteredQuery.ToArrayAsync(cancellationToken);
-		}
-
-		public virtual async Task<ICollection<TProject>> ListAsync<TProject>(CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.MapTo<TProject>().ToArrayAsync(cancellationToken);
 		}
 
-		public virtual async Task<ICollection<TProject>> ListFilteredAsync<TProject>(CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await FilteredQuery.MapTo<TProject>().ToArrayAsync(cancellationToken);
-		}
-
-		public virtual async Task<ICollection<TModel>> ListAsync(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<IEnumerable<TModel>> ListAsync(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) {
 			return await BaseQuery.Where(expression).ToArrayAsync(cancellationToken);
 		}
 
-		public virtual async Task<ICollection<TModel>> ListFilteredAsync(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) {
-			return await FilteredQuery.Where(expression).ToArrayAsync(cancellationToken);
-		}
-
-		public virtual async Task<ICollection<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default)
+			where TProject : IModel<TKey> {
 			return await BaseQuery.Where(expression).MapTo<TProject>().ToArrayAsync(cancellationToken);
 		}
 
-		public virtual async Task<ICollection<TProject>> ListFilteredAsync<TProject>(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await FilteredQuery.Where(expression).MapTo<TProject>().ToArrayAsync(cancellationToken);
-		}
-
-		public virtual async Task<IPagedList<TModel>> PagedListAsync(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<IPagedList<TModel>> PagedListAsync(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default) {
 			return await BaseQuery.Where(expression).ToPagedListAsync(count, page, cancellationToken);
 		}
 
-		public virtual async Task<IPagedList<TModel>> PagedListFilteredAsync(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default) {
-			return await FilteredQuery.Where(expression).ToPagedListAsync(count, page, cancellationToken);
-		}
-
-		public virtual async Task<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default)
+		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20,
+			CancellationToken cancellationToken = default)
 			where TProject : IModel<TKey> {
 			return await BaseQuery.Where(expression).MapTo<TProject>().ToPagedListAsync(count, page, cancellationToken);
 		}
 
-		public virtual async Task<IPagedList<TProject>> PagedListFilteredAsync<TProject>(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey> {
-			return await FilteredQuery.Where(expression).MapTo<TProject>().ToPagedListAsync(count, page, cancellationToken);
-		}
-
-		public virtual async Task<IPagedList<TModel>> PagedListAsync(int page = 1, int count = 20, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<IPagedList<TModel>> PagedListAsync(int page = 1, int count = 20, CancellationToken cancellationToken = default) {
 			return await BaseQuery.ToPagedListAsync(count, page, cancellationToken);
 		}
 
-		public virtual async Task<IPagedList<TModel>> PagedListFilteredAsync(int page = 1, int count = 20, CancellationToken cancellationToken = default) {
-			return await FilteredQuery.ToPagedListAsync(count, page, cancellationToken);
-		}
 
-		public virtual async Task<IPagedList<TProject>> PagedListAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.MapTo<TProject>().ToPagedListAsync(count, page, cancellationToken);
 		}
 
-		public virtual async Task<IPagedList<TProject>> PagedListFilteredAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await FilteredQuery.MapTo<TProject>().ToPagedListAsync(count, page, cancellationToken);
+
+		public virtual async ValueTask AddAsync(TModel model, CancellationToken cancellationToken = default) {
+			Set.Add(model);
 		}
 
-		public virtual async Task AddAsync(TModel model, CancellationToken cancellationToken = default) {
-			await Set.AddAsync(model, cancellationToken);
-		}
-
-		public virtual async Task AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default) {
 			await Set.AddRangeAsync(model, cancellationToken);
 		}
 
@@ -144,7 +97,7 @@ namespace Kasp.Data.EF.Data {
 			Set.Update(model);
 		}
 
-		public virtual async Task RemoveAsync(TKey id, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask RemoveAsync(TKey id, CancellationToken cancellationToken = default) {
 			var model = await GetAsync(id, cancellationToken);
 			Set.Remove(model);
 		}
@@ -153,23 +106,10 @@ namespace Kasp.Data.EF.Data {
 			Set.Remove(model);
 		}
 
-		public async Task<int> SaveAsync(CancellationToken cancellationToken = default) {
+		public async ValueTask<int> SaveAsync(CancellationToken cancellationToken = default) {
 			return await Db.SaveChangesAsync(cancellationToken);
 		}
 
-		private IQueryable<TModel> _filteredQuery;
-
-		public IQueryable<TModel> FilteredQuery {
-			get {
-				if (_filteredQuery != null) return _filteredQuery;
-
-				var query = BaseQuery;
-				EntityHelperFactory.GetQueryFilter<TModel>().ForEach(helper => query = helper.QueryFilter(query));
-				_filteredQuery = query;
-
-				return _filteredQuery;
-			}
-		}
 
 		public TDbContext Db { get; }
 	}

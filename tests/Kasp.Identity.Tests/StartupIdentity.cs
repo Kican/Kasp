@@ -53,13 +53,14 @@ namespace Kasp.Identity.Tests {
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			app.UseKasp().UseTestDataBase<AppIdentityDbContext>();
 
-			app.UseAuthentication();
-			app.UseAuthorization();
-			
 			app.UseObjectMapper();
 
 			app.UseStaticFiles();
 			app.UseRouting();
+			
+			app.UseAuthorization();
+			app.UseAuthentication();
+			
 			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}

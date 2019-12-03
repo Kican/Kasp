@@ -15,7 +15,7 @@ namespace Kasp.Localization.EF.Tests.Controllers {
 
 		[HttpGet]
 		public async Task<ActionResult<Post[]>> List() {
-			var item = await PostRepository.ListFilteredAsync();
+			var item = await PostRepository.ListAsync();
 			return item.ToArray();
 		}
 	}

@@ -34,11 +34,22 @@ namespace Kasp.Data.EF {
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			base.OnModelCreating(modelBuilder);
-			EntityHelperFactory.GetHelpers().ForEach(helper => {
-				if (helper.IsGlobalFilter) {
-					
-				}
-			});
+
+//			foreach (var entityType in Model.GetEntityTypes()) {
+//				EntityHelperFactory.GetQueryFilter(entityType.ClrType).ForEach(helper =>  modelBuilder.Entity(entityType.ClrType).HasQueryFilter(helper.QueryFilter<IEnable>()) );
+//			}
 		}
+
+//		public static void ApplyGlobalFilters<TInterface>(this ModelBuilder modelBuilder, Expression<Func<TInterface, bool>> expression) {
+//			var entities = modelBuilder.Model
+//				.GetEntityTypes()
+//				.Where(e => e.ClrType.GetInterface(typeof(TInterface).Name) != null)
+//				.Select(e => e.ClrType);
+//			foreach (var entity in entities) {
+//				var newParam = Expression.Parameter(entity);
+//				var newbody = ReplacingExpressionVisitor.Replace(expression.Parameters.Single(), newParam, expression.Body);
+//				modelBuilder.Entity(entity).HasQueryFilter(Expression.Lambda(newbody, newParam));
+//			}
+//		}
 	}
 }

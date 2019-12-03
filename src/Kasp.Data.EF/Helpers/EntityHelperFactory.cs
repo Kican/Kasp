@@ -10,8 +10,8 @@ namespace Kasp.Data.EF.Helpers {
 		static EntityHelperFactory() {
 			Add<ICreateTime, CreateTimeEntityHelper>();
 			Add<IUpdateTime, UpdateTimeEntityHelper>();
-			Add<IEnable, EnableEntityHelper>();
-			Add<IPublishTime, PublishEntityHelper>();
+//			Add<IEnable, EnableEntityHelper>();
+//			Add<IPublishTime, PublishEntityHelper>();
 		}
 
 		public static void Add<T, TEntityHelper>() where TEntityHelper : EntityHelper<T> {
@@ -29,6 +29,9 @@ namespace Kasp.Data.EF.Helpers {
 
 		public static List<IEntityHelper> GetQueryFilter<T>() {
 			return Helpers.Where(x => x.Key.IsAssignableFrom(typeof(T))).SelectMany(x => x.Value).ToList();
+		}
+		public static List<IEntityHelper> GetQueryFilter(Type type) {
+			return Helpers.Where(x => x.Key.IsAssignableFrom(type)).SelectMany(x => x.Value).ToList();
 		}
 	}
 }

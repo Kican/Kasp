@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
@@ -10,6 +11,7 @@ namespace Kasp.Data {
 	public abstract class CrudControllerBase<TRepository, TModel, TViewModel, TPartialVm, TInsertModel, TEditModel, TKey> : ControllerBase
 		where TRepository : IBaseRepository<TModel, TKey>
 		where TInsertModel : IModel<TKey>
+		where TKey :  IEquatable<TKey>
 		where TViewModel : class, IModel<TKey>
 		where TEditModel : IModel<TKey>
 		where TPartialVm : class, IModel<TKey>

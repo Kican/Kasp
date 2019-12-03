@@ -5,7 +5,6 @@
         <PackageId>Kasp.Localization</PackageId>
 		<IsPackable>true</IsPackable>
 		<OutputType>library</OutputType>
-		<TargetFramework>netcoreapp3.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>

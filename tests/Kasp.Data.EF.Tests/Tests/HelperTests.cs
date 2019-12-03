@@ -10,9 +10,7 @@ using Xunit.Abstractions;
 
 namespace Kasp.Data.EF.Tests.Tests {
 	public class HelperTests : KClassFixtureWebApp<StartupDb> {
-		private readonly News _model = new News {
-			Title = "this is title", Content = "this is body"
-		};
+		private readonly News _model = new News {Title = "this is title", Content = "this is body"};
 
 		private readonly NewsRepository _newsRepository;
 
@@ -20,7 +18,7 @@ namespace Kasp.Data.EF.Tests.Tests {
 		public async Task ModelTest() {
 			await _newsRepository.AddAsync(_model);
 			await _newsRepository.SaveAsync();
-
+			
 			Assert.True(_model.Id > 0);
 		}
 
@@ -101,7 +99,7 @@ namespace Kasp.Data.EF.Tests.Tests {
 			await _newsRepository.SaveAsync();
 
 			Output.WriteLine(model.ToString());
-			var item = await _newsRepository.GetFilteredAsync(x => x.Id == model.Id);
+			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 
 			Assert.Null(item);
 		}
@@ -125,7 +123,7 @@ namespace Kasp.Data.EF.Tests.Tests {
 			await _newsRepository.AddAsync(model);
 			await _newsRepository.SaveAsync();
 
-			var item = await _newsRepository.GetFilteredAsync(x => x.Id == model.Id);
+			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 
 			Assert.Null(item);
 		}
@@ -141,6 +139,7 @@ namespace Kasp.Data.EF.Tests.Tests {
 
 			Assert.NotNull(item);
 		}
+
 		[Fact]
 		public async Task REPOSITORY_FILTERED_AfterPublishTime() {
 			var model = _model;
@@ -156,6 +155,5 @@ namespace Kasp.Data.EF.Tests.Tests {
 		public HelperTests(ITestOutputHelper output, KWebAppFactory<StartupDb> factory) : base(output, factory) {
 			_newsRepository = GetService<NewsRepository>();
 		}
-		
 	}
 }

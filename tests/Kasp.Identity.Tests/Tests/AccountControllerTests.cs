@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Kasp.Core.Extensions;
 using Kasp.Identity.Entities.UserEntities.XEntities;
@@ -41,10 +42,29 @@ namespace Kasp.Identity.Tests.Tests {
 			Assert.Equal(3, result.access_token.Split(".").Length);
 		}
 
+		[Fact]
+		public async Task CHECK_JWT() {
+			var response = await Client.PostAsJsonAsync("/api/account/PhoneRequest", new {Phone = "00000000"});
+
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+			response = await Client.PostAsJsonAsync("/api/account/LoginOtp", new {Phone = "00000000", AuthOtpSmsSender.Code});
+
+			var result = await response.Content.ReadAsAsync<BearerLoginResult>();
+
+
+			var infoReq = new HttpRequestMessage(HttpMethod.Get, "/api/account/Info");
+			infoReq.Headers.Add("Authorization", "Bearer " + result.access_token);
+			
+			response = await Client.SendAsync(infoReq);
+
+			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+		}
+
 
 		[Fact]
 		public async Task XXX() {
-			var userManager = Factory.Server.Host.Services.GetService<UserManager<AppUser>>();
+			var userManager = GetService<UserManager<AppUser>>();
 			var user = new AppUser() {Email = "mo3in@asd.com", UserName = "mo3in@asd.com"};
 			var result = await userManager.CreateAsync(user);
 
