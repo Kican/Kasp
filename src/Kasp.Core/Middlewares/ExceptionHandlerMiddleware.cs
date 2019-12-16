@@ -18,11 +18,13 @@ namespace Kasp.Core.Middlewares {
 
 					var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
 
-					error.Status = (int) HttpStatusCode.InternalServerError;
 
 					if (contextFeature.Error is KaspRuntimeException exception) {
 						error.Status = (int) exception.StatusCode;
 						error.Message = exception.Message;
+					} else {
+						error.Status = (int) HttpStatusCode.InternalServerError;
+						error.Message = contextFeature.Error.Message;
 					}
 
 					context.Response.StatusCode = error.Status;
