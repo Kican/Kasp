@@ -17,8 +17,7 @@ namespace Kasp.Core.Middlewares {
 					var error = new ErrorDetails();
 
 					var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-
-
+					
 					if (contextFeature.Error is KaspRuntimeException exception) {
 						error.Status = (int) exception.StatusCode;
 						error.Message = exception.Message;

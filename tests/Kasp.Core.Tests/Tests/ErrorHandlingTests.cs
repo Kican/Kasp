@@ -37,6 +37,7 @@ namespace Kasp.Core.Tests.Tests {
 
 			var data = await response.Content.ReadAsAsync<ErrorDetails>();
 			Assert.Equal(HttpStatusCode.InternalServerError, Enum.Parse<HttpStatusCode>(data.Status.ToString()));
+			Assert.Equal("salam", data.Message);
 		}
 	}
 }
