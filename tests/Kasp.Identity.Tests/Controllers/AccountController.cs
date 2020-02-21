@@ -1,6 +1,6 @@
 using Kasp.Identity.Controllers;
-using Kasp.Identity.Entities;
-using Kasp.Identity.Entities.UserEntities.XEntities;
+using Kasp.Identity.Core.Entities;
+using Kasp.Identity.Core.Entities.UserEntities.XEntities;
 using Kasp.Identity.Services;
 using Kasp.Identity.Tests.Models.UserModels;
 using Kasp.Identity.Tests.Models.UserModels.XModels;

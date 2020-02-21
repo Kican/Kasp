@@ -1,5 +1,5 @@
 using AutoMapper;
-using Kasp.Identity.Entities.UserEntities.XEntities;
+using Kasp.Identity.Core.Entities.UserEntities.XEntities;
 using Kasp.Identity.Tests.Models.UserModels;
 using Kasp.Identity.Tests.Models.UserModels.XModels;
 

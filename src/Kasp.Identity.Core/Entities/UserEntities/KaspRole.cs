@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace Kasp.Identity.Entities.UserEntities {
+namespace Kasp.Identity.Core.Entities.UserEntities {
 	public class KaspRole<TKey> : IdentityRole<TKey> where TKey : IEquatable<TKey> {
 		public KaspRole() {
 		}

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Kasp.Identity.Entities.UserEntities.XEntities {
+namespace Kasp.Identity.Core.Entities.UserEntities.XEntities {
 	public class TokenResponse {
 		[JsonPropertyName("access_token")]
 		public string AccessToken { get; set; }

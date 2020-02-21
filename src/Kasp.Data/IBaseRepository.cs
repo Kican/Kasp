@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Kasp.Data.Models.Helpers;
 
 namespace Kasp.Data {
-	public interface IBaseRepository<TModel, TKey> where TModel : class, IModel<TKey> where TKey :  IEquatable<TKey> {
+	public interface IBaseRepository<TModel, TKey> where TModel : class, IModel<TKey> where TKey : IEquatable<TKey> {
 		// is exist
 		ValueTask<bool> HasAsync(TKey id, CancellationToken cancellationToken = default);
 		ValueTask<bool> HasAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default);
@@ -39,14 +39,13 @@ namespace Kasp.Data {
 		ValueTask AddAsync(TModel model, CancellationToken cancellationToken = default);
 		ValueTask AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default);
 
-		void Update(TModel model);
+		Task UpdateAsync(TModel model, CancellationToken cancellationToken = default);
+		Task UpdateRangeAsync(IEnumerable<TModel> items, CancellationToken cancellationToken = default);
 
 		ValueTask RemoveAsync(TKey id, CancellationToken cancellationToken = default);
-		void Remove(TModel model);
-
-		ValueTask<int> SaveAsync(CancellationToken cancellationToken = default);
+		Task RemoveAsync(TModel model, CancellationToken cancellationToken = default);
 	}
 
-	public interface IBaseRepository<TModel> where TModel : class, IModel<int> {
+	public interface IBaseRepository<TModel> : IBaseRepository<TModel, int> where TModel : class, IModel<int> {
 	}
 }

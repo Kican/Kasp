@@ -1,4 +1,4 @@
-namespace Kasp.Identity.Entities {
+namespace Kasp.Identity.Core.Entities {
 	public class JwtConfig {
 		public string Key { get; set; }
 		public string Issuer { get; set; }

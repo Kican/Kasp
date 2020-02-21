@@ -55,12 +55,9 @@ namespace Kasp.Data {
 				}
 
 				item = ObjectMapper.MapTo(model, item);
-				Repository.Update(item);
+				await Repository.UpdateAsync(item);
 			}
-
-
-			await Repository.SaveAsync();
-
+			
 			return ObjectMapper.MapTo<TViewModel>(item);
 		}
 
@@ -75,15 +72,13 @@ namespace Kasp.Data {
 				return NotFound();
 
 			item = ObjectMapper.MapTo(model, item);
-			Repository.Update(item);
-			await Repository.SaveAsync();
+			await Repository.UpdateAsync(item);
 			return item.MapTo<TViewModel>();
 		}
 
 		[HttpDelete("{id}")]
 		public virtual async Task<IActionResult> Remove(TKey id) {
 			await Repository.RemoveAsync(id);
-			await Repository.SaveAsync();
 			return Ok();
 		}
 	}

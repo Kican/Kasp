@@ -1,4 +1,4 @@
-using Kasp.Identity.Entities.UserEntities.XEntities;
+using Kasp.Identity.Core.Entities.UserEntities.XEntities;
 
 namespace Kasp.Identity.Tests.Models.UserModels.XModels {
 	public class AppUserRegisterModel : IUserRegisterModel {

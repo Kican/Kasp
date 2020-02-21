@@ -45,8 +45,7 @@ namespace Kasp.Data.EF.Tests.Tests {
 
 			_model.Title = "new title";
 
-			_newsRepository.Update(_model);
-			await _newsRepository.SaveAsync();
+			await _newsRepository.UpdateAsync(_model);
 
 			Assert.NotNull(_model.UpdateTime);
 			Assert.True(_model.UpdateTime > DateTime.UtcNow.AddMinutes(-1));
@@ -96,7 +95,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = _model;
 			model.Enable = false;
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
@@ -119,9 +117,8 @@ namespace Kasp.Data.EF.Tests.Tests {
 		[Fact]
 		public async Task REPOSITORY_FILTERED_BeforePublishTime() {
 			var model = _model;
-			model.PublishTime = DateTime.UtcNow.AddDays(1);
+			model.PublishTime = DateTime.Now.AddDays(1);
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 

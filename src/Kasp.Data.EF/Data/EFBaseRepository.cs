@@ -14,7 +14,7 @@ namespace Kasp.Data.EF.Data {
 	public abstract class EFBaseRepository<TDbContext, TModel, TKey> : IEFBaseRepository<TModel, TKey>
 		where TDbContext : DbContext
 		where TModel : class, IModel<TKey>
-		where TKey :  IEquatable<TKey> {
+		where TKey : IEquatable<TKey> {
 		protected EFBaseRepository(TDbContext db) {
 			Db = db;
 			Set = db.Set<TModel>();
@@ -87,29 +87,38 @@ namespace Kasp.Data.EF.Data {
 
 		public virtual async ValueTask AddAsync(TModel model, CancellationToken cancellationToken = default) {
 			Set.Add(model);
+			await SaveAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default) {
 			await Set.AddRangeAsync(model, cancellationToken);
+			await SaveAsync(cancellationToken);
 		}
 
-		public virtual void Update(TModel model) {
+		public async Task UpdateAsync(TModel model, CancellationToken cancellationToken = default) {
 			Set.Update(model);
+			await SaveAsync(cancellationToken);
+		}
+
+		public async Task UpdateRangeAsync(IEnumerable<TModel> items, CancellationToken cancellationToken = default) {
+			Set.UpdateRange(items);
+			await SaveAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask RemoveAsync(TKey id, CancellationToken cancellationToken = default) {
 			var model = await GetAsync(id, cancellationToken);
 			Set.Remove(model);
+			await SaveAsync(cancellationToken);
 		}
 
-		public virtual void Remove(TModel model) {
+		public async Task RemoveAsync(TModel model, CancellationToken cancellationToken = default) {
 			Set.Remove(model);
+			await SaveAsync(cancellationToken);
 		}
 
 		public async ValueTask<int> SaveAsync(CancellationToken cancellationToken = default) {
 			return await Db.SaveChangesAsync(cancellationToken);
 		}
-
 
 		public TDbContext Db { get; }
 	}

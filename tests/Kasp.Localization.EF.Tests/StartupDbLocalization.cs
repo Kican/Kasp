@@ -23,7 +23,7 @@ namespace Kasp.Localization.EF.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 			services.AddEntityFrameworkInMemoryDatabase();
 
@@ -42,13 +42,12 @@ namespace Kasp.Localization.EF.Tests {
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			var builder = app.UseKasp()
 				.UseTestDataBase<LocalizationDbContext>();
 
 			var langRepository = app.ApplicationServices.CreateScope().ServiceProvider.GetService<ILangRepository>();
 			langRepository.AddAsync(new Lang {Id = "fa-IR", Enable = true}).Preserve();
-			langRepository.SaveAsync().Preserve();
 
 			builder.UseRequestLocalization(options => options.UseDb());
 

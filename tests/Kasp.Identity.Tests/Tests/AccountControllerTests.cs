@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Kasp.Core.Extensions;
-using Kasp.Identity.Entities.UserEntities.XEntities;
+using Kasp.Identity.Core.Entities.UserEntities.XEntities;
 using Kasp.Identity.Tests.Models.UserModels;
 using Kasp.Identity.Tests.Models.UserModels.XModels;
 using Kasp.Test;

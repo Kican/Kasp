@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Kasp.Core.Extensions;
 using Kasp.Data.EF.Extensions;
-using Kasp.Identity.Entities.UserEntities;
+using Kasp.Identity.Core.Entities.UserEntities;
 using Kasp.Identity.Extensions;
 using Kasp.Identity.Services;
 using Kasp.Identity.Tests.Data;

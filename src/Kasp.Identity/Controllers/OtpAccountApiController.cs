@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Kasp.Identity.Entities;
-using Kasp.Identity.Entities.UserEntities;
-using Kasp.Identity.Entities.UserEntities.XEntities;
+using Kasp.Identity.Core.Entities;
+using Kasp.Identity.Core.Entities.UserEntities;
+using Kasp.Identity.Core.Entities.UserEntities.XEntities;
 using Kasp.Identity.Services;
 using Kasp.ObjectMapper;
 using Microsoft.AspNetCore.Authorization;

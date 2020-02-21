@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Kasp.Identity.Entities.UserEntities.XEntities {
+namespace Kasp.Identity.Core.Entities.UserEntities.XEntities {
 	public class TokenRequest {
 		public string Username { get; set; }
 		public string Password { get; set; }

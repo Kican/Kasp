@@ -1,4 +1,4 @@
-namespace Kasp.Identity.Entities.UserEntities.XEntities {
+namespace Kasp.Identity.Core.Entities.UserEntities.XEntities {
 	public class PhoneRequestResponse {
 		public PhoneRequestResponse(string senderNumber, bool isRegistered) {
 			SenderNumber = senderNumber;

@@ -1,4 +1,4 @@
-using Kasp.Identity.Entities.UserEntities;
+using Kasp.Identity.Core.Entities.UserEntities;
 using Kasp.Identity.Tests.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
 

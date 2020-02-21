@@ -1,5 +1,5 @@
 using System.Text;
-using Kasp.Identity.Entities;
+using Kasp.Identity.Core.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
