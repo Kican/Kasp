@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Data.EF.Extensions;
-using Kasp.Data.EF.Helpers;
 using Kasp.Data.Models.Helpers;
 using Kasp.ObjectMapper.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -85,12 +84,12 @@ namespace Kasp.Data.EF.Data {
 		}
 
 
-		public virtual async ValueTask AddAsync(TModel model, CancellationToken cancellationToken = default) {
+		public virtual async Task AddAsync(TModel model, CancellationToken cancellationToken = default) {
 			Set.Add(model);
 			await SaveAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default) {
+		public virtual async Task AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default) {
 			await Set.AddRangeAsync(model, cancellationToken);
 			await SaveAsync(cancellationToken);
 		}
@@ -105,7 +104,7 @@ namespace Kasp.Data.EF.Data {
 			await SaveAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask RemoveAsync(TKey id, CancellationToken cancellationToken = default) {
+		public virtual async Task RemoveAsync(TKey id, CancellationToken cancellationToken = default) {
 			var model = await GetAsync(id, cancellationToken);
 			Set.Remove(model);
 			await SaveAsync(cancellationToken);

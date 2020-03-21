@@ -14,8 +14,8 @@ namespace Kasp.Localization.EF.Tests.Tests {
 		public EntityControllerTest(ITestOutputHelper output, KWebAppFactory<StartupDbLocalization> factory) : base(output, factory) {
 			PostRepository = Factory.Server.Host.Services.GetService<PostRepository>();
 
-			PostRepository.AddAsync(new Post {Title = "سلام", LangId = "fa-IR"}).Preserve();
-			PostRepository.AddAsync(new Post {Title = "Hello", LangId = "en-US"}).Preserve();
+			PostRepository.AddAsync(new Post {Title = "سلام", LangId = "fa-IR"}).Wait();
+			PostRepository.AddAsync(new Post {Title = "Hello", LangId = "en-US"}).Wait();
 			PostRepository.SaveAsync().Preserve();
 		}
 

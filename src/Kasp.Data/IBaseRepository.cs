@@ -36,13 +36,13 @@ namespace Kasp.Data {
 		ValueTask<IPagedList<TModel>> PagedListAsync(int page = 1, int count = 20, CancellationToken cancellationToken = default);
 		ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
 
-		ValueTask AddAsync(TModel model, CancellationToken cancellationToken = default);
-		ValueTask AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default);
+		Task AddAsync(TModel model, CancellationToken cancellationToken = default);
+		Task AddAsync(IEnumerable<TModel> model, CancellationToken cancellationToken = default);
 
 		Task UpdateAsync(TModel model, CancellationToken cancellationToken = default);
 		Task UpdateRangeAsync(IEnumerable<TModel> items, CancellationToken cancellationToken = default);
 
-		ValueTask RemoveAsync(TKey id, CancellationToken cancellationToken = default);
+		Task RemoveAsync(TKey id, CancellationToken cancellationToken = default);
 		Task RemoveAsync(TModel model, CancellationToken cancellationToken = default);
 	}
 
