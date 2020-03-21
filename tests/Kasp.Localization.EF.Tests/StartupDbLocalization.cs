@@ -47,7 +47,7 @@ namespace Kasp.Localization.EF.Tests {
 				.UseTestDataBase<LocalizationDbContext>();
 
 			var langRepository = app.ApplicationServices.CreateScope().ServiceProvider.GetService<ILangRepository>();
-			langRepository.AddAsync(new Lang {Id = "fa-IR", Enable = true}).Preserve();
+			langRepository.AddAsync(new Lang {Id = "fa-IR", Enable = true}).Wait();
 
 			builder.UseRequestLocalization(options => options.UseDb());
 
