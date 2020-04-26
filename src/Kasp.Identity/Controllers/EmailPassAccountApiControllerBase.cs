@@ -64,7 +64,10 @@ namespace Kasp.Identity.Controllers {
 		protected virtual async Task<List<Claim>> GetClaims(TUser user) {
 			var claims = new List<Claim>();
 
-			claims.AddRange(new[] {new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),});
+			claims.AddRange(new[] {
+				new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+				new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+			});
 
 			var roles = await UserManager.GetRolesAsync(user);
 

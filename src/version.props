@@ -14,10 +14,10 @@
         <CodeAnalysisSummary>some tools for fast developing back-end dotnet</CodeAnalysisSummary>
         <Description>some tools for fast developing back-end.</Description>
         <!--<PackageIconUrl>https://s3.amazonaws.com/automapper/icon.png</PackageIconUrl>-->
-        <PackageProjectUrl>https://github.com/mo3in/Kasp</PackageProjectUrl>
-        <licence>https://github.com/mo3in/Kasp/blob/master/LICENSE</licence>
+        <PackageProjectUrl>https://github.com/Kican/Kasp</PackageProjectUrl>
+        <licence>https://github.com/Kican/Kasp/blob/master/LICENSE</licence>
         <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/mo3in/Kasp</RepositoryUrl>
+        <RepositoryUrl>https://github.com/Kican/Kasp</RepositoryUrl>
         <LangVersion>latest</LangVersion>
         <PackageTags>Kasp,asp.net core,mvc,framework,deadline</PackageTags>
     </PropertyGroup>
