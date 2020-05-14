@@ -3,8 +3,6 @@
 
 	<PropertyGroup>
 		<PackageId>Kasp.FormBuilder.FluentValidation</PackageId>
-		<IsPackable>true</IsPackable>
-		<OutputType>library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>

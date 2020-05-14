@@ -1,14 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-    <Import Project="..\version.props" />
+	<Import Project="..\version.props"/>
 
-    <PropertyGroup>
-        <PackageId>Kasp.Localization</PackageId>
-		<IsPackable>true</IsPackable>
-		<OutputType>library</OutputType>
-    </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>Kasp.Localization</PackageId>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj"/>
+	</ItemGroup>
 
 </Project>
