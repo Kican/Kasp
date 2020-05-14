@@ -18,17 +18,16 @@ namespace Kasp.FormBuilder.FluentValidation.Tests {
 		private IConfiguration Configuration { get; }
 
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc()
+			services.AddControllers()
 				.AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
-			
-			services.AddFormBuilder(options => {
-				options.AddFluentValidation();
-			});
+
+			services.AddFormBuilder(options => { options.AddFluentValidation(); });
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-			app.UseMvc();
+			app.UseRouting();
+			app.UseEndpoints(builder => { builder.MapControllers(); });
 		}
 	}
 }

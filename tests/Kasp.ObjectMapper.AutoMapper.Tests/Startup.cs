@@ -19,13 +19,15 @@ namespace Kasp.ObjectMapper.AutoMapper.Tests {
 			
 			services.AddObjectMapper<AutoMapper>();
 			
-			services.AddMvc();
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
 			app.UseObjectMapper();
-			app.UseMvc();
+			app.UseRouting();
+
+			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}
 }
