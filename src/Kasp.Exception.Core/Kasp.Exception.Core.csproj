@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
 	<Import Project="..\version.props" />
 
 	<PropertyGroup>
-		<PackageId>Kasp.Exception</PackageId>
+		<PackageId>Kasp.Exception.Core</PackageId>
 	</PropertyGroup>
 
+
 	<ItemGroup>
-	  <ProjectReference Include="..\Kasp.Exception.Core\Kasp.Exception.Core.csproj" />
+		<ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
 	</ItemGroup>
-
-
 </Project>
