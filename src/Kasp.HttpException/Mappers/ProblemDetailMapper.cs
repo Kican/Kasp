@@ -1,8 +1,7 @@
-using Kasp.Exception.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kasp.Exception.Mappers {
+namespace Kasp.HttpException.Mappers {
 	public class ProblemDetailMapper : IExceptionMapper {
 		protected virtual string MapInstance(HttpResponse response) {
 			return response.HttpContext.Request?.Path.HasValue == true ? response.HttpContext.Request.Path : null;
@@ -17,6 +16,7 @@ namespace Kasp.Exception.Mappers {
 		}
 
 		public IActionResult Map(System.Exception exception, HttpContext httpContext) {
+			exception.
 			var problemDetails = new ProblemDetails {
 				Status = MapStatus(response),
 				Type = MapType(response),

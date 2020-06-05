@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kasp.Exception.Internal {
+namespace Kasp.HttpException.Internal {
 	public class HttpExceptionOptions {
 		public Func<HttpContext, bool> IncludeExceptionDetails { get; set; }
 
@@ -17,7 +17,7 @@ namespace Kasp.Exception.Internal {
 
 		internal IActionResult MapToAction(System.Exception exception, HttpContext context) {
 			if(ExceptionMappers.ContainsKey(exception.GetType()))
-			return ExceptionMapper.Map(exception, context)
+			// return ExceptionMapper.Map(exception, context)
 		}
 	}
 }

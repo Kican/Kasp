@@ -93,13 +93,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Options", "src\Kasp.Op
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Options.Tests", "tests\Kasp.Options.Tests\Kasp.Options.Tests.csproj", "{082E7E1D-CE24-454E-ABCA-F91AF9BE8083}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exception", "Exception", "{110E4A04-5A83-42FB-9F0B-A557EBDE232C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HttpException", "HttpException", "{110E4A04-5A83-42FB-9F0B-A557EBDE232C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Exception", "src\Kasp.Exception\Kasp.Exception.csproj", "{9E2782E5-0331-4B80-9101-FAE593E70BE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.HttpException", "src\Kasp.HttpException\Kasp.HttpException.csproj", "{9E2782E5-0331-4B80-9101-FAE593E70BE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Exception.Core", "src\Kasp.Exception.Core\Kasp.Exception.Core.csproj", "{9BD1CF7A-0C8F-4083-A9BD-0D16AB9C4C7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.HttpException.Core", "src\Kasp.HttpException.Core\Kasp.HttpException.Core.csproj", "{9BD1CF7A-0C8F-4083-A9BD-0D16AB9C4C7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Exception.Tests", "tests\Kasp.Exception.Tests\Kasp.Exception.Tests.csproj", "{32E9402A-D8C6-49C2-8CEC-A66FBA52266E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.HttpException.Tests", "tests\Kasp.HttpException.Tests\Kasp.HttpException.Tests.csproj", "{32E9402A-D8C6-49C2-8CEC-A66FBA52266E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

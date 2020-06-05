@@ -4,6 +4,7 @@
 
 	<PropertyGroup>
 		<PackageId>Kasp.Exception.Core</PackageId>
+		<RootNamespace>Kasp.Exception.Core</RootNamespace>
 	</PropertyGroup>
 
 

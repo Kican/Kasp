@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Kasp.Exception {
+namespace Kasp.HttpException {
 	public class ForbiddenException : HttpExceptionBase {
 		public override HttpStatusCode StatusCode { get; } = HttpStatusCode.Forbidden;
 

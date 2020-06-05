@@ -1,10 +1,10 @@
-using Kasp.Exception.Extensions;
-using Kasp.Exception.Internal;
+using Kasp.HttpException.Extensions;
+using Kasp.HttpException.Internal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Exception.Tests {
+namespace Kasp.HttpException.Tests {
 	public class Startup {
 		public Startup(IConfiguration configuration) {
 			Configuration = configuration;

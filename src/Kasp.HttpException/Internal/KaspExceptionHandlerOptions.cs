@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Kasp.Exception.Internal {
+namespace Kasp.HttpException.Internal {
 	public class KaspExceptionHandlerOptions : ExceptionHandlerOptions {
 		public KaspExceptionHandlerOptions() {
 			ExceptionHandler = Handler;

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.props" />
+
+	<PropertyGroup>
+		<PackageId>Kasp.Exception</PackageId>
+		<AssemblyName>Kasp.HttpException</AssemblyName>
+		<RootNamespace>Kasp.HttpException</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Kasp.HttpException.Core\Kasp.HttpException.Core.csproj" />
+	</ItemGroup>
+
+
+</Project>

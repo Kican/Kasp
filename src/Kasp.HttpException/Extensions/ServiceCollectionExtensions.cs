@@ -1,9 +1,9 @@
 using System;
-using Kasp.Exception.Internal;
+using Kasp.HttpException.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Exception.Extensions {
+namespace Kasp.HttpException.Extensions {
 	public static class ServiceCollectionExtensions {
 		public static IMvcCoreBuilder AddHttpExceptions(this IMvcCoreBuilder builder, Action<HttpExceptionOptions> configureOptions = null) {
 			builder.Services.AddHttpExceptions(configureOptions);
