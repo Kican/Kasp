@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.tests.props" />
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Kasp.Identity.Data.EF\Kasp.Identity.Data.EF.csproj" />
+		<ProjectReference Include="..\..\src\Kasp.Test.EF\Kasp.Test.EF.csproj" />
+	</ItemGroup>
+
+</Project>

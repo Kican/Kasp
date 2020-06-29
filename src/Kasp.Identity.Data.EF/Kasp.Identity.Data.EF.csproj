@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.props"/>
+
+	<PropertyGroup>
+		<PackageId>Kasp.Identity.Data.EF</PackageId>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspNetCoreVersion)"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.Identity\Kasp.Identity.csproj"/>
+	</ItemGroup>
+</Project>
