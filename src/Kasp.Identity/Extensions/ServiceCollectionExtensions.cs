@@ -8,8 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Kasp.Identity.Extensions {
 	public static class ServiceCollectionExtensions {
-	
-
 		public static IdentityBuilder AddJwt(this IdentityBuilder builder, IConfiguration config) {
 			builder.Services.Configure<JwtConfig>(config);
 			return builder;
