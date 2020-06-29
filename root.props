@@ -3,7 +3,7 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 
 		<KaspVersionPrefix>0.5.5</KaspVersionPrefix>
-		<AspNetCoreVersion>3.1.4</AspNetCoreVersion>
+		<AspNetCoreVersion>3.1.5</AspNetCoreVersion>
 		<XUnitVersion>2.4.1</XUnitVersion>
     </PropertyGroup>
 </Project>
