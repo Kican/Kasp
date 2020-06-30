@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.props" />
+
+	<PropertyGroup>
+		<PackageId>Kasp.Authentication.Schema.JwtBearer.Core</PackageId>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="Services" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Kasp.Authentication.Bearer.Core\Kasp.Authentication.Bearer.Core.csproj" />
+		<ProjectReference Include="..\Kasp.Identity.Core\Kasp.Identity.Core.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetCoreVersion)" />
+	</ItemGroup>
+</Project>
