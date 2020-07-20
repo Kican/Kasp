@@ -25,7 +25,8 @@ bld/
 # Project Ignore
 Kican.Panel/wwwroot/*
 KicanTest/
-
+publish/
+build.cmd
 
 # Visual Studio 2015 cache/options directory
 .vs/
