@@ -3,7 +3,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 
 		<KaspVersionPrefix>0.6.1</KaspVersionPrefix>
-		<AspNetCoreVersion>5.0.0-preview.6.*</AspNetCoreVersion>
+		<AspNetCoreVersion>5.0.0-preview.7.*</AspNetCoreVersion>
 		<XUnitVersion>2.4.*</XUnitVersion>
     </PropertyGroup>
 </Project>
