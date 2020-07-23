@@ -8,7 +8,7 @@ using Kasp.Test;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
-
+using System.Linq;
 namespace Kasp.FormBuilder.Tests {
 	public class UnitTest1 : KClassFixtureWebApp<Startup> {
 		private IFormBuilder FormBuilder { get; }
@@ -20,6 +20,14 @@ namespace Kasp.FormBuilder.Tests {
 		[Fact]
 		public async Task Test1() {
 			var form = await FormBuilder.FromModel<ContactUs>();
+			Output.WriteLine(Serializer(form));
+			Assert.True(1 == 2 - 1);
+		}
+		
+		[Fact]
+		public async Task CheckTitle() {
+			var form = (LinearLayoutComponent)  await FormBuilder.FromModel<ContactUs>();
+			var nameComponent = form.Children.FirstOrDefault(x=>x.Name == "Name");
 			Output.WriteLine(Serializer(form));
 			Assert.True(1 == 2 - 1);
 		}
