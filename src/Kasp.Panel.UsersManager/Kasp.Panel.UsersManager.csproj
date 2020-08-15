@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.props" />
+
+	<PropertyGroup>
+		<id>Kasp.Panel.UsersManager</id>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.Data.EF\Kasp.Data.EF.csproj" />
+		<ProjectReference Include="..\Kasp.Identity\Kasp.Identity.csproj" />
+		<ProjectReference Include="..\Kasp.Panel.EntityManager\Kasp.Panel.EntityManager.csproj" />
+	</ItemGroup>
+</Project>
