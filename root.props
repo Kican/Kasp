@@ -2,7 +2,7 @@
     <PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 
-		<KaspVersionPrefix>0.5.8</KaspVersionPrefix>
+		<KaspVersionPrefix>0.5.9</KaspVersionPrefix>
 		
 		<AspNetCoreVersion>3.1.*</AspNetCoreVersion>
 		<NetTestSdkVersion>16.7.0</NetTestSdkVersion>
