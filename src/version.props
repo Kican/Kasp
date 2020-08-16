@@ -4,7 +4,7 @@
 		<IsPackable>true</IsPackable>
 		<OutputType>library</OutputType>
         <VersionPrefix>$(KaspVersionPrefix)</VersionPrefix>
-        <!--<VersionSuffix>preview2</VersionSuffix>-->
+<!--        <VersionSuffix>preview1</VersionSuffix>-->
         <VersionSuffix Condition=" '$(VersionSuffix)' != '' AND '$(BuildNumber)' != '' ">
             $(VersionSuffix)-$(BuildNumber)
         </VersionSuffix>

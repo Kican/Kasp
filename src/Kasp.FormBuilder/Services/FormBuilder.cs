@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Threading.Tasks;
 using Kasp.FormBuilder.Components;
 using Kasp.FormBuilder.Models;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.FormBuilder.Services {
 	public class FormBuilder : IFormBuilder {
