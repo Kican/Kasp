@@ -3,28 +3,30 @@ using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
 using Kasp.FormBuilder.Services;
 using Kasp.Identity.Core.Entities.UserEntities;
+using Kasp.Identity.Services;
 using Kasp.ObjectMapper;
 using Kasp.Panel.EntityManager;
 using Kasp.Panel.UsersManager.Dtos;
-using Kasp.Panel.UsersManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kasp.Panel.UsersManager {
 	public abstract class
-		UsersManagerControllerBase<TUser, TPartialDto> : EntityManagerControllerBase<TUser, IUsersManagerService<TUser>, TPartialDto, TPartialDto, TPartialDto, FilterBase>
+		UsersManagerControllerBase<TUser, TViewDto, TPartialDto, TEditDto> : EntityManagerControllerBase<TUser, IUsersService<TUser>, TViewDto, TPartialDto, TEditDto, FilterBase>
 		where TPartialDto : class, IModel
-		where TUser : KaspUser, IModel {
-		protected UsersManagerControllerBase(IUsersManagerService<TUser> repository, IObjectMapper objectMapper, IFormBuilder builder) : base(repository, objectMapper, builder) {
+		where TUser : KaspUser, IModel
+		where TEditDto : class, IModel
+		where TViewDto : IModel {
+		protected UsersManagerControllerBase(IUsersService<TUser> repository, IObjectMapper objectMapper, IFormBuilder builder) : base(repository, objectMapper, builder) {
 		}
 
 		[HttpGet("$roles")]
 		public async Task<ActionResult<RolePartialDto[]>> AllRoles() {
-			return await Repository.GetRolesAsync();
+			return await Repository.GetRolesAsync<RolePartialDto>();
 		}
 
 		[HttpGet("{id}/$roles")]
 		public async Task<ActionResult<RolePartialDto[]>> GetUserRoles(int id) {
-			return await Repository.GetUserRolesAsync(id);
+			return await Repository.GetUserRolesAsync<RolePartialDto>(id);
 		}
 
 		[HttpPut("{id}/$roles")]

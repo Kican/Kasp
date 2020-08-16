@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Data;
@@ -8,34 +7,31 @@ using Kasp.Data.EF.Extensions;
 using Kasp.Data.Extensions;
 using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
-using Kasp.Identity;
 using Kasp.Identity.Core.Entities.UserEntities;
 using Kasp.ObjectMapper.Extensions;
-using Kasp.Panel.UsersManager.Dtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kasp.Panel.UsersManager.Services {
-	public class UsersManagerService<TDbContext, TUser, TRole> : EFBaseRepository<TDbContext, TUser>, IUsersManagerService<TUser>
+namespace Kasp.Identity.Services {
+	public class UsersService<TDbContext, TUser, TRole> : EFBaseRepository<TDbContext, TUser>, IUsersService<TUser>
 		where TDbContext : KIdentityDbContext<TUser, TRole>
 		where TUser : KaspUser, IModel
 		where TRole : KaspRole {
 		private readonly UserManager<TUser> _userManager;
 		private readonly RoleManager<TRole> _roleManager;
 
-		public UsersManagerService(TDbContext db, UserManager<TUser> userManager, RoleManager<TRole> roleManager) : base(db) {
+		public UsersService(TDbContext db, UserManager<TUser> userManager, RoleManager<TRole> roleManager) : base(db) {
 			_userManager = userManager;
 			_roleManager = roleManager;
 		}
 
-		public async ValueTask<RolePartialDto[]> GetRolesAsync(CancellationToken token = default) {
-			return await _roleManager.Roles.MapTo<RolePartialDto>().ToArrayAsync(token);
+		public async ValueTask<T[]> GetRolesAsync<T>(CancellationToken token = default) {
+			return await _roleManager.Roles.MapTo<T>().ToArrayAsync(token);
 		}
 
-		public async ValueTask<RolePartialDto[]> GetUserRolesAsync(int userId, CancellationToken token = default) {
+		public async ValueTask<T[]> GetUserRolesAsync<T>(int userId, CancellationToken token = default) {
 			var userRoles = await Db.UserRoles.Where(x => x.UserId == userId).Select(x => x.RoleId).ToArrayAsync(token);
-			return await Db.Roles.Where(x => userRoles.Contains(x.Id)).MapTo<RolePartialDto>().ToArrayAsync(cancellationToken: token);
-		}
+			return await Db.Roles.Where(x => userRoles.Contains(x.Id)).MapTo<T>().ToArrayAsync(cancellationToken: token);		}
 
 		public async Task<IdentityResult> SetUserPasswordAsync(int userId, string password, CancellationToken cancellationToken = default) {
 			var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
