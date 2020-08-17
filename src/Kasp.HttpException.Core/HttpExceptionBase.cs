@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Kasp.HttpException {
+namespace Kasp.HttpException.Core {
 	public abstract class HttpExceptionBase : System.Exception {
 		public abstract HttpStatusCode StatusCode { get; }
 

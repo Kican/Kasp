@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Kasp.HttpException {
+namespace Kasp.HttpException.Core {
 	public class UnauthorizedException : HttpExceptionBase {
 		public override HttpStatusCode StatusCode { get; } = HttpStatusCode.Unauthorized;
 
