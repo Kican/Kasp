@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
@@ -13,7 +14,7 @@ namespace Kasp.Panel.EntityManager {
 			return AddFromAssembly(typeof(T).Assembly);
 		}
 
-		public EntityManagerOptions AddFromAssemblies(Assembly[] assemblies) {
+		public EntityManagerOptions AddFromAssemblies(IEnumerable<Assembly> assemblies) {
 			foreach (var assembly in assemblies) {
 				AddFromAssembly(assembly);
 			}
@@ -29,6 +30,9 @@ namespace Kasp.Panel.EntityManager {
 
 			foreach (var type in types) {
 				var route = type.GetCustomAttribute<RouteAttribute>(true);
+				
+				if(route == null)
+					throw new Exception($"controller {type.FullName} has not attribute `Route`, its required");
 
 				Managers.Add(new EntityManagerInfo {Title = type.GetDisplayName(), Url = route.Template});
 			}
