@@ -1,11 +1,15 @@
 using System;
+using Kasp.Panel.EntityManager.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.Panel.EntityManager.Extensions {
 	public static class ServiceCollectionExtensions {
-		public static ServiceCollection AddEntityManager(this ServiceCollection services, Action<EntityManagerOptions> optionsAction) {
-			var option = new EntityManagerOptions();
-			optionsAction(option);
+		public static IServiceCollection AddEntityManager(this IServiceCollection services, Action<IEntityManagerBuilder> optionsAction) {
+			var option = new EntityManagerBuilder();
+
+			optionsAction.Invoke(option);
+
+			services.PostConfigure<EntityManagerOptions>(options => options.Managers = option._managers);
 
 			return services;
 		}
