@@ -1,7 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Kasp.FileStorage.Core {
+namespace Kasp.BlobStorage.Core {
 	// https://github.com/a-patel/LiteXStorage
 	public interface IFileProvider {
 		Task UploadAsync(string fileName, Stream data);

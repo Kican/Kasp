@@ -101,11 +101,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Exception.Core", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.Exception.Tests", "tests\Kasp.Exception.Tests\Kasp.Exception.Tests.csproj", "{32E9402A-D8C6-49C2-8CEC-A66FBA52266E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileStorage", "FileStorage", "{E7C327AF-04D1-4557-8FE0-60EE4CBDBE15}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlobStorage", "BlobStorage", "{E7C327AF-04D1-4557-8FE0-60EE4CBDBE15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.FileStorage.Core", "src\Kasp.FileStorage.Core\Kasp.FileStorage.Core.csproj", "{A6048823-4720-47B7-B4E0-42F22633A120}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.BlobStorage.Core", "src\Kasp.BlobStorage.Core\Kasp.BlobStorage.Core.csproj", "{A6048823-4720-47B7-B4E0-42F22633A120}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{A9F9E3A5-7193-41ED-AD3E-19C3A1964957}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kasp.BlobStorage.FileSystem", "src\Kasp.BlobStorage.FileSystem\Kasp.BlobStorage.FileSystem.csproj", "{AF81CDC9-6C46-49F1-8DF4-2E34289E5014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -257,6 +259,10 @@ Global
 		{A6048823-4720-47B7-B4E0-42F22633A120}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6048823-4720-47B7-B4E0-42F22633A120}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6048823-4720-47B7-B4E0-42F22633A120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF81CDC9-6C46-49F1-8DF4-2E34289E5014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF81CDC9-6C46-49F1-8DF4-2E34289E5014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF81CDC9-6C46-49F1-8DF4-2E34289E5014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF81CDC9-6C46-49F1-8DF4-2E34289E5014}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{284413A0-A454-4F70-BD64-0676DA58C6C3} = {8EDA2CAF-24BF-455A-AEBB-D3B1897C0FD0}
@@ -302,5 +308,6 @@ Global
 		{32E9402A-D8C6-49C2-8CEC-A66FBA52266E} = {110E4A04-5A83-42FB-9F0B-A557EBDE232C}
 		{A6048823-4720-47B7-B4E0-42F22633A120} = {E7C327AF-04D1-4557-8FE0-60EE4CBDBE15}
 		{A9F9E3A5-7193-41ED-AD3E-19C3A1964957} = {E7C327AF-04D1-4557-8FE0-60EE4CBDBE15}
+		{AF81CDC9-6C46-49F1-8DF4-2E34289E5014} = {A9F9E3A5-7193-41ED-AD3E-19C3A1964957}
 	EndGlobalSection
 EndGlobal
