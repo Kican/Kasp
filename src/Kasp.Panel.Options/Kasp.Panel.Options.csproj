@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\version.props" />
+
+	<PropertyGroup>
+		<id>Kasp.Panel.Options</id>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
+		<ProjectReference Include="..\Kasp.Options\Kasp.Options.csproj" />
+	</ItemGroup>
+</Project>
