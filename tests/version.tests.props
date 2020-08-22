@@ -6,6 +6,7 @@
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion)"/>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(NetTestSdkVersion)"/>
 		<PackageReference Include="xunit" Version="$(XUnitVersion)"/>

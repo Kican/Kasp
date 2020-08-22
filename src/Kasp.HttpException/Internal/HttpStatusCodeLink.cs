@@ -1,4 +1,4 @@
-namespace Kasp.Exception.Internal {
+namespace Kasp.HttpException.Internal {
 	public static class HttpStatusCodeLink {
 		public const string BadRequest = "https://tools.ietf.org/html/rfc7231#section-6.5.1";
 		public const string Unauthorized = "https://tools.ietf.org/html/rfc7235#section-3.1";

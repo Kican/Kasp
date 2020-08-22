@@ -1,8 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+	<PropertyGroup>
+		<AssemblyName>Kasp.HttpException.Tests</AssemblyName>
+	</PropertyGroup>
+
 	<Import Project="..\version.tests.props" />
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Kasp.Exception\Kasp.Exception.csproj" />
+		<ProjectReference Include="..\..\src\Kasp.HttpException\Kasp.HttpException.csproj" />
 		<ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
 	</ItemGroup>
 

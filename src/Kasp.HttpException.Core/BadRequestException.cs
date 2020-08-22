@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Kasp.Exception {
+namespace Kasp.HttpException.Core {
 	public class BadRequestException : HttpExceptionBase {
 		public override HttpStatusCode StatusCode { get; } = HttpStatusCode.BadRequest;
 

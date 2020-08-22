@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-namespace Kasp.Exception.Internal {
+namespace Kasp.HttpException.Internal {
 	public class HttpExceptionsOptionsSetup : IConfigureOptions<HttpExceptionOptions> {
 		private readonly IServiceProvider _serviceProvider;
 
@@ -18,10 +18,10 @@ namespace Kasp.Exception.Internal {
 			options.ShouldLogException ??= ShouldLogException;
 		}
 
-		private static bool IncludeExceptionDetails(HttpContext context) {
+		private bool IncludeExceptionDetails(HttpContext context) {
 			return context.RequestServices.GetRequiredService<IWebHostEnvironment>().EnvironmentName == Environments.Development;
 		}
 
-		private static bool ShouldLogException(System.Exception ex) => true;
+		private bool ShouldLogException(Exception ex) => true;
 	}
 }

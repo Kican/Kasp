@@ -1,9 +1,10 @@
 using System;
-using Kasp.Exception.Internal;
+using Kasp.HttpException.Internal;
+using Kasp.HttpException.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Exception.Extensions {
+namespace Kasp.HttpException.Extensions {
 	public static class ServiceCollectionExtensions {
 		public static IMvcCoreBuilder AddHttpExceptions(this IMvcCoreBuilder builder, Action<HttpExceptionOptions> configureOptions = null) {
 			builder.Services.AddHttpExceptions(configureOptions);
@@ -25,6 +26,7 @@ namespace Kasp.Exception.Extensions {
 				services.Configure(configureOptions);
 
 			services.ConfigureOptions<HttpExceptionsOptionsSetup>();
+			services.AddScoped<IExceptionMapper, ProblemDetailMapper>();
 
 			return services;
 		}

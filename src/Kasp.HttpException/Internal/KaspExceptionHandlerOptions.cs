@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Kasp.Exception.Internal {
+namespace Kasp.HttpException.Internal {
 	public class KaspExceptionHandlerOptions : ExceptionHandlerOptions {
 		public KaspExceptionHandlerOptions() {
 			ExceptionHandler = Handler;
@@ -17,12 +17,14 @@ namespace Kasp.Exception.Internal {
 			var exceptionHandler = context.Features.Get<IExceptionHandlerPathFeature>();
 
 			var option = context.RequestServices.GetService<IOptions<HttpExceptionOptions>>().Value;
-			var logger = context.RequestServices.GetService<ILogger>();
+			var mapper = context.RequestServices.GetService<IExceptionMapper>();
 
-			if (option.ShouldLogException(exceptionHandler.Error))
+			if (option.ShouldLogException(exceptionHandler.Error)) {
+				var logger = context.RequestServices.GetService<ILogger>();
 				logger.LogError(exceptionHandler.Error, "unhandled exception");
+			}
 
-			await context.ExecuteResultAsync(option.MapToAction(exceptionHandler.Error, context));
+			await context.ExecuteResultAsync(mapper.Map(exceptionHandler.Error, context));
 		}
 	}
 }
