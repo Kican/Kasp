@@ -3,6 +3,7 @@ using Kasp.Core.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -24,7 +25,7 @@ namespace Kasp.HttpException.Internal {
 				logger.LogError(exceptionHandler.Error, "unhandled exception");
 			}
 
-			await context.ExecuteResultAsync(mapper.Map(exceptionHandler.Error, context));
+			await mapper.Map(exceptionHandler.Error, context).ExecuteResultAsync(new ActionContext {HttpContext = context});
 		}
 	}
 }

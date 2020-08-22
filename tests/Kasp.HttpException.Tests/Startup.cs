@@ -14,7 +14,9 @@ namespace Kasp.HttpException.Tests {
 
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddControllers()
-				.AddHttpExceptions();
+				.AddHttpExceptions(options => { options.ShouldLogException = exception => false; });
+
+			services.AddLogging();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

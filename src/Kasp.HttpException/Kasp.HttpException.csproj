@@ -2,7 +2,7 @@
 	<Import Project="..\version.props" />
 
 	<PropertyGroup>
-		<id>Kasp.HttpException</id>
+		<PackageId>Kasp.HttpException</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>

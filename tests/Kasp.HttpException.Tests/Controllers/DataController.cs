@@ -6,6 +6,7 @@ namespace Kasp.HttpException.Tests.Controllers {
 	public class DataController : ControllerBase {
 		[HttpGet]
 		public IActionResult Get() {
+			// return Ok("salam");
 			throw new BadRequestException("hi");
 		}
 	}

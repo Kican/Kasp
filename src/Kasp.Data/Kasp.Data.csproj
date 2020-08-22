@@ -2,7 +2,7 @@
 	<Import Project="..\version.props" />
 
 	<PropertyGroup>
-		<id>Kasp.Data</id>
+		<PackageId>Kasp.Data</PackageId>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.1" />

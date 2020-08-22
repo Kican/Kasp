@@ -25,6 +25,10 @@ namespace Kasp.HttpException.Extensions {
 			if (configureOptions != null)
 				services.Configure(configureOptions);
 
+			services.Configure<ApiBehaviorOptions>(options => {
+				options.InvalidModelStateResponseFactory = context => new UnprocessableEntityObjectResult(new ValidationProblemDetails(context.ModelState));
+			});
+
 			services.ConfigureOptions<HttpExceptionsOptionsSetup>();
 			services.AddScoped<IExceptionMapper, ProblemDetailMapper>();
 
@@ -36,14 +40,5 @@ namespace Kasp.HttpException.Extensions {
 			options.SuppressModelStateInvalidFilter = false;
 			// options.InvalidModelStateResponseFactory = HandleInvalidModelStateResponse;
 		}
-
-		// private static IActionResult HandleInvalidModelStateResponse(ActionContext actionContext) {
-		// 	// Should we be throwing an exception here?
-		// 	throw new BadRequestException(actionContext.ModelState.ToDictionary());
-		// 	// The other options is to map the exception here are return a ProblemDetailsResult
-		// 	//var httpExceptionsOptions = actionContext.HttpContext.RequestServices.GetRequiredService<IOptions<HttpExceptionsOptions>>();
-		// 	//httpExceptionsOptions.Value.TryMap(ex, actionContext.HttpContext, out var problemDetails);
-		// 	//return new ProblemDetailsResult(problemDetails);
-		// }
 	}
 }
