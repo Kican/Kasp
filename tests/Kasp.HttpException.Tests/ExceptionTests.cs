@@ -1,4 +1,5 @@
-﻿using Kasp.Test;
+﻿using System.Threading.Tasks;
+using Kasp.Test;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -8,7 +9,10 @@ namespace Kasp.HttpException.Tests {
 		}
 
 		[Fact]
-		public void Sample1() {
+		public async Task Sample1() {
+			var response = await Client.GetAsync("/api/data/Get");
+
+			Output.WriteLine(await response.Content.ReadAsStringAsync());
 		}
 	}
 }

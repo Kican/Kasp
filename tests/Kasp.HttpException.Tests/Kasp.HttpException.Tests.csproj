@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-	  <AssemblyName>Kasp.HttpException.Tests</AssemblyName>
+		<AssemblyName>Kasp.HttpException.Tests</AssemblyName>
 	</PropertyGroup>
 
 	<Import Project="..\version.tests.props" />

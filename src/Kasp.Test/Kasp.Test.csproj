@@ -7,7 +7,7 @@
 		<ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="FluentAssertions" Version="5.10.3" />
+		<PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion)" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(NetTestSdkVersion)" />
 		<PackageReference Include="xunit" Version="$(XUnitVersion)" />

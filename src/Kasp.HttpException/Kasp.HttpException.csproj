@@ -2,9 +2,7 @@
 	<Import Project="..\version.props" />
 
 	<PropertyGroup>
-		<PackageId>Kasp.Exception</PackageId>
-		<AssemblyName>Kasp.HttpException</AssemblyName>
-		<RootNamespace>Kasp.HttpException</RootNamespace>
+		<id>Kasp.HttpException</id>
 	</PropertyGroup>
 
 	<ItemGroup>

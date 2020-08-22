@@ -3,7 +3,7 @@
 	<Import Project="..\version.props"/>
 
 	<PropertyGroup>
-		<PackageId>Kasp.HttpException.Core</PackageId>
+		<id>Kasp.HttpException.Core</id>
 	</PropertyGroup>
 
 	<ItemGroup>
