@@ -18,10 +18,10 @@ namespace Kasp.HttpException.Internal {
 			options.ShouldLogException ??= ShouldLogException;
 		}
 
-		private static bool IncludeExceptionDetails(HttpContext context) {
+		private bool IncludeExceptionDetails(HttpContext context) {
 			return context.RequestServices.GetRequiredService<IWebHostEnvironment>().EnvironmentName == Environments.Development;
 		}
 
-		private static bool ShouldLogException(System.Exception ex) => true;
+		private bool ShouldLogException(Exception ex) => true;
 	}
 }

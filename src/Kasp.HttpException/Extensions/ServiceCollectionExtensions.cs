@@ -1,5 +1,6 @@
 using System;
 using Kasp.HttpException.Internal;
+using Kasp.HttpException.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +26,7 @@ namespace Kasp.HttpException.Extensions {
 				services.Configure(configureOptions);
 
 			services.ConfigureOptions<HttpExceptionsOptionsSetup>();
+			services.AddScoped<IExceptionMapper, ProblemDetailMapper>();
 
 			return services;
 		}

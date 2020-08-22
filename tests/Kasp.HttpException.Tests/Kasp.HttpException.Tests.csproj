@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 	  <AssemblyName>Kasp.HttpException.Tests</AssemblyName>
-	  <RootNamespace>Kasp.HttpException.Tests</RootNamespace>
 	</PropertyGroup>
 
 	<Import Project="..\version.tests.props" />
