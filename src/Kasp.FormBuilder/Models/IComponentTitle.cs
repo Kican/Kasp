@@ -1,5 +1,7 @@
+using Kasp.FormBuilder.Components;
+
 namespace Kasp.FormBuilder.Models {
-    public interface IComponentTitle {
-        string Title { get; set; }
-    }
+	public interface IComponentTitle : IComponent {
+		string Title { get; set; }
+	}
 }
