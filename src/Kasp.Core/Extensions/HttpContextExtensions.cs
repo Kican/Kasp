@@ -23,7 +23,6 @@ namespace Kasp.Core.Extensions {
 			_ = context ?? throw new ArgumentNullException(nameof(context));
 			_ = result ?? throw new ArgumentNullException(nameof(result));
 
-			Console.WriteLine(result.GetType().FullName);
 			var executor = context.RequestServices.GetRequiredService<IActionResultExecutor<TResult>>();
 
 			var routeData = context.GetRouteData() ?? EmptyRouteData;
