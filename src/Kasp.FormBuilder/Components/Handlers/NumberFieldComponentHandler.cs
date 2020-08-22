@@ -4,7 +4,7 @@ using Kasp.FormBuilder.Extensions;
 
 namespace Kasp.FormBuilder.Components.Handlers {
 	public class NumberFieldComponentHandler : BaseComponentHandler<NumberFieldComponent, NumberFieldComponentResolver> {
-		public override bool IsOwner(ComponentOptions options) => options.Type.IsNumberic();
+		public override bool IsOwner(ComponentOptions options) => options.Type.IsNumberic() && !options.Type.IsEnum;
 	}
 
 	public class NumberFieldComponentResolver : BaseComponentResolver<NumberFieldComponent> {

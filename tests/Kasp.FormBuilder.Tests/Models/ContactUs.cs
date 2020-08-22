@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Kasp.FormBuilder.Tests.Models {
@@ -16,10 +17,17 @@ namespace Kasp.FormBuilder.Tests.Models {
 
 		public int Number { get; set; }
 
-		[Required]
-		[MaxLength(500)]
+		[Required,MaxLength(500)] 
 		public string Content { get; set; }
 
 		public DateTime AddTime { get; set; }
+
+		public Orientation Orientation { get; set; }
+	}
+
+	public enum Orientation {
+		[Display(Name = "vert")]
+		Vertical = 0,
+		Horizontal = 1
 	}
 }
