@@ -29,12 +29,14 @@ namespace Kasp.Panel.EntityManager.Builder {
 				.ToArray();
 
 			foreach (var type in types) {
-				var route = type.GetCustomAttribute<RouteAttribute>(false);
+				var routes = type.GetCustomAttributes<RouteAttribute>(true).ToArray();
 
-				if (route == null)
+				if (!routes.Any())
 					throw new Exception($"controller {type.FullName} has not attribute `Route`, its required");
 
-				_managers.Add(new EntityManagerInfo {Title = type.GetDisplayName(), Url = route.Template});
+				var path = routes.First().Template.Replace("[controller]", type.Name.Replace("Controller", "", StringComparison.OrdinalIgnoreCase)).ToLower();
+
+				_managers.Add(new EntityManagerInfo {Title = type.GetDisplayName(), Url = path});
 			}
 
 			return this;
