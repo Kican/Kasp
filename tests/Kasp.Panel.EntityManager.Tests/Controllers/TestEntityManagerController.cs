@@ -1,4 +1,5 @@
-﻿using Kasp.Data;
+﻿using System.ComponentModel;
+using Kasp.Data;
 using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
 using Kasp.FormBuilder.Services;
@@ -25,9 +26,15 @@ namespace Kasp.Panel.EntityManager.Tests.Controllers {
 	}
 
 
-	[Route("api/entity-manager/[controller]")]
+	[Route("api/entity-manager/[controller]"), EntityManagerInfo("data", Name = "my data")]
 	public class DataController : EntityManagerControllerBase<TestModel, IModelService, TestModel, TestModel, TestModel, FilterBase> {
 		public DataController(IModelService repository, IObjectMapper objectMapper, IFormBuilder builder) : base(repository, objectMapper, builder) {
+		}
+	}
+
+	[AppApiRoute("news"), DisplayName("news 1")]
+	public class NewsController : EntityManagerControllerBase<TestModel, IModelService, TestModel, TestModel, TestModel, FilterBase> {
+		public NewsController(IModelService repository, IObjectMapper objectMapper, IFormBuilder builder) : base(repository, objectMapper, builder) {
 		}
 	}
 
@@ -36,5 +43,11 @@ namespace Kasp.Panel.EntityManager.Tests.Controllers {
 	}
 
 	public interface IModelService : IFilteredRepositoryBase<TestModel, FilterBase> {
+	}
+
+
+	public class AppApiRoute : RouteAttribute {
+		public AppApiRoute(string template) : base($"api/app/{template}") {
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using Kasp.Core.Extensions;
@@ -25,7 +26,11 @@ namespace Kasp.Panel.EntityManager.Builder {
 		public IEntityManagerBuilder AddFromAssembly(Assembly assembly) {
 			var entityManagerType = typeof(EntityManagerControllerBase<,,,,,,>);
 			var types = assembly.GetTypes()
-				.Where(x => !x.IsAbstract && entityManagerType.IsSubclassOfRawGeneric(x))
+				.Where(x =>
+					!x.IsAbstract &&
+					entityManagerType.IsSubclassOfRawGeneric(x) &&
+					x.GetCustomAttribute<NotMappedAttribute>() == null
+				)
 				.ToArray();
 
 			foreach (var type in types) {
@@ -36,7 +41,27 @@ namespace Kasp.Panel.EntityManager.Builder {
 
 				var path = routes.First().Template.Replace("[controller]", type.Name.Replace("Controller", "", StringComparison.OrdinalIgnoreCase)).ToLower();
 
-				_managers.Add(new EntityManagerInfo {Title = type.GetDisplayName(), Url = path});
+
+				var info = new EntityManagerInfo {
+					Title = type.GetDisplayName(), 
+					Name = type.Name.Replace("Controller", "", StringComparison.OrdinalIgnoreCase).ToLower(),
+					Url = path
+				};
+
+				var infoAttrib = type.GetCustomAttribute<EntityManagerInfoAttribute>();
+				if (infoAttrib != null) {
+					
+					if (!string.IsNullOrEmpty(infoAttrib.Title))
+						info.Title = infoAttrib.Title;
+					if (!string.IsNullOrEmpty(infoAttrib.Name))
+						info.Name = infoAttrib.Name;
+
+					
+					info.Class = infoAttrib.Class;
+					info.Icon = infoAttrib.Icon;
+				}
+
+				_managers.Add(info);
 			}
 
 			return this;
