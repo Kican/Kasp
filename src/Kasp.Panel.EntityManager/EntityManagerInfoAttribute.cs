@@ -7,7 +7,7 @@ namespace Kasp.Panel.EntityManager {
 			Title = title;
 		}
 
-		public string Title { get; set; }
+		public string Title { get; }
 		public string Name { get; set; }
 		public string Icon { get; set; }
 		public string Class { get; set; }

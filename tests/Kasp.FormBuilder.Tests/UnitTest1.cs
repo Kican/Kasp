@@ -5,10 +5,13 @@ using Kasp.FormBuilder.Components.Layouts;
 using Kasp.FormBuilder.Services;
 using Kasp.FormBuilder.Tests.Models;
 using Kasp.Test;
-using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Dahomey.Json;
+
 namespace Kasp.FormBuilder.Tests {
 	public class UnitTest1 : KClassFixtureWebApp<Startup> {
 		private IFormBuilder FormBuilder { get; }
@@ -23,11 +26,11 @@ namespace Kasp.FormBuilder.Tests {
 			Output.WriteLine(Serializer(form));
 			Assert.True(1 == 2 - 1);
 		}
-		
+
 		[Fact]
 		public async Task CheckTitle() {
-			var form = (LinearLayoutComponent)  await FormBuilder.FromModel<ContactUs>();
-			var nameComponent = form.Children.FirstOrDefault(x=>x.Name == "Name");
+			var form = (LinearLayoutComponent) await FormBuilder.FromModel<ContactUs>();
+			var nameComponent = form.Children.FirstOrDefault(x => x.Name == "Name");
 			Output.WriteLine(Serializer(form));
 			Assert.True(1 == 2 - 1);
 		}
@@ -40,7 +43,10 @@ namespace Kasp.FormBuilder.Tests {
 
 
 		private string Serializer(IComponent component) {
-			return JsonConvert.SerializeObject(component, new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore});
+			var options = new JsonSerializerOptions();
+			options.SetupExtensions();
+			options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+			return JsonSerializer.Serialize(component, options);
 		}
 	}
 }
