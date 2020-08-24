@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace Kasp.Data.EF.Tests.Tests {
 	public class HelperTests : KClassFixtureWebApp<StartupDb> {
-		private  News TempModel => new News {Title = "this is title", Content = "this is body"};
+		private News TempModel => new News {Title = "this is title", Content = "this is body"};
 
 		private readonly NewsRepository _newsRepository;
 
@@ -18,7 +18,7 @@ namespace Kasp.Data.EF.Tests.Tests {
 		public async Task ModelTest() {
 			var model = TempModel;
 			await _newsRepository.AddAsync(model);
-			
+
 			Assert.True(model.Id > 0);
 		}
 
@@ -27,7 +27,9 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			await _newsRepository.AddAsync(model);
 
-			Assert.True(model.CreateTime > DateTime.UtcNow.AddMinutes(-1));
+			var item = await _newsRepository.GetAsync<NewsDto>(model.Id);
+
+			Assert.True(item.CreateTime > DateTime.UtcNow.AddMinutes(-1));
 		}
 
 		[Fact]
@@ -125,16 +127,16 @@ namespace Kasp.Data.EF.Tests.Tests {
 		//
 		// 	Assert.Null(item);
 		// }
-		
+
 		[Fact]
 		public async Task AfterPublishTime() {
 			var model = TempModel;
 			model.PublishTime = DateTime.UtcNow.AddDays(-1);
 			await _newsRepository.AddAsync(model);
 			await _newsRepository.SaveAsync();
-		
+
 			var item = await _newsRepository.BaseQuery.PublishTimeFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
-		
+
 			Assert.NotNull(item);
 		}
 

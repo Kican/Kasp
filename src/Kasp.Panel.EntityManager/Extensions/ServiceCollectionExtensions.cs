@@ -9,7 +9,7 @@ namespace Kasp.Panel.EntityManager.Extensions {
 
 			optionsAction.Invoke(option);
 
-			services.PostConfigure<EntityManagerOptions>(options => options.Managers = option._managers);
+			services.Configure<EntityManagerOptions>(options => options.Managers = option.Managers);
 
 			return services;
 		}

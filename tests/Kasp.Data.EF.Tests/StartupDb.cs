@@ -1,5 +1,8 @@
+using System;
+using AutoMapper;
 using Kasp.Data.EF.Extensions;
 using Kasp.Data.EF.Tests.Data;
+using Kasp.ObjectMapper.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,12 +22,17 @@ namespace Kasp.Data.EF.Tests {
 			services.AddDbContextPool<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
 				.AddEFRepositories();
 
+			services.AddObjectMapper<ObjectMapper.AutoMapper.AutoMapper>();
+
+			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app) {
 			app.UseStaticFiles();
+			app.UseObjectMapper();
 			app.UseRouting();
 			app.UseEndpoints(builder => builder.MapControllers());
 		}

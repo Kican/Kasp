@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Data.EF.Extensions;
+using Kasp.Data.Extensions;
 using Kasp.Data.Models.Helpers;
 using Kasp.ObjectMapper.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,7 @@ namespace Kasp.Data.EF.Data {
 		}
 
 		public virtual async ValueTask<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await BaseQuery.MapTo<TProject>().FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
+			return await BaseQuery.MapTo<TProject>().WhereIdEquals(x => x.Id, id).FirstOrDefaultAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask<TModel> GetAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
@@ -85,7 +86,7 @@ namespace Kasp.Data.EF.Data {
 
 
 		public virtual async Task AddAsync(TModel model, CancellationToken cancellationToken = default) {
-			Set.Add(model);
+			await Set.AddAsync(model, cancellationToken);
 			await SaveAsync(cancellationToken);
 		}
 

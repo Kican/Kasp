@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Kasp.Panel.EntityManager {
 	public abstract class EntityManagerControllerBase<TModel, TKey, TRepository, TVm, TPartialVm, TEditDto, TFilterDto>
 		: CrudApiControllerBase<TModel, TKey, TRepository, TVm, TPartialVm, TEditDto, TFilterDto>
-		where TVm : IModel, IModel<TKey>
+		where TVm : IModel<TKey>
 		where TFilterDto : FilterBase
 		where TEditDto : class, IModel<TKey>
 		where TModel : class, IModel<TKey>
@@ -42,7 +42,7 @@ namespace Kasp.Panel.EntityManager {
 		where TFilterDto : FilterBase
 		where TEditDto : class, IModel
 		where TModel : class, IModel
-		where TRepository : IFilteredRepositoryBase<TModel, TFilterDto>
+		where TRepository : IFilteredRepositoryBase<TModel, int, TFilterDto>
 		where TPartialVm : class, IModel {
 		protected EntityManagerControllerBase(TRepository repository, IObjectMapper objectMapper, IFormBuilder builder) : base(repository, objectMapper, builder) {
 		}

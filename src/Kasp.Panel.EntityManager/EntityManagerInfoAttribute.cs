@@ -11,5 +11,6 @@ namespace Kasp.Panel.EntityManager {
 		public string Name { get; set; }
 		public string Icon { get; set; }
 		public string Class { get; set; }
+		public bool Discoverable { get; set; } = true;
 	}
 }
