@@ -1,8 +1,4 @@
-﻿using Kasp.FormBuilder.Components.Elements;
-using Kasp.FormBuilder.Components.Layouts;
-using Kasp.FormBuilder.Configuration.Components.LinearLayout;
-
-namespace Kasp.FormBuilder.Configuration {
+﻿namespace Kasp.FormBuilder.Configuration {
 	public interface IFormBuilderConfiguration<TModel> {
 		void Configure(IConfigureBuilder<TModel> builder);
 	}
@@ -13,24 +9,24 @@ namespace Kasp.FormBuilder.Configuration {
 		public bool IsEnable { get; set; }
 	}
 
-	public class MyTestDtoFormConfiguration : IFormBuilderConfiguration<MyTestDto> {
-		public void Configure(IConfigureBuilder<MyTestDto> builder) {
-			builder.WithLinearLayout(linear => {
-				linear
-					.SetComponentValue(x => x.Orientation, LinearLayoutOrientation.Horizontal)
-					.SetName("asdasdsad");
-
-				linear.SetOrientation(LinearLayoutOrientation.Horizontal);
-
-				linear.AddComponent<NumberFieldComponent>(x => x.Title, TitleBuilderAction);
-				linear.AddComponent<LinearLayoutComponent>(x => x.Title, configuration => {
-					configuration.
-				});
-			});
-		}
-
-		private void TitleBuilderAction(IComponentConfiguration<NumberFieldComponent, MyTestDto> component) {
-			component.SetName()
-		}
-	}
+	// public class MyTestDtoFormConfiguration : IFormBuilderConfiguration<MyTestDto> {
+	// 	public void Configure(IConfigureBuilder<MyTestDto> builder) {
+	// 		builder.WithLinearLayout(linear => {
+	// 			linear
+	// 				.SetComponentValue(x => x.Orientation, LinearLayoutOrientation.Horizontal)
+	// 				.SetName("asdasdsad");
+	//
+	// 			linear.SetOrientation(LinearLayoutOrientation.Horizontal);
+	//
+	// 			linear.AddComponent<NumberFieldComponent>(x => x.Title, TitleBuilderAction);
+	// 			linear.AddComponent<LinearLayoutComponent>(x => x.Title, configuration => {
+	// 				configuration.
+	// 			});
+	// 		});
+	// 	}
+	//
+	// 	private void TitleBuilderAction(IComponentConfiguration<NumberFieldComponent, MyTestDto> component) {
+	// 		component.SetName()
+	// 	}
+	// }
 }
