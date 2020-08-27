@@ -9,5 +9,6 @@
 		<ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
 		<ProjectReference Include="..\Kasp.Data\Kasp.Data.csproj" />
 		<ProjectReference Include="..\Kasp.FormBuilder\Kasp.FormBuilder.csproj" />
+		<ProjectReference Include="..\Kasp.Panel\Kasp.Panel.csproj" />
 	</ItemGroup>
 </Project>
