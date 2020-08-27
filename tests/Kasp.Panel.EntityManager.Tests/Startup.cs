@@ -1,4 +1,5 @@
 using Kasp.Panel.EntityManager.Extensions;
+using Kasp.Panel.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,12 +20,12 @@ namespace Kasp.Panel.EntityManager.Tests {
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app) { 
+		public void Configure(IApplicationBuilder app) {
 			app.UseRouting();
 
 			app.UseEndpoints(builder => {
 				builder.MapDefaultControllerRoute();
-				builder.MapEntityManager();
+				builder.MapPanel(optionBuilder => optionBuilder.MapEntityManager());
 			});
 		}
 	}
