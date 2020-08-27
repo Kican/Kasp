@@ -35,6 +35,16 @@ namespace Kasp.Panel.Options {
 
 			return Ok(await _formBuilder.FromModel(optionType.Type));
 		}
+		
+		[HttpGet("{name}")]
+		public IActionResult Get(string name) {
+			var optionType = _options.Value.Options.FirstOrDefault(x => x.Name == name.ToLower());
+
+			if (optionType == null)
+				throw new Exception("option not found");
+
+			return Ok((HttpContext.RequestServices.GetService(typeof(IOptionsSnapshot<>).MakeGenericType(optionType.Type)) as dynamic).Value);
+		}
 
 		[HttpPut("{name}")]
 		public async Task<ActionResult> Update(string name, [FromBody] JObject data) {
