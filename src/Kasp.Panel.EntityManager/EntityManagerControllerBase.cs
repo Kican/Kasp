@@ -13,7 +13,7 @@ namespace Kasp.Panel.EntityManager {
 		: CrudApiControllerBase<TModel, TKey, TRepository, TVm, TPartialVm, TEditDto, TFilterDto>
 		where TVm : IModel<TKey>
 		where TFilterDto : FilterBase
-		where TEditDto : class, IModel<TKey>
+		where TEditDto : class
 		where TModel : class, IModel<TKey>
 		where TKey : IEquatable<TKey>
 		where TRepository : IFilteredRepositoryBase<TModel, TKey, TFilterDto>
@@ -40,7 +40,7 @@ namespace Kasp.Panel.EntityManager {
 		: EntityManagerControllerBase<TModel, int, TRepository, TVm, TPartialVm, TEditDto, TFilterDto>
 		where TVm : IModel
 		where TFilterDto : FilterBase
-		where TEditDto : class, IModel
+		where TEditDto : class
 		where TModel : class, IModel
 		where TRepository : IFilteredRepositoryBase<TModel, int, TFilterDto>
 		where TPartialVm : class, IModel {

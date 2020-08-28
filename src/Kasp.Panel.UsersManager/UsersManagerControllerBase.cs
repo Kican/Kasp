@@ -14,7 +14,7 @@ namespace Kasp.Panel.UsersManager {
 		UsersManagerControllerBase<TUser, TViewDto, TPartialDto, TEditDto> : EntityManagerControllerBase<TUser, IUsersService<TUser>, TViewDto, TPartialDto, TEditDto, FilterBase>
 		where TPartialDto : class, IModel
 		where TUser : KaspUser, IModel
-		where TEditDto : class, IModel
+		where TEditDto : class
 		where TViewDto : IModel {
 		protected UsersManagerControllerBase(IUsersService<TUser> repository, IObjectMapper objectMapper, IFormBuilder builder) : base(repository, objectMapper, builder) {
 		}
