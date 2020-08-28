@@ -22,7 +22,5 @@ jobs:
       - name: Build NuGet Packages
         run: dotnet pack --output nuget-packages --configuration Release
       - name: Deploy NuGet Packages
-        run: find . -name *.nupkg -type f -print0 | xargs -0 -I pkg dotnet nuget push pkg -k $nuget_api_key -s "https://api.nuget.org/v3/index.json" --skip-duplicate
-        env:
-          nuget_api_key: ${{ secrets.NUGET_KEY }}
-        working-directory: ./nuget-packages
+        run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_KEY }} -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+        working-directory: nuget-packages
