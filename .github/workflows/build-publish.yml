@@ -22,6 +22,11 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Build NuGet Packages
-        run: |
-          dotnet pack -o ./ --configuration Release
-          dotnet nuget push *.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet pack -o ./publish --configuration Release
+      - name: Deploy NuGet Packages
+        uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+        with:
+          nupkg-path:  './publish/*.nupkg'
+          repo-owner:  'mo3in'
+          gh-user:  'mo3in'
+          token:  ${{ secrets.NUGET_KEY }}
