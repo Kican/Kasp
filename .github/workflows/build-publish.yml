@@ -22,8 +22,6 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Build NuGet Packages
-        run: dotnet pack -o ./ --configuration Release
-      - name: List Packages
-        run: ls -l
-      - name: Deploy NuGet Packages
-        run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+        run: |
+          dotnet pack -o ./ --configuration Release
+          dotnet nuget push *.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
