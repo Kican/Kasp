@@ -6,7 +6,7 @@
 		
 		<FluentAssertionsVersion>5.10.3</FluentAssertionsVersion>
 		<AspNetCoreVersion>3.1.*</AspNetCoreVersion>
-		<NetTestSdkVersion>16.7.1</NetTestSdkVersion>
+		<NetTestSdkVersion>16.7.0</NetTestSdkVersion>
 		<XUnitVersion>2.4.1</XUnitVersion>
 		<XUnitVsVersion>2.4.3</XUnitVsVersion>
     </PropertyGroup>
