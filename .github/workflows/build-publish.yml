@@ -22,6 +22,8 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Build NuGet Package
-        run: dotnet pack -o ./ --configuration Release
+        run: dotnet pack -o ./publish --configuration Release
+      - name: GoTo Publish Dir
+        run: cd ./publish
       - name: Deploy NuGet Package
         run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
