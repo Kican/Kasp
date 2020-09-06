@@ -41,6 +41,14 @@ namespace Kasp.FormBuilder.Tests {
 			Assert.True(form.Children.TrueForAll(x => x.Type == nameof(DateTimeComponent)));
 		}
 
+		[Fact]
+		public async Task SelectTest() {
+			var form = (LinearLayoutComponent) await FormBuilder.FromModel<ContactUs>();
+			var nameComponent = form.Children.FirstOrDefault(x => x.Name == "UserId");
+
+			Assert.Equal("SelectComponent", nameComponent?.Type);
+		}
+
 
 		private string Serializer(IComponent component) {
 			var options = new JsonSerializerOptions();

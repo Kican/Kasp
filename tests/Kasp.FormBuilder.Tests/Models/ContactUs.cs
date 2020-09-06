@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Kasp.FormBuilder.Components.Handlers;
 
 namespace Kasp.FormBuilder.Tests.Models {
 	public class ContactUs {
@@ -19,6 +20,9 @@ namespace Kasp.FormBuilder.Tests.Models {
 
 		[Required,MaxLength(500)] 
 		public string Content { get; set; }
+
+		[Select("/api/users")]
+		public int UserId { get; set; }
 
 		public DateTime AddTime { get; set; }
 
