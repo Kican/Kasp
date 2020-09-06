@@ -16,7 +16,6 @@ namespace Kasp.Data {
 		where TRepository : IFilteredRepositoryBase<TEntity, TKey, TFilterDto>
 		where TViewDto : IModel<TKey>
 		where TPartialViewDto : IModel<TKey>
-		where TEditDto : IModel<TKey>
 		where TFilterDto : FilterBase {
 		protected readonly TRepository Repository;
 		protected readonly IObjectMapper _objectMapper;
