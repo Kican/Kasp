@@ -12,6 +12,7 @@ namespace Kasp.FormBuilder.Components {
 			Add<DateTimeComponentHandler>();
 			Add<NumberFieldComponentHandler>();
 			Add<EnumComponentHandler>();
+			Add<SelectComponentHandler>();
 			
 			
 			Add<TextFieldComponentHandler>();
