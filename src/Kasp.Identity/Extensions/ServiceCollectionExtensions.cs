@@ -16,13 +16,13 @@ namespace Kasp.Identity.Extensions {
 			return builder;
 		}
 
-		public static IServiceCollection AddUserServices<TDbContext, TUser, TRole>(this IdentityBuilder builder)
+		public static IdentityBuilder AddUserServices<TDbContext, TUser, TRole>(this IdentityBuilder builder)
 			where TUser : KaspUser, IModel
 			where TDbContext : KIdentityDbContext<TUser, TRole>
 			where TRole : KaspRole {
 			
 			builder.Services.AddScoped<IUsersService<TUser>, UsersService<TDbContext, TUser, TRole>>();
-			return builder.Services;
+			return builder;
 		}
 
 		public static AuthenticationBuilder AddJwtBearer(this AuthenticationBuilder builder, IConfiguration config) {
