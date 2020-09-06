@@ -8,12 +8,11 @@ namespace Kasp.FormBuilder.Components {
 	public class ComponentHandlerCollection : Collection<IComponentHandler> {
 		public ComponentHandlerCollection() {
 			Add<LinearLayoutComponentHandler>();
+			Add<SelectComponentHandler>();
 
 			Add<DateTimeComponentHandler>();
 			Add<NumberFieldComponentHandler>();
 			Add<EnumComponentHandler>();
-			Add<SelectComponentHandler>();
-			
 			
 			Add<TextFieldComponentHandler>();
 		}

@@ -23,6 +23,7 @@ namespace Kasp.FormBuilder.Components.Handlers {
 		}
 	}
 
+	[AttributeUsage(AttributeTargets.Property)]
 	public class SelectAttribute : Attribute {
 		public SelectAttribute(string fetchUrl) {
 			FetchUrl = fetchUrl;
