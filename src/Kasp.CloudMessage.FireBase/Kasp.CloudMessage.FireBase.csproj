@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FcmSharp" Version="3.0.1" />
+      <PackageReference Include="FirebaseAdmin" Version="1.16.0" />
     </ItemGroup>
 
 </Project>
