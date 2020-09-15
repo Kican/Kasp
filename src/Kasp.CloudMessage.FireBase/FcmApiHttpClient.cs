@@ -7,8 +7,8 @@ namespace Kasp.CloudMessage.FireBase {
 	public class FcmApiHttpClient {
 		public FcmApiHttpClient(HttpClient client, IOptions<FcmConfig> option) {
 			client.BaseAddress = new Uri("https://fcm.googleapis.com/fcm/");
-			client.DefaultRequestHeaders.Add("Authorization", "key=" + option.Value.ServerKey);
-			client.DefaultRequestHeaders.Add("project_id", option.Value.SenderId);
+			client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "key=" + option.Value.ServerKey);
+			client.DefaultRequestHeaders.TryAddWithoutValidation("project_id", option.Value.SenderId);
 			Client = client;
 		}
 
