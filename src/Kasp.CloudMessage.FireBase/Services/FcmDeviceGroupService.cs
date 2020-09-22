@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Kasp.CloudMessage.FireBase.Data;
 using Kasp.CloudMessage.FireBase.Models.FcmDeviceGroupModels;
 using Kasp.Core.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace Kasp.CloudMessage.FireBase.Services {
 	public class FcmDeviceGroupService {
-		public FcmDeviceGroupService(FcmApiHttpClient fcmApiHttpClient, IFcmUserTokenRepository fcmUserTokenRepository) {
-			FcmApiHttpClient = fcmApiHttpClient;
-			FcmUserTokenRepository = fcmUserTokenRepository;
-		}
+		private readonly FcmApiHttpClient _fcmApiHttpClient;
+		private readonly IFcmUserTokenRepository _fcmUserTokenRepository;
+		private readonly ILogger<FcmDeviceGroupService> _logger;
 
-		private FcmApiHttpClient FcmApiHttpClient { get; }
-		private IFcmUserTokenRepository FcmUserTokenRepository { get; }
+		public FcmDeviceGroupService(FcmApiHttpClient fcmApiHttpClient, IFcmUserTokenRepository fcmUserTokenRepository, ILogger<FcmDeviceGroupService> logger) {
+			_fcmApiHttpClient = fcmApiHttpClient;
+			_fcmUserTokenRepository = fcmUserTokenRepository;
+			_logger = logger;
+		}
 
 
 		public async Task<string> RequestAsync(DeviceGroupRequestOperation operation, int userId, string token, CancellationToken cancellationToken = default) {
@@ -23,14 +26,14 @@ namespace Kasp.CloudMessage.FireBase.Services {
 			if (operation == DeviceGroupRequestOperation.Create)
 				data.Operation = "create";
 			else {
-				var prevToken = await FcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
+				var prevToken = await _fcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
 				data.NotificationKey = prevToken;
 				data.Operation = operation == DeviceGroupRequestOperation.Remove ? "remove" : "add";
 			}
-			
-			Console.WriteLine(JsonSerializer.Serialize(data));
 
-			var response = await FcmApiHttpClient.Client.PostAsJsonAsync("notification", data, cancellationToken);
+			_logger.LogInformation("device-group-data", data);
+
+			var response = await _fcmApiHttpClient.Client.PostAsJsonAsync("notification", data, cancellationToken);
 
 			if (response.IsSuccessStatusCode) {
 				var result = await response.Content.ReadAsAsync<DeviceGroupResponse>(cancellationToken);
