@@ -22,19 +22,16 @@ namespace Kasp.CloudMessage.FireBase.Controllers {
 		public async Task<IActionResult> AddUserToken([FromBody] FcmUserTokenEditModel model, CancellationToken cancellationToken) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			Result<string> result;
+			string result;
 
 			if (await FcmUserTokenRepository.HasAsync(x => x.UserId == UserId, cancellationToken))
 				result = await DeviceGroupService.RequestAsync(DeviceGroupRequestOperation.Add, UserId, model.Token, cancellationToken);
 			else
 				result = await DeviceGroupService.RequestAsync(DeviceGroupRequestOperation.Create, UserId, model.Token, cancellationToken);
 
-			if (result.IsSuccess) {
-				await FcmUserTokenRepository.UpdateUserTokenAsync(UserId, result.Data, cancellationToken);
-				return Ok();
-			}
 
-			return BadRequest(result.Errors);
+			await FcmUserTokenRepository.UpdateUserTokenAsync(UserId, result, cancellationToken);
+			return Ok();
 		}
 
 		[HttpPost]
@@ -42,13 +39,9 @@ namespace Kasp.CloudMessage.FireBase.Controllers {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var result = await DeviceGroupService.RequestAsync(DeviceGroupRequestOperation.Remove, UserId, model.Token, cancellationToken);
-			
-			if (result.IsSuccess) {
-				await FcmUserTokenRepository.UpdateUserTokenAsync(UserId, result.Data, cancellationToken);
-				return Ok();
-			}
 
-			return BadRequest(result.Errors);
+			await FcmUserTokenRepository.UpdateUserTokenAsync(UserId, result, cancellationToken);
+			return Ok();
 		}
 	}
 }

@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\version.props" />
-    <PropertyGroup>
-        <id>Kasp.CloudMessage.FireBase</id>
-    </PropertyGroup>
+	<Import Project="..\version.props"/>
+	<PropertyGroup>
+		<id>Kasp.CloudMessage.FireBase</id>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Kasp.CloudMessage\Kasp.CloudMessage.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.CloudMessage\Kasp.CloudMessage.csproj"/>
+	</ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="FirebaseAdmin" Version="1.16.0" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FirebaseAdmin" Version="1.16.0"/>
+	</ItemGroup>
 
 </Project>
