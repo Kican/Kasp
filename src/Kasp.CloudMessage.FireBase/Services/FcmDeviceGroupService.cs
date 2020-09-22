@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.CloudMessage.FireBase.Data;
@@ -22,7 +21,11 @@ namespace Kasp.CloudMessage.FireBase.Services {
 
 
 		public async Task<string> RequestAsync(DeviceGroupRequestOperation operation, int userId, string token, CancellationToken cancellationToken = default) {
-			var data = new DeviceGroupRequest {NotificationKeyName = userId.ToString(), RegistrationIds = new List<string> {token}};
+			var data = new DeviceGroupRequest {
+				NotificationKeyName = userId.ToString(),
+				RegistrationIds = new List<string> {token}
+			};
+			
 			if (operation == DeviceGroupRequestOperation.Create)
 				data.Operation = "create";
 			else {
@@ -30,7 +33,7 @@ namespace Kasp.CloudMessage.FireBase.Services {
 				data.NotificationKey = prevToken;
 				data.Operation = operation == DeviceGroupRequestOperation.Remove ? "remove" : "add";
 			}
-
+			
 			_logger.LogInformation("device-group-data", data);
 
 			var response = await _fcmApiHttpClient.Client.PostAsJsonAsync("notification", data, cancellationToken);
@@ -40,7 +43,9 @@ namespace Kasp.CloudMessage.FireBase.Services {
 				return result.NotificationKey;
 			}
 
-			throw new Exception(response.ReasonPhrase);
+			var errorBody = await response.Content.ReadAsStringAsync();
+
+			throw new Exception(errorBody);
 		}
 	}
 }
