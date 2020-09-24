@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Kasp.Identity.Core.Entities;
 using Kasp.Identity.Core.Entities.UserEntities;
@@ -39,12 +40,11 @@ namespace Kasp.Identity.Controllers {
 			}
 
 			var code = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider);
-			var smsResult = await OtpSmsSender.SendSmsAsync(model.Phone, code);
-			if (!smsResult.isSuccess) {
-				ModelState.AddModelError("sms", "sending-error");
-				return BadRequest(ModelState);
-			}
-
+			var smsResult = await OtpSmsSender.SendSmsAsync(model.Phone, code); 
+			
+			if (!smsResult.isSuccess) 
+				throw new Exception("error in sending otp ...");
+			
 			return new PhoneRequestResponse(smsResult.number, isRegistered);
 		}
 
@@ -53,21 +53,20 @@ namespace Kasp.Identity.Controllers {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
 			var user = await UserManager.FindByNameAsync(model.Phone);
-			if (user == null) {
-				ModelState.AddModelError("", "User not found");
-			} else {
-				var result = await UserManager.VerifyTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider, model.Code);
+			
+			if (user == null)
+				throw new Exception("user not found");
+			
 
-				if (result) {
-					var claims = await GetClaims(user);
+			var result = await UserManager.VerifyTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider, model.Code);
 
-					return await GetToken(claims);
-				}
+			if (result) {
+				var claims = await GetClaims(user);
 
-				ModelState.AddModelError("", "user/totp incurrect ...");
+				return await GetToken(claims);
 			}
-
-			return BadRequest(ModelState);
+			
+			throw new Exception("user/totp incurrect ...");
 		}
 
 		protected OtpAccountApiController(IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager, IObjectMapper objectMapper, IAuthOtpSmsSender otpSmsSender) :

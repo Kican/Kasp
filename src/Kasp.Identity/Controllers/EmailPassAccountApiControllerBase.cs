@@ -105,21 +105,19 @@ namespace Kasp.Identity.Controllers {
 
 			var user = await UserManager.FindByEmailAsync(model.Email) ?? await UserManager.FindByNameAsync(model.Email);
 
-			if (user == null) {
-				ModelState.AddModelError("", "User not found");
-			} else {
-				var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+			if (user == null)
+				throw new Exception("user not found");
 
-				if (result.Succeeded) {
-					var claims = await GetClaims(user);
 
-					return await GetToken(claims);
-				}
+			var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
-				ModelState.AddModelError("", "user/pass incorrect ...");
+			if (result.Succeeded) {
+				var claims = await GetClaims(user);
+
+				return await GetToken(claims);
 			}
 
-			return BadRequest(ModelState);
+			throw new Exception("user/pass incorrect ...");
 		}
 
 
@@ -128,19 +126,17 @@ namespace Kasp.Identity.Controllers {
 			if (model.GrandType == GrandType.Password) {
 				var user = await UserManager.FindByNameAsync(model.Username);
 
-				if (user == null) {
-					ModelState.AddModelError("", "user-not-found");
-				} else {
-					var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+				if (user == null)
+					throw new Exception("user not found");
+				var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
-					if (result.Succeeded) {
-						var claims = await GetClaims(user);
+				if (result.Succeeded) {
+					var claims = await GetClaims(user);
 
-						return await GetToken(claims);
-					}
-
-					ModelState.AddModelError("", "user/pass-incorrect");
+					return await GetToken(claims);
 				}
+
+				throw new Exception("user/pass incorrect");
 			} else if (model.GrandType == GrandType.RefreshToken) {
 			}
 

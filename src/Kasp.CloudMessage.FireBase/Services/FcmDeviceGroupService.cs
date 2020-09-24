@@ -22,10 +22,10 @@ namespace Kasp.CloudMessage.FireBase.Services {
 
 		public async Task<string> RequestAsync(DeviceGroupRequestOperation operation, int userId, string token, CancellationToken cancellationToken = default) {
 			var data = new DeviceGroupRequest {
-				NotificationKeyName = userId.ToString(),
+				NotificationKeyName = "user_" + userId,
 				RegistrationIds = new List<string> {token}
 			};
-			
+
 			if (operation == DeviceGroupRequestOperation.Create)
 				data.Operation = "create";
 			else {
@@ -33,7 +33,7 @@ namespace Kasp.CloudMessage.FireBase.Services {
 				data.NotificationKey = prevToken;
 				data.Operation = operation == DeviceGroupRequestOperation.Remove ? "remove" : "add";
 			}
-			
+
 			_logger.LogInformation("device-group-data", data);
 
 			var response = await _fcmApiHttpClient.Client.PostAsJsonAsync("notification", data, cancellationToken);
