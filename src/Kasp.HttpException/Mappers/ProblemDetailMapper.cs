@@ -16,7 +16,7 @@ namespace Kasp.HttpException.Mappers {
 
 		public IActionResult Map(Exception exception, HttpContext httpContext) {
 			var problemDetails = new ProblemDetails {
-				Status = MapStatus(httpContext.Response),
+				Status = MapStatus(exception, httpContext.Response),
 				Type = MapType(exception, httpContext),
 				Title = MapTitle(exception, httpContext),
 				Detail = MapDetail(exception, httpContext),
@@ -41,7 +41,9 @@ namespace Kasp.HttpException.Mappers {
 			return response.HttpContext.Request?.Path.HasValue == true ? response.HttpContext.Request.Path : null;
 		}
 
-		protected virtual int MapStatus(HttpResponse response) {
+		protected virtual int MapStatus(Exception exception, HttpResponse response) {
+			if (exception is HttpExceptionBase x)
+				return (int) x.StatusCode;
 			return response.StatusCode;
 		}
 
