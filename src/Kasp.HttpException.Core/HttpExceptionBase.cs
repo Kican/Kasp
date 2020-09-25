@@ -4,7 +4,7 @@ namespace Kasp.HttpException.Core {
 	public abstract class HttpExceptionBase : System.Exception {
 		public abstract HttpStatusCode StatusCode { get; }
 
-		public object ErrorData { get; }
+		public object ErrorData { get; set; }
 
 		public HttpExceptionBase() : base() {
 		}

@@ -14,5 +14,12 @@ namespace Kasp.HttpException.Tests {
 
 			Output.WriteLine(await response.Content.ReadAsStringAsync());
 		}
+		
+		[Fact]
+		public async Task WithData() {
+			var response = await Client.GetAsync("/api/data/WithData");
+
+			Output.WriteLine(await response.Content.ReadAsStringAsync());
+		}
 	}
 }

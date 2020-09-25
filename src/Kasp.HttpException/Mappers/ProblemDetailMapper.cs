@@ -1,5 +1,6 @@
 using System;
 using Kasp.Core.Extensions;
+using Kasp.HttpException.Core;
 using Kasp.HttpException.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,10 @@ namespace Kasp.HttpException.Mappers {
 
 			if (_options.Value.IncludeExceptionDetails(httpContext))
 				problemDetails.Extensions.Add("exception-details", new SerializableException(exception));
-			
+
+			if (exception is HttpExceptionBase x)
+				problemDetails.Extensions.Add("data", x.ErrorData);
+
 			return new ProblemDetailsResult(problemDetails);
 		}
 
@@ -70,6 +74,5 @@ namespace Kasp.HttpException.Mappers {
 
 			return uri.ToString();
 		}
-		
 	}
 }

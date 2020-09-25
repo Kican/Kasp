@@ -9,5 +9,11 @@ namespace Kasp.HttpException.Tests.Controllers {
 			// return Ok("salam");
 			throw new BadRequestException("hi");
 		}
+
+		[HttpGet]
+		public IActionResult WithData() {
+			// return Ok("salam");
+			throw new BadRequestException("hi", new {id = 10});
+		}
 	}
 }
