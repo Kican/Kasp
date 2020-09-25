@@ -26,7 +26,7 @@ namespace Kasp.HttpException.Mappers {
 			if (_options.Value.IncludeExceptionDetails(httpContext))
 				problemDetails.Extensions.Add("exception-details", new SerializableException(exception));
 
-			if (exception is HttpExceptionBase x)
+			if (exception is HttpExceptionBase x && x.ErrorData != null)
 				problemDetails.Extensions.Add("data", x.ErrorData);
 
 			return new ProblemDetailsResult(problemDetails);
