@@ -1,3 +1,4 @@
+using System.Net.Http;
 using FirebaseAdmin;
 using Kasp.CloudMessage.FireBase.Data;
 using Kasp.CloudMessage.FireBase.Models;
@@ -24,7 +25,10 @@ namespace Kasp.CloudMessage.FireBase.Extensions {
 			builder.AddScoped<IFcmService, FcmService>();
 			builder.AddScoped<ICloudMessageService, FcmService>();
 
-			builder.AddHttpClient<FcmApiHttpClient>();
+			var clientHandler = new HttpClientHandler {ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true};
+			
+			builder.AddHttpClient<FcmApiHttpClient>()
+				.ConfigurePrimaryHttpMessageHandler(() => clientHandler);
 		}
 	}
 }
