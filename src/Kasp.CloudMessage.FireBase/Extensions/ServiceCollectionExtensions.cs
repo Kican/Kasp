@@ -28,7 +28,10 @@ namespace Kasp.CloudMessage.FireBase.Extensions {
 			var clientHandler = new HttpClientHandler {ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true};
 			
 			builder.AddHttpClient<FcmApiHttpClient>()
-				.ConfigurePrimaryHttpMessageHandler(() => clientHandler);
+				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
+					ClientCertificateOptions = ClientCertificateOption.Manual,
+					ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+				});
 		}
 	}
 }

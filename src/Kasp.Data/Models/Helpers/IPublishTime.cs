@@ -2,6 +2,6 @@ using System;
 
 namespace Kasp.Data.Models.Helpers {
 	public interface IPublishTime {
-		DateTime PublishTime { set; get; }
+		DateTimeOffset PublishTime { set; get; }
 	}
 }
