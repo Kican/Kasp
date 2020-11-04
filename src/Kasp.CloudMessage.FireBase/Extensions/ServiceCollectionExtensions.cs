@@ -1,5 +1,4 @@
 using System.Net.Http;
-using FirebaseAdmin;
 using Kasp.CloudMessage.FireBase.Data;
 using Kasp.CloudMessage.FireBase.Models;
 using Kasp.CloudMessage.FireBase.Services;
@@ -10,9 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Kasp.CloudMessage.FireBase.Extensions {
 	public static class ServiceCollectionExtensions {
-		public static void AddFcm<TDbContext>(this IServiceCollection builder, IConfiguration config, AppOptions options) where TDbContext : DbContext, IFcmDbContext {
-			FirebaseApp.Create(options);
-
+		public static void AddFcm<TDbContext>(this IServiceCollection builder, IConfiguration config) where TDbContext : DbContext, IFcmDbContext {
 			builder.Configure<FcmConfig>(config);
 
 			AddServices<TDbContext>(builder);
@@ -25,12 +22,10 @@ namespace Kasp.CloudMessage.FireBase.Extensions {
 			builder.AddScoped<IFcmService, FcmService>();
 			builder.AddScoped<ICloudMessageService, FcmService>();
 
-			var clientHandler = new HttpClientHandler {ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true};
-			
+
 			builder.AddHttpClient<FcmApiHttpClient>()
 				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
-					ClientCertificateOptions = ClientCertificateOption.Manual,
-					ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+					ClientCertificateOptions = ClientCertificateOption.Manual, ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
 				});
 		}
 	}

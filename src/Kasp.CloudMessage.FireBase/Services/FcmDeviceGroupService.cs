@@ -29,8 +29,7 @@ namespace Kasp.CloudMessage.FireBase.Services {
 			if (operation == DeviceGroupRequestOperation.Create)
 				data.Operation = "create";
 			else {
-				var prevToken = await _fcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
-				data.NotificationKey = prevToken;
+				data.NotificationKey = await _fcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
 				data.Operation = operation == DeviceGroupRequestOperation.Remove ? "remove" : "add";
 			}
 
