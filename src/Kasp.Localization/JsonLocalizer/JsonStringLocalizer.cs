@@ -9,11 +9,11 @@ using Microsoft.Extensions.Options;
 
 namespace Kasp.Localization.JsonLocalizer {
 	internal class JsonStringLocalizer : JsonStringLocalizerBase, IStringLocalizer {
-		public JsonStringLocalizer(IHostingEnvironment env, IMemoryCache memCache, string resourcesRelativePath, IOptions<JsonLocalizationOptions> localizationOptions) : base(env, memCache,
+		public JsonStringLocalizer(IWebHostEnvironment env, IMemoryCache memCache, string resourcesRelativePath, IOptions<JsonLocalizationOptions> localizationOptions) : base(env, memCache,
 			resourcesRelativePath, localizationOptions) {
 		}
 
-		public JsonStringLocalizer(IHostingEnvironment env, IMemoryCache memCache, IOptions<JsonLocalizationOptions> localizationOptions) : base(env, memCache, localizationOptions) {
+		public JsonStringLocalizer(IWebHostEnvironment env, IMemoryCache memCache, IOptions<JsonLocalizationOptions> localizationOptions) : base(env, memCache, localizationOptions) {
 		}
 
 		public LocalizedString this[string name] {

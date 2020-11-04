@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace Kasp.Localization.JsonLocalizer {
 	internal abstract class JsonStringLocalizerBase {
 		protected List<JsonLocalizationFormat> Localization = new List<JsonLocalizationFormat>();
-		protected readonly IHostingEnvironment Env;
+		protected readonly IWebHostEnvironment Env;
 		protected readonly IMemoryCache MemCache;
 		protected readonly IOptions<JsonLocalizationOptions> LocalizationOptions;
 		protected readonly string ResourcesRelativePath;
@@ -18,7 +18,7 @@ namespace Kasp.Localization.JsonLocalizer {
 		protected const string CacheKey = "JsonLocalizationBlob";
 		protected const string FileName = "localize.json";
 
-		protected JsonStringLocalizerBase(IHostingEnvironment env, IMemoryCache memCache, string resourcesRelativePath, IOptions<JsonLocalizationOptions> localizationOptions) {
+		protected JsonStringLocalizerBase(IWebHostEnvironment env, IMemoryCache memCache, string resourcesRelativePath, IOptions<JsonLocalizationOptions> localizationOptions) {
 			Env = env;
 			MemCache = memCache;
 			ResourcesRelativePath = resourcesRelativePath;
@@ -27,7 +27,7 @@ namespace Kasp.Localization.JsonLocalizer {
 			InitJsonStringLocalizer();
 		}
 
-		public JsonStringLocalizerBase(IHostingEnvironment env, IMemoryCache memCache, IOptions<JsonLocalizationOptions> localizationOptions) {
+		public JsonStringLocalizerBase(IWebHostEnvironment env, IMemoryCache memCache, IOptions<JsonLocalizationOptions> localizationOptions) {
 			Env = env;
 			MemCache = memCache;
 			LocalizationOptions = localizationOptions;
@@ -61,7 +61,7 @@ namespace Kasp.Localization.JsonLocalizer {
 				File.WriteAllText(filePath, "[]");
 
 			Localization.Clear();
-			Localization.AddRange(JsonConvert.DeserializeObject<List<JsonLocalizationFormat>>(File.ReadAllText(filePath)));
+			Localization.AddRange(JsonSerializer.Deserialize<List<JsonLocalizationFormat>>(File.ReadAllText(filePath)));
 
 			MergeValues();
 		}
@@ -69,7 +69,7 @@ namespace Kasp.Localization.JsonLocalizer {
 		public void SaveItems() {
 			var filePath = Path.Combine(GetJsonRelativePath(), FileName);
 
-			File.WriteAllText(filePath, JsonConvert.SerializeObject(Localization));
+			File.WriteAllText(filePath, JsonSerializer.Serialize(Localization));
 
 			LoadItems();
 			SetCache();
