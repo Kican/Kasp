@@ -10,6 +10,7 @@ namespace Kasp.FormBuilder.FluentValidation.Tests.Models {
 		public int Min { get; set; }
 		public int Range { get; set; }
 		public string Email { get; set; }
+		public string Phone { get; set; }
 		public string Url { get; set; }
 	}
 }

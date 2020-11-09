@@ -15,6 +15,7 @@ namespace Kasp.Data {
 		ValueTask<TModel> GetAsync(TKey id, CancellationToken cancellationToken = default);
 		ValueTask<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
 		ValueTask<TModel> GetAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default);
+		ValueTask<TKey> GetIdAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default);
 
 		ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
 		// lists

@@ -1,4 +1,4 @@
-namespace Kasp.CloudMessage.FireBase.Models.FcmDeviceGroupModels {
+﻿namespace Kasp.CloudMessage.FireBase.Models.FcmDeviceGroupModels {
 	public enum DeviceGroupRequestOperation {
 		Create,
 		Add,

@@ -6,18 +6,18 @@ using Microsoft.Extensions.Options;
 
 namespace Kasp.Localization.JsonLocalizer {
 	public class JsonStringLocalizerFactory : IStringLocalizerFactory {
-		readonly IHostingEnvironment _env;
+		readonly IWebHostEnvironment _env;
 		readonly IMemoryCache _memCache;
 		readonly IOptions<JsonLocalizationOptions> _localizationOptions;
 
 		readonly string _resourcesRelativePath;
 
-		public JsonStringLocalizerFactory(IHostingEnvironment env, IMemoryCache memCache) {
+		public JsonStringLocalizerFactory(IWebHostEnvironment env, IMemoryCache memCache) {
 			_env = env;
 			_memCache = memCache;
 		}
 
-		public JsonStringLocalizerFactory(IHostingEnvironment env, IMemoryCache memCache, IOptions<JsonLocalizationOptions> localizationOptions) {
+		public JsonStringLocalizerFactory(IWebHostEnvironment env, IMemoryCache memCache, IOptions<JsonLocalizationOptions> localizationOptions) {
 			if (localizationOptions == null)
 				throw new ArgumentNullException(nameof(localizationOptions));
 

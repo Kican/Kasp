@@ -44,6 +44,10 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.FirstOrDefaultAsync(filter, cancellationToken);
 		}
 
+		public virtual async ValueTask<TKey> GetIdAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
+			return await BaseQuery.Where(filter).Select(x => x.Id).FirstOrDefaultAsync(cancellationToken);
+		}
+
 		public virtual async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.Where(filter).MapTo<TProject>().FirstOrDefaultAsync(cancellationToken);
 		}

@@ -8,20 +8,19 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.0-preview.6
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Build NuGet Package
-      run: dotnet pack -o ./publish --configuration Release
-    - name: Deploy NuGet Package
-      run: dotnet nuget push ./publish/*.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
+      - uses: actions/checkout@main
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@main
+        with:
+          dotnet-version: 3.1.401
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Build NuGet Packages
+        run: dotnet pack --output nuget-packages --configuration Release
+      - name: Deploy NuGet Packages
+        run: dotnet nuget push **\*.nupkg -k ${{ secrets.NUGET_KEY }} -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+        working-directory: nuget-packages

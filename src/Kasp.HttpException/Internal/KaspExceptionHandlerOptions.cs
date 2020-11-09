@@ -21,7 +21,7 @@ namespace Kasp.HttpException.Internal {
 			var mapper = context.RequestServices.GetService<IExceptionMapper>();
 
 			if (option.ShouldLogException(exceptionHandler.Error)) {
-				var logger = context.RequestServices.GetService<ILogger>();
+				var logger = context.RequestServices.GetService<ILogger<KaspExceptionHandlerOptions>>();
 				logger.LogError(exceptionHandler.Error, "unhandled exception");
 			}
 

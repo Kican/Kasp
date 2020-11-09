@@ -1,102 +1,76 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using FcmSharp;
-using FcmSharp.Requests;
-using FcmSharp.Responses;
 using Kasp.CloudMessage.FireBase.Data;
+using Kasp.CloudMessage.FireBase.Models;
 using Kasp.CloudMessage.Models;
-using Kasp.Core.Models;
 
 namespace Kasp.CloudMessage.FireBase.Services {
 	public class FcmService : IFcmService {
-		public FcmService(IFcmClient fcmClient, IFcmUserTokenRepository fcmUserTokenRepository) {
-			FcmClient = fcmClient;
-			FcmUserTokenRepository = fcmUserTokenRepository;
+		public FcmService(IFcmUserTokenRepository fcmUserTokenRepository, FcmApiHttpClient httpClient) {
+			_fcmUserTokenRepository = fcmUserTokenRepository;
+			_httpClient = httpClient;
 		}
 
-		private IFcmClient FcmClient { get; }
-		private IFcmUserTokenRepository FcmUserTokenRepository { get; }
+		private readonly IFcmUserTokenRepository _fcmUserTokenRepository;
+		private readonly FcmApiHttpClient _httpClient;
 
-
-		public async Task<FcmMessageResponse> SendAsync(FcmMessage message, CancellationToken cancellationToken = default) {
-			return await FcmClient.SendAsync(message, cancellationToken);
+		public async Task SendAsync(FcmMessage message, CancellationToken cancellationToken = default) {
+			await _httpClient.SendAsync(message, cancellationToken);
 		}
 
-		public async Task<Result<bool>> SendToUserAsync(int userId, FcmMessage message, CancellationToken cancellationToken = default) {
-			message.Message.Token = await FcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
+		public async Task SendToUserAsync(int userId, FcmMessage message, CancellationToken cancellationToken = default) {
+			message.To = await _fcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
 			await SendAsync(message, cancellationToken);
-			return new Result<bool>(true);
 		}
 
-		public async Task<Result<bool>> SendToAllAsync(FcmMessage message, CancellationToken cancellationToken = default) {
-			message.Message.Topic = "all";
+		public async Task SendToAllAsync(FcmMessage message, CancellationToken cancellationToken = default) {
+			message.To = "all";
 			await SendAsync(message, cancellationToken);
-			return new Result<bool>(true);
 		}
 
-		public async Task<Result<bool>> SendToUserAsync(int userId, string title, string body, CancellationToken cancellationToken = default) {
+		public async Task SendToUserAsync(int userId, string title, string body, CancellationToken cancellationToken = default) {
 			var fcmMessage = FromTitleBody(title, body);
 			await SendToUserAsync(userId, fcmMessage, cancellationToken);
-			return new Result<bool>(true);
 		}
 
-		public async Task<Result<bool>> SendToUserAsync(int userId, Dictionary<string, string> data, CancellationToken cancellationToken = default) {
-			var fcmMessage = new FcmMessage {
-				Message = new Message {
-					Data = data
-				}
-			};
+		public async Task SendToUserAsync(int userId, Dictionary<string, string> data, CancellationToken cancellationToken = default) {
+			var fcmMessage = new FcmMessage {Data = data};
 			await SendToUserAsync(userId, fcmMessage, cancellationToken);
-			return new Result<bool>(true);
 		}
 
-		public Task<Result<bool>> SendToUserAsync(int userId, IMessage holder, CancellationToken cancellationToken = default) {
+		public Task SendToUserAsync(int userId, IMessage holder, CancellationToken cancellationToken = default) {
 			throw new System.NotImplementedException();
 		}
 
-		public async Task<Result<bool>> SendToUserAsync(int userId, string title, string body, Dictionary<string, string> data, CancellationToken cancellationToken = default) {
+		public async Task SendToUserAsync(int userId, string title, string body, Dictionary<string, string> data, CancellationToken cancellationToken = default) {
 			var fcmMessage = FromTitleBody(title, body);
-			fcmMessage.Message.Data = data;
+			fcmMessage.Data = data;
 			await SendToUserAsync(userId, fcmMessage, cancellationToken);
-			return new Result<bool>(true);
 		}
 
-		public async Task<Result<bool>> SendToAllAsync(string title, string body, CancellationToken cancellationToken = default) {
+		public async Task SendToAllAsync(string title, string body, CancellationToken cancellationToken = default) {
 			var fcmMessage = FromTitleBody(title, body);
 			await SendToAllAsync(fcmMessage, cancellationToken);
-			return new Result<bool>(true);
 		}
 
-		public async Task<Result<bool>> SendToAllAsync(Dictionary<string, string> data, CancellationToken cancellationToken = default) {
-			var fcmMessage = new FcmMessage {
-				Message = new Message {
-					Data = data
-				}
-			};
+		public async Task SendToAllAsync(Dictionary<string, string> data, CancellationToken cancellationToken = default) {
+			var fcmMessage = new FcmMessage() {Data = data};
 			await SendToAllAsync(fcmMessage, cancellationToken);
-			return new Result<bool>(true);
 		}
 
-		public Task<Result<bool>> SendToAllAsync(IMessage holder, CancellationToken cancellationToken = default) {
+		public Task SendToAllAsync(IMessage holder, CancellationToken cancellationToken = default) {
 			throw new System.NotImplementedException();
 		}
 
-		public async Task<Result<bool>> SendToAllAsync(string title, string body, Dictionary<string, string> data, CancellationToken cancellationToken = default) {
+		public async Task SendToAllAsync(string title, string body, Dictionary<string, string> data, CancellationToken cancellationToken = default) {
 			var fcmMessage = FromTitleBody(title, body);
-			fcmMessage.Message.Data = data;
+			fcmMessage.Data = data;
 			await SendToAllAsync(fcmMessage, cancellationToken);
-			return new Result<bool>(true);
 		}
 
 		private FcmMessage FromTitleBody(string title, string body) {
-			return new FcmMessage {
-				Message = new Message {
-					Notification = new Notification {
-						Title = title, Body = body
-					}
-				}
-			};
+			return new FcmMessage {Notification = new FcmNotification() {Title = title, Body = body}};
 		}
 	}
 }

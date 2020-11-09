@@ -1,15 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\version.props" />
-    <PropertyGroup>
-        <id>Kasp.CloudMessage.FireBase</id>
-    </PropertyGroup>
+	<Import Project="..\version.props" />
+	<PropertyGroup>
+		<id>Kasp.CloudMessage.FireBase</id>
+	</PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Kasp.CloudMessage\Kasp.CloudMessage.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FcmSharp" Version="3.0.1" />
-    </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\Kasp.CloudMessage\Kasp.CloudMessage.csproj" />
+	</ItemGroup>
 </Project>

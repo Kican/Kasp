@@ -1,8 +1,8 @@
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Kasp.CloudMessage.FireBase.Models.FcmDeviceGroupModels {
 	public class DeviceGroupResponse {
-		[JsonProperty("notification_key")]
+		[JsonPropertyName("notification_key")]
 		public string NotificationKey { get; set; }
 	}
 }

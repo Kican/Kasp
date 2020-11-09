@@ -1,5 +1,6 @@
 using System;
 using Kasp.Core.Extensions;
+using Kasp.HttpException.Core;
 using Kasp.HttpException.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace Kasp.HttpException.Mappers {
 
 		public IActionResult Map(Exception exception, HttpContext httpContext) {
 			var problemDetails = new ProblemDetails {
-				Status = MapStatus(httpContext.Response),
+				Status = MapStatus(exception, httpContext.Response),
 				Type = MapType(exception, httpContext),
 				Title = MapTitle(exception, httpContext),
 				Detail = MapDetail(exception, httpContext),
@@ -24,7 +25,10 @@ namespace Kasp.HttpException.Mappers {
 
 			if (_options.Value.IncludeExceptionDetails(httpContext))
 				problemDetails.Extensions.Add("exception-details", new SerializableException(exception));
-			
+
+			if (exception is HttpExceptionBase x && x.ErrorData != null)
+				problemDetails.Extensions.Add("data", x.ErrorData);
+
 			return new ProblemDetailsResult(problemDetails);
 		}
 
@@ -37,7 +41,9 @@ namespace Kasp.HttpException.Mappers {
 			return response.HttpContext.Request?.Path.HasValue == true ? response.HttpContext.Request.Path : null;
 		}
 
-		protected virtual int MapStatus(HttpResponse response) {
+		protected virtual int MapStatus(Exception exception, HttpResponse response) {
+			if (exception is HttpExceptionBase x)
+				return (int) x.StatusCode;
 			return response.StatusCode;
 		}
 
@@ -70,6 +76,5 @@ namespace Kasp.HttpException.Mappers {
 
 			return uri.ToString();
 		}
-		
 	}
 }

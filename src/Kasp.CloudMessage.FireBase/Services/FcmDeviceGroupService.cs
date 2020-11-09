@@ -1,42 +1,50 @@
+﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.CloudMessage.FireBase.Data;
 using Kasp.CloudMessage.FireBase.Models.FcmDeviceGroupModels;
-using Kasp.Core.Models;
+using Kasp.Core.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace Kasp.CloudMessage.FireBase.Services {
 	public class FcmDeviceGroupService {
-		public FcmDeviceGroupService(FcmApiHttpClient fcmApiHttpClient, IFcmUserTokenRepository fcmUserTokenRepository) {
-			FcmApiHttpClient = fcmApiHttpClient;
-			FcmUserTokenRepository = fcmUserTokenRepository;
+		private readonly FcmApiHttpClient _fcmApiHttpClient;
+		private readonly IFcmUserTokenRepository _fcmUserTokenRepository;
+		private readonly ILogger<FcmDeviceGroupService> _logger;
+
+		public FcmDeviceGroupService(FcmApiHttpClient fcmApiHttpClient, IFcmUserTokenRepository fcmUserTokenRepository, ILogger<FcmDeviceGroupService> logger) {
+			_fcmApiHttpClient = fcmApiHttpClient;
+			_fcmUserTokenRepository = fcmUserTokenRepository;
+			_logger = logger;
 		}
 
-		private FcmApiHttpClient FcmApiHttpClient { get; }
-		private IFcmUserTokenRepository FcmUserTokenRepository { get; }
 
-
-		public async Task<Result<string>> RequestAsync(DeviceGroupRequestOperation operation, int userId, string token, CancellationToken cancellationToken = default) {
+		public async Task<string> RequestAsync(DeviceGroupRequestOperation operation, int userId, string token, CancellationToken cancellationToken = default) {
 			var data = new DeviceGroupRequest {
-				NotificationKeyName = userId.ToString(), RegistrationIds = new List<string> {token}
+				NotificationKeyName = "user_" + userId,
+				RegistrationIds = new List<string> {token}
 			};
+
 			if (operation == DeviceGroupRequestOperation.Create)
 				data.Operation = "create";
 			else {
-				var prevToken = await FcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
-				data.NotificationKey = prevToken;
+				data.NotificationKey = await _fcmUserTokenRepository.GetUserTokenAsync(userId, cancellationToken);
 				data.Operation = operation == DeviceGroupRequestOperation.Remove ? "remove" : "add";
 			}
 
-			var response = await FcmApiHttpClient.Client.PostAsJsonAsync("notification", data, cancellationToken);
+			_logger.LogInformation("device-group-data", data);
+
+			var response = await _fcmApiHttpClient.Client.PostAsJsonAsync("notification", data, cancellationToken);
 
 			if (response.IsSuccessStatusCode) {
 				var result = await response.Content.ReadAsAsync<DeviceGroupResponse>(cancellationToken);
-				return new Result<string>(result.NotificationKey);
+				return result.NotificationKey;
 			}
 
-			return Result<string>.WithError("http", "");
+			var errorBody = await response.Content.ReadAsStringAsync();
+
+			throw new Exception(errorBody);
 		}
 	}
 }

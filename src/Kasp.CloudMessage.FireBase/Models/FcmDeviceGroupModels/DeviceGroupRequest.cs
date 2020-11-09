@@ -1,18 +1,18 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Kasp.CloudMessage.FireBase.Models.FcmDeviceGroupModels {
 	public class DeviceGroupRequest {
-		[JsonProperty("operation")]
+		[JsonPropertyName("operation")]
 		public string Operation { get; set; }
 
-		[JsonProperty("notification_key_name")]
+		[JsonPropertyName("notification_key_name")]
 		public string NotificationKeyName { get; set; }
 
-		[JsonProperty("notification_key")]
+		[JsonPropertyName("notification_key")]
 		public string NotificationKey { get; set; }
 
-		[JsonProperty("registration_ids")]
+		[JsonPropertyName("registration_ids")]
 		public List<string> RegistrationIds { get; set; }
 	}
 }

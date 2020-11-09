@@ -64,10 +64,7 @@ namespace Kasp.Identity.Controllers {
 		protected virtual async Task<List<Claim>> GetClaims(TUser user) {
 			var claims = new List<Claim>();
 
-			claims.AddRange(new[] {
-				new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-				new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-			});
+			claims.AddRange(new[] {new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),});
 
 			var roles = await UserManager.GetRolesAsync(user);
 
@@ -106,22 +103,21 @@ namespace Kasp.Identity.Controllers {
 		public virtual async Task<ActionResult<TokenResponse>> Login([FromBody] LoginVM model) {
 			if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			var user = await UserManager.FindByEmailAsync(model.Email);
-			if (user == null) {
-				ModelState.AddModelError("", "User not found");
-			} else {
-				var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+			var user = await UserManager.FindByEmailAsync(model.Email) ?? await UserManager.FindByNameAsync(model.Email);
 
-				if (result.Succeeded) {
-					var claims = await GetClaims(user);
+			if (user == null)
+				throw new Exception("user not found");
 
-					return await GetToken(claims);
-				}
 
-				ModelState.AddModelError("", "user/pass incorrect ...");
+			var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+			if (result.Succeeded) {
+				var claims = await GetClaims(user);
+
+				return await GetToken(claims);
 			}
 
-			return BadRequest(ModelState);
+			throw new Exception("user/pass incorrect ...");
 		}
 
 
@@ -130,19 +126,17 @@ namespace Kasp.Identity.Controllers {
 			if (model.GrandType == GrandType.Password) {
 				var user = await UserManager.FindByNameAsync(model.Username);
 
-				if (user == null) {
-					ModelState.AddModelError("", "user-not-found");
-				} else {
-					var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+				if (user == null)
+					throw new Exception("user not found");
+				var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
-					if (result.Succeeded) {
-						var claims = await GetClaims(user);
+				if (result.Succeeded) {
+					var claims = await GetClaims(user);
 
-						return await GetToken(claims);
-					}
-
-					ModelState.AddModelError("", "user/pass-incorrect");
+					return await GetToken(claims);
 				}
+
+				throw new Exception("user/pass incorrect");
 			} else if (model.GrandType == GrandType.RefreshToken) {
 			}
 

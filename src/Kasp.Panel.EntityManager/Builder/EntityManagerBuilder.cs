@@ -33,7 +33,7 @@ namespace Kasp.Panel.EntityManager.Builder {
 				.ToArray();
 
 			foreach (var type in types) {
-				CheckControllerGenericParameters(type);
+				// CheckControllerGenericParameters(type);
 
 				var infoAttrib = type.GetCustomAttribute<EntityManagerInfoAttribute>();
 				if (infoAttrib != null && !infoAttrib.Discoverable) continue;

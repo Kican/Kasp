@@ -7,7 +7,13 @@ namespace Kasp.HttpException.Core {
 		public BadRequestException() {
 		}
 
+		public BadRequestException(object errorData) : base(errorData) {
+		}
+
 		public BadRequestException(string message) : base(message) {
+		}
+
+		public BadRequestException(string message, object errorData) : base(message, errorData) {
 		}
 
 		public BadRequestException(string message, System.Exception innerException) : base(message, innerException) {
