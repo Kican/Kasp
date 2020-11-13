@@ -1,14 +1,14 @@
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Kasp.Identity.Core.Entities.UserEntities.XEntities {
 	public class TokenRequest {
 		public string Username { get; set; }
 		public string Password { get; set; }
 
-		[JsonProperty("grant_type")]
+		[JsonPropertyName("grant_type")]
 		public GrandType GrandType { get; set; }
 
-		[JsonProperty("refresh_token")]
+		[JsonPropertyName("refresh_token")]
 		public string RefreshToken { get; set; }
 	}
 

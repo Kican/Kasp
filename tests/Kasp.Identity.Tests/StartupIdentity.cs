@@ -27,7 +27,7 @@ namespace Kasp.Identity.Tests {
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc();
 
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddDbContextPool<AppIdentityDbContext>(builder => builder.UseInMemoryDatabase("dbTest"))
@@ -57,10 +57,10 @@ namespace Kasp.Identity.Tests {
 
 			app.UseStaticFiles();
 			app.UseRouting();
-			
+
 			app.UseAuthorization();
 			app.UseAuthentication();
-			
+
 			app.UseEndpoints(builder => builder.MapControllers());
 		}
 	}
