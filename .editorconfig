@@ -4,7 +4,7 @@ root = true
 [*]
 charset = utf-8
 indent_style = tab
-indent_size = 4 # A property with the same name was updated with a value tab in a section [*.{appxmanifest,asax,ascx,aspx,build,cs,cshtml,dtd,fs,fsi,fsscript,fsx,master,ml,mli,nuspec,razor,resw,resx,skin,vb,xaml,xamlx,xoml,xsd}]
+indent_size = tab
 insert_final_newline = true
 trim_trailing_whitespace = true
 max_line_length = 200
