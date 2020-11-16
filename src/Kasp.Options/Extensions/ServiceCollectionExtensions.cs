@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ namespace Kasp.Options.Extensions {
 			var options = AppDomain.CurrentDomain.GetAssemblies()
 				.SelectMany(assembly => assembly.GetTypes())
 				.Where(x => typeof(IKaspOption).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-				.ToArray();
+				.ToImmutableArray();
 
 			var configureMethod = typeof(OptionsConfigurationServiceCollectionExtensions).GetMethod("Configure", new[] {services.GetType(), typeof(IConfiguration)});
 

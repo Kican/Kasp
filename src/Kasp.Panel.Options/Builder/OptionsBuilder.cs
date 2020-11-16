@@ -8,7 +8,7 @@ using Kasp.Options;
 
 namespace Kasp.Panel.Options.Builder {
 	public class OptionsBuilder : IOptionsBuilder {
-		public List<OptionDto> Options { get; set; } = new List<OptionDto>();
+		public List<OptionDto> Options { get; } = new();
 
 		public IOptionsBuilder AddFromAssembly<T>() {
 			return AddFromAssembly(typeof(T).Assembly);
@@ -34,7 +34,7 @@ namespace Kasp.Panel.Options.Builder {
 				var attribute = type.GetCustomAttribute<OptionInfoAttribute>();
 
 				var item = new OptionDto {
-					Name = type.GetFullTypeName().ToLower(), 
+					Name = type.GetFullTypeName().ToLower(),
 					Title = type.GetDisplayName(),
 					Type = type
 				};

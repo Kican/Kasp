@@ -11,4 +11,8 @@
 		<ProjectReference Include="..\Kasp.Options\Kasp.Options.csproj" />
 		<ProjectReference Include="..\Kasp.Panel\Kasp.Panel.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	</ItemGroup>
 </Project>
