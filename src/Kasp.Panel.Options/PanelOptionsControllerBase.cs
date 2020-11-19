@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Kasp.FormBuilder.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -52,7 +51,10 @@ namespace Kasp.Panel.Options {
 			if (optionType == null)
 				throw new Exception("option not found");
 
-			var physicalPath = _environment.ContentRootFileProvider.GetFileInfo("_file").PhysicalPath;
+
+			var fileName = _environment.EnvironmentName == "Production" ? "appsettings.json" : $"appsettings.{_environment.EnvironmentName}.json";
+
+			var physicalPath = _environment.ContentRootFileProvider.GetFileInfo(fileName).PhysicalPath;
 			var jObject = JsonConvert.DeserializeObject<JObject>(await System.IO.File.ReadAllTextAsync(physicalPath));
 
 			if (jObject["app"] == null)
