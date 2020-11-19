@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Kasp.Core.Extensions;
 using Kasp.FormBuilder.Extensions;
@@ -48,6 +49,7 @@ namespace Kasp.Panel.Options.Tests {
 		}
 	}
 
+	[DisplayName("تنظیمات سایت")]
 	public class GlobalSiteOption : IKaspOption {
 		public string Title { get; set; } = "my application";
 	}

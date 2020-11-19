@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FluentAssertions;
 using Kasp.Test;
 using Xunit;
 using Xunit.Abstractions;
@@ -9,17 +10,21 @@ namespace Kasp.Panel.Options.Tests {
 		}
 
 		[Fact]
-		public async Task GetListOfAll() {
-			var response = await Client.GetStringAsync("/api/panel/options");
+		public async Task GetValue() {
+			var response = await Client.GetAsync("/api/panel/options/kasp.panel.options.tests.globalsiteoption");
 
-			Output.WriteLine(response);
+			Output.WriteLine(await response.Content.ReadAsStringAsync());
+
+			response.IsSuccessStatusCode.Should().BeTrue();
 		}
 
 		[Fact]
-		public async Task GetValue() {
-			var response = await Client.GetStringAsync("/api/panel/options/kasp.panel.options.tests.globalsiteoption");
+		public async Task GetList() {
+			var response = await Client.GetAsync("/api/panel/options");
 
-			Output.WriteLine(response);
+			Output.WriteLine(await response.Content.ReadAsStringAsync());
+
+			response.IsSuccessStatusCode.Should().BeTrue();
 		}
 	}
 }
