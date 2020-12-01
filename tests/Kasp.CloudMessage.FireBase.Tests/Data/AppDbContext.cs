@@ -4,7 +4,7 @@ using Kasp.Data.EF;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.CloudMessage.FireBase.Tests.Data {
-	public class AppDbContext : KDbContext<AppDbContext>, IFcmDbContext {
+	public class AppDbContext : DbContext, IFcmDbContext {
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {
 		}
 

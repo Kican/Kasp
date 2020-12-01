@@ -19,7 +19,10 @@ namespace Kasp.Data.EF.Tests {
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddEntityFrameworkInMemoryDatabase();
-			services.AddDbContextPool<AppDbContext>(builder => builder.UseInMemoryDatabase("AppDb"))
+			services.AddDbContextPool<AppDbContext>(builder =>
+					builder.UseInMemoryDatabase("AppDb")
+						.AddInterceptors(new KEntityHelperSaveChangesInterceptor())
+				)
 				.AddEFRepositories();
 
 			services.AddObjectMapper<ObjectMapper.AutoMapper.AutoMapper>();

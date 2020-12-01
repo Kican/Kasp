@@ -5,7 +5,7 @@ using Kasp.Data.Models.Helpers;
 
 namespace Kasp.Data.EF.Helpers {
 	public class EntityHelperFactory {
-		private static Dictionary<Type, List<IEntityHelper>> Helpers { get; set; } = new Dictionary<Type, List<IEntityHelper>>();
+		private static Dictionary<Type, List<IEntityHelper>> Helpers { get; set; } = new();
 
 		static EntityHelperFactory() {
 			Add<ICreateTime, CreateTimeEntityHelper>();
@@ -30,6 +30,7 @@ namespace Kasp.Data.EF.Helpers {
 		public static List<IEntityHelper> GetQueryFilter<T>() {
 			return Helpers.Where(x => x.Key.IsAssignableFrom(typeof(T))).SelectMany(x => x.Value).ToList();
 		}
+
 		public static List<IEntityHelper> GetQueryFilter(Type type) {
 			return Helpers.Where(x => x.Key.IsAssignableFrom(type)).SelectMany(x => x.Value).ToList();
 		}

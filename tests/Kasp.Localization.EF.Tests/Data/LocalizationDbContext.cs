@@ -5,7 +5,7 @@ using Kasp.Localization.EF.Tests.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.Localization.EF.Tests.Data {
-	public class LocalizationDbContext : KDbContext<LocalizationDbContext>, ILocalizationDbContext {
+	public class LocalizationDbContext : DbContext, ILocalizationDbContext {
 		public LocalizationDbContext(DbContextOptions<LocalizationDbContext> options) : base(options) {
 		}
 

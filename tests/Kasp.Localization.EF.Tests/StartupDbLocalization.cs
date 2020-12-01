@@ -37,7 +37,6 @@ namespace Kasp.Localization.EF.Tests {
 				builder.SetCultures(supportedCultures, supportedCultures[0]);
 				builder.AddDbLocalization<LocalizationDbContext>();
 			});
-
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

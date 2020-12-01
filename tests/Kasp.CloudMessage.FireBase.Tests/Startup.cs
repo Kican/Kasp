@@ -1,7 +1,5 @@
-using Kasp.CloudMessage.FireBase.Extensions;
 using Kasp.CloudMessage.FireBase.Tests.Data;
 using Kasp.Core.Extensions;
-using Kasp.Data.EF.Extensions;
 using Kasp.Test.EF.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
