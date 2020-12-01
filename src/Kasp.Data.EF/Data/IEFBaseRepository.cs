@@ -4,8 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Kasp.Data.EF.Models;
-using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +18,7 @@ namespace Kasp.Data.EF.Data {
 		ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default);
 
 
-		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default);
+		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : class;
 
 		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(
 			Expression<Func<TModel, bool>> expression,
@@ -41,7 +39,7 @@ namespace Kasp.Data.EF.Data {
 			int page = 1,
 			int count = 20,
 			CancellationToken cancellationToken = default
-		) where TProject : IModel<TKey>;
+		) where TProject : class;
 	}
 
 	public interface IEFBaseRepository<TModel> : IEFBaseRepository<TModel, int> where TModel : class, IModel {

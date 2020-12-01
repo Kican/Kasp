@@ -60,7 +60,7 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.Where(filter).Select(projection).FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) {
+		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Select(projection).ToArrayAsync(cancellationToken);
 		}
 
@@ -76,8 +76,7 @@ namespace Kasp.Data.EF.Data {
 		}
 
 		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, TProject>> projection, int page = 1, int count = 20,
-			CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey> {
+			CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Select(projection).ToPagedListAsync(count, page, cancellationToken);
 		}
 
