@@ -14,7 +14,7 @@ namespace Kasp.Data.EF.Tests.Tests {
 	public class HelperTests : KClassFixtureWebApp<StartupDb> {
 		private News TempModel => new News {Title = "this is title", Content = "this is body"};
 
-		private readonly NewsRepository _newsRepository;
+		private readonly INewsRepository _newsRepository;
 
 		[Fact]
 		public async Task ModelTest() {
@@ -61,7 +61,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			model.Enable = true;
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.BaseQuery.EnableFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
@@ -74,7 +73,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			model.Enable = true;
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
@@ -87,7 +85,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			model.Enable = false;
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			Output.WriteLine(model.ToString());
 			var item = await _newsRepository.BaseQuery.EnableFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
@@ -112,7 +109,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			model.PublishTime = DateTime.UtcNow.AddDays(1);
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			var item = await _newsRepository.BaseQuery.PublishTimeFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
 
@@ -135,7 +131,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			model.PublishTime = DateTime.UtcNow.AddDays(-1);
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			var item = await _newsRepository.BaseQuery.PublishTimeFilter().FirstOrDefaultAsync(x => x.Id == model.Id);
 
@@ -147,7 +142,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			model.PublishTime = DateTime.UtcNow.AddDays(-1);
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 
@@ -160,7 +154,6 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var model = TempModel;
 			model.PublishTime = DateTime.UtcNow.AddDays(-1);
 			await _newsRepository.AddAsync(model);
-			await _newsRepository.SaveAsync();
 
 			var item = await _newsRepository.ListAsync(x => x.Id == model.Id && x.Title.Contains(" "), default);
 

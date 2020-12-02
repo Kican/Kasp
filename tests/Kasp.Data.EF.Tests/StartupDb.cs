@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using Kasp.Data.EF.Extensions;
 using Kasp.Data.EF.Tests.Data;
+using Kasp.Data.EF.Tests.Data.Repositories;
 using Kasp.ObjectMapper.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +21,11 @@ namespace Kasp.Data.EF.Tests {
 		public void ConfigureServices(IServiceCollection services) {
 			services.AddEntityFrameworkInMemoryDatabase();
 			services.AddDbContextPool<AppDbContext>(builder =>
-					builder.UseInMemoryDatabase("AppDb")
-						.AddInterceptors(new KEntityHelperSaveChangesInterceptor())
-				)
-				.AddEFRepositories();
+				builder.UseInMemoryDatabase("AppDb")
+					.AddInterceptors(new KEntityHelperSaveChangesInterceptor())
+			);
 
+			services.AddScoped<INewsRepository, NewsRepository>();
 			services.AddObjectMapper<ObjectMapper.AutoMapper.AutoMapper>();
 
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

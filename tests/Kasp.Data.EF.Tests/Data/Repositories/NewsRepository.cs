@@ -5,7 +5,10 @@ using Kasp.Data.EF.Tests.Models.NewsModel;
 using Kasp.Data.Models;
 
 namespace Kasp.Data.EF.Tests.Data.Repositories {
-	public class NewsRepository : EFFilteredRepository<AppDbContext, News> {
+	public interface INewsRepository : IEFFilteredRepository<News, FilterBase> {
+	}
+
+	public class NewsRepository : EFFilteredRepository<AppDbContext, News>, INewsRepository {
 		public NewsRepository(AppDbContext db) : base(db) {
 		}
 
