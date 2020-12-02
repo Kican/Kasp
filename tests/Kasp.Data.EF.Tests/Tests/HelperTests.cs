@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Kasp.Data.EF.Extensions;
 using Kasp.Data.EF.Tests.Data.Repositories;
 using Kasp.Data.EF.Tests.Models.NewsModel;
@@ -150,6 +152,21 @@ namespace Kasp.Data.EF.Tests.Tests {
 			var item = await _newsRepository.GetAsync(x => x.Id == model.Id);
 
 			Assert.NotNull(item);
+		}
+
+
+		[Fact]
+		public async Task List() {
+			var model = TempModel;
+			model.PublishTime = DateTime.UtcNow.AddDays(-1);
+			await _newsRepository.AddAsync(model);
+			await _newsRepository.SaveAsync();
+
+			var item = await _newsRepository.ListAsync(x => x.Id == model.Id && x.Title.Contains(" "), default);
+
+			item.Should().HaveCountGreaterThan(0);
+
+			item.First().Enable = true;
 		}
 
 		public HelperTests(ITestOutputHelper output, KWebAppFactory<StartupDb> factory) : base(output, factory) {
