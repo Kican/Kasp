@@ -3,7 +3,7 @@ using Kasp.Data.Models;
 using Kasp.Data.Models.Helpers;
 
 namespace Kasp.Data.EF.Data {
-	public interface IEFFilteredRepository<TModel, TKey, TFilter> : IFilteredRepositoryBase<TModel, TKey, TFilter>
+	public interface IEFFilteredRepository<TModel, TKey, TFilter> : IFilteredRepositoryBase<TModel, TKey, TFilter>, IEFBaseRepository<TModel, TKey>
 		where TFilter : FilterBase
 		where TKey : IEquatable<TKey>
 		where TModel : class, IModel<TKey> {
