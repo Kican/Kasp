@@ -13,17 +13,17 @@ namespace Kasp.Data {
 
 		// get one item
 		ValueTask<TModel> GetAsync(TKey id, CancellationToken cancellationToken = default);
-		ValueTask<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
+		ValueTask<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : class;
 		ValueTask<TModel> GetAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default);
 		ValueTask<TKey> GetIdAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default);
 
-		ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
+		ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : class;
 
 		ValueTask<TProject> GetAsync<TProject>(TKey id, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey>;
+			where TProject : class;
 
 		ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey>;
+			where TProject : class;
 
 		// lists
 //		Task<ICollection<TModel>> ListAsync(IPage page, CancellationToken cancellationToken = default);
@@ -31,27 +31,27 @@ namespace Kasp.Data {
 //		Task<ICollection<TModel>> ListAsync(IPage page, ISort sort, CancellationToken cancellationToken = default);
 
 		ValueTask<IEnumerable<TModel>> ListAsync(CancellationToken cancellationToken = default);
-		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
+		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(CancellationToken cancellationToken = default) where TProject : class;
 		ValueTask<IEnumerable<TModel>> ListAsync(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default);
-		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
+		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) where TProject : class;
 
 		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey>;
+			where TProject : class;
 
 		ValueTask<IEnumerable<TProject>> ListAsync<TProject>(
 			Expression<Func<TModel, bool>> expression,
 			Expression<Func<TModel, TProject>> projection,
 			CancellationToken cancellationToken = default
-		) where TProject : IModel<TKey>;
+		) where TProject : class;
 
 		// paged list
 		ValueTask<IPagedList<TModel>> PagedListAsync(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default);
 
 		ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20, CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey>;
+			where TProject : class;
 
 		ValueTask<IPagedList<TModel>> PagedListAsync(int page = 1, int count = 20, CancellationToken cancellationToken = default);
-		ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey>;
+		ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : class;
 
 		ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(
 			Expression<Func<TModel, bool>> expression,
@@ -59,14 +59,14 @@ namespace Kasp.Data {
 			int page = 1,
 			int count = 20,
 			CancellationToken cancellationToken = default
-		) where TProject : IModel<TKey>;
+		) where TProject : class;
 
 		ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(
 			Expression<Func<TModel, TProject>> projection,
 			int page = 1,
 			int count = 20,
 			CancellationToken cancellationToken = default
-		) where TProject : IModel<TKey>;
+		) where TProject : class;
 
 
 		Task AddAsync(TModel model, CancellationToken cancellationToken = default);

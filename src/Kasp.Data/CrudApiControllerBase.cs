@@ -14,7 +14,7 @@ namespace Kasp.Data {
 		where TEntity : class, IModel<TKey>
 		where TKey : IEquatable<TKey>
 		where TRepository : IFilteredRepositoryBase<TEntity, TKey, TFilterDto>
-		where TViewDto : IModel<TKey>
+		where TViewDto : class, IModel<TKey>
 		where TPartialViewDto : IModel<TKey>
 		where TFilterDto : FilterBase {
 		protected readonly TRepository Repository;
@@ -63,7 +63,7 @@ namespace Kasp.Data {
 		CrudApiControllerBase<TEntity, int, TRepository, TViewDto, TPartialViewDto, TEditDto, TFilterDto>
 		where TEntity : class, IModel
 		where TRepository : IFilteredRepositoryBase<TEntity, TFilterDto>
-		where TViewDto : IModel
+		where TViewDto : class, IModel
 		where TPartialViewDto : IModel
 		where TEditDto : IModel
 		where TFilterDto : FilterBase {
@@ -75,7 +75,7 @@ namespace Kasp.Data {
 		CrudApiControllerBase<TEntity, int, TRepository, TViewDto, TViewDto, TViewDto, TFilterDto>
 		where TEntity : class, IModel
 		where TRepository : IFilteredRepositoryBase<TEntity, TFilterDto>
-		where TViewDto : IModel
+		where TViewDto : class, IModel
 		where TFilterDto : FilterBase {
 		protected CrudApiControllerBase(TRepository repository, IObjectMapper objectMapper) : base(repository, objectMapper) {
 		}

@@ -36,8 +36,8 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
 		}
 
-		public virtual async ValueTask<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await BaseQuery.MapTo<TProject>().WhereIdEquals(x => x.Id, id).FirstOrDefaultAsync(cancellationToken);
+		public virtual async ValueTask<TProject> GetAsync<TProject>(TKey id, CancellationToken cancellationToken = default) where TProject : class {
+			return await BaseQuery.WhereIdEquals(x => x.Id, id).MapTo<TProject>().FirstOrDefaultAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask<TModel> GetAsync(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) {
@@ -48,35 +48,36 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.Where(filter).Select(x => x.Id).FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Where(filter).MapTo<TProject>().FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public async ValueTask<TProject> GetAsync<TProject>(TKey id, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
-			return await BaseQuery.Select(projection).WhereIdEquals(x => x.Id, id).FirstOrDefaultAsync(cancellationToken);
+		public async ValueTask<TProject> GetAsync<TProject>(TKey id, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : class {
+			return await BaseQuery.WhereIdEquals(x => x.Id, id).Select(projection).FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default)
+			where TProject : class {
 			return await BaseQuery.Where(filter).Select(projection).FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Select(projection).ToArrayAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, Expression<Func<TModel, TProject>> projection,
-			CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+			CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Where(expression).Select(projection).ToArrayAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, bool>> expression, Expression<Func<TModel, TProject>> projection, int page = 1,
 			int count = 20,
-			CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+			CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Where(expression).Select(projection).ToPagedListAsync(count, page, cancellationToken);
 		}
 
 		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, TProject>> projection, int page = 1, int count = 20,
-			CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+			CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Select(projection).ToPagedListAsync(count, page, cancellationToken);
 		}
 
@@ -84,7 +85,7 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.ToArrayAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.MapTo<TProject>().ToArrayAsync(cancellationToken);
 		}
 
@@ -92,8 +93,7 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.Where(expression).ToArrayAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey> {
+		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, CancellationToken cancellationToken = default) where TProject : class {
 			return await BaseQuery.Where(expression).MapTo<TProject>().ToArrayAsync(cancellationToken);
 		}
 
@@ -101,9 +101,12 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.Where(expression).ToPagedListAsync(count, page, cancellationToken);
 		}
 
-		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, bool>> expression, int page = 1, int count = 20,
-			CancellationToken cancellationToken = default)
-			where TProject : IModel<TKey> {
+		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(
+			Expression<Func<TModel, bool>> expression,
+			int page = 1,
+			int count = 20,
+			CancellationToken cancellationToken = default
+		) where TProject : class {
 			return await BaseQuery.Where(expression).MapTo<TProject>().ToPagedListAsync(count, page, cancellationToken);
 		}
 
@@ -112,7 +115,11 @@ namespace Kasp.Data.EF.Data {
 		}
 
 
-		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(int page = 1, int count = 20, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
+		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(
+			int page = 1,
+			int count = 20,
+			CancellationToken cancellationToken = default
+		) where TProject : class {
 			return await BaseQuery.MapTo<TProject>().ToPagedListAsync(count, page, cancellationToken);
 		}
 
