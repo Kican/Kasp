@@ -56,27 +56,27 @@ namespace Kasp.Data.EF.Data {
 			return await BaseQuery.Select(projection).WhereIdEquals(x => x.Id, id).FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) {
+		public async ValueTask<TProject> GetAsync<TProject>(Expression<Func<TModel, bool>> filter, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.Where(filter).Select(projection).FirstOrDefaultAsync(cancellationToken);
 		}
 
-		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : class {
+		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.Select(projection).ToArrayAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask<IEnumerable<TProject>> ListAsync<TProject>(Expression<Func<TModel, bool>> expression, Expression<Func<TModel, TProject>> projection,
-			CancellationToken cancellationToken = default) {
+			CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.Where(expression).Select(projection).ToArrayAsync(cancellationToken);
 		}
 
 		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, bool>> expression, Expression<Func<TModel, TProject>> projection, int page = 1,
 			int count = 20,
-			CancellationToken cancellationToken = default) {
+			CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.Where(expression).Select(projection).ToPagedListAsync(count, page, cancellationToken);
 		}
 
 		public virtual async ValueTask<IPagedList<TProject>> PagedListAsync<TProject>(Expression<Func<TModel, TProject>> projection, int page = 1, int count = 20,
-			CancellationToken cancellationToken = default) where TProject : class {
+			CancellationToken cancellationToken = default) where TProject : IModel<TKey> {
 			return await BaseQuery.Select(projection).ToPagedListAsync(count, page, cancellationToken);
 		}
 
