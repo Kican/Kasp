@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\version.tests.props"/>
+	<Import Project="..\version.tests.props" />
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Kasp.FormBuilder\Kasp.FormBuilder.csproj"/>
-		<ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj"/>
+		<ProjectReference Include="..\..\src\Kasp.FormBuilder\Kasp.FormBuilder.csproj" />
+		<ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Dahomey.Json" Version="1.9.0"/>
+		<PackageReference Include="Dahomey.Json" Version="1.10.2" />
 	</ItemGroup>
 </Project>

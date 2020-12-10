@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Data.Models;
@@ -13,6 +14,10 @@ namespace Kasp.Data.EF.Data {
 
 
 		public abstract Task<IPagedList<TOutput>> FilterAsync<TOutput>(TFilter filter, CancellationToken cancellationToken = default);
+
+		public virtual Task<IPagedList<TProject>> FilterAsync<TProject>(TFilter filter, Expression<Func<TModel, TProject>> projection, CancellationToken cancellationToken = default) {
+			throw new NotImplementedException();
+		}
 	}
 
 	public abstract class EFFilteredRepository<TDbContext, TModel, TFilter> : EFFilteredRepository<TDbContext, TModel, int, TFilter>

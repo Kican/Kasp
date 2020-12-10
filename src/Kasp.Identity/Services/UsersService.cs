@@ -1,5 +1,7 @@
-﻿﻿using System.Linq;
-using System.Threading;
+﻿﻿using System;
+ using System.Linq;
+ using System.Linq.Expressions;
+ using System.Threading;
 using System.Threading.Tasks;
 using Kasp.Data;
 using Kasp.Data.EF.Data;
@@ -13,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kasp.Identity.Services {
-	public class UsersService<TDbContext, TUser, TRole> : EFBaseRepository<TDbContext, TUser>, IUsersService<TUser>
+	public class UsersService<TDbContext, TUser, TRole> : EFFilteredRepository<TDbContext, TUser>, IUsersService<TUser>
 		where TDbContext : KIdentityDbContext<TUser, TRole>
 		where TUser : KaspUser, IModel
 		where TRole : KaspRole {
@@ -52,7 +54,7 @@ namespace Kasp.Identity.Services {
 			return await _userManager.AddToRolesAsync(user, roles);
 		}
 
-		public async Task<IPagedList<TOutput>> FilterAsync<TOutput>(FilterBase filter, CancellationToken cancellationToken = default) {
+		public override async Task<IPagedList<TOutput>> FilterAsync<TOutput>(FilterBase filter, CancellationToken cancellationToken = default) {
 			var query = BaseQuery.AsNoTracking();
 
 			if (!string.IsNullOrEmpty(filter.Q))
