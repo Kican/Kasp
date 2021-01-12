@@ -5,7 +5,7 @@
 		<PackageId>Kasp.Data</PackageId>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.6" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.7" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />

@@ -9,6 +9,7 @@
 		<NetTestSdkVersion>16.8.3</NetTestSdkVersion>
 		<XUnitVersion>2.4.1</XUnitVersion>
 		<XUnitVsVersion>2.4.3</XUnitVsVersion>
+		<CoverletVersion>3.0.0</CoverletVersion>
     </PropertyGroup>
 
 </Project>

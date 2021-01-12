@@ -13,5 +13,6 @@
 		<PackageReference Include="xunit" Version="$(XUnitVersion)" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitVsVersion)" />
 		<PackageReference Include="xunit.runner.console" Version="$(XUnitVersion)" />
+		<PackageReference Include="coverlet.collector" Version="$(CoverletVersion)"/>
 	</ItemGroup>
 </Project>
