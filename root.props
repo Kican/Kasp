@@ -5,11 +5,11 @@
 		<KaspVersionPrefix>0.6.10</KaspVersionPrefix>
 
 		<FluentAssertionsVersion>5.10.3</FluentAssertionsVersion>
-		<AspNetCoreVersion>5.0.2</AspNetCoreVersion>
-		<NetTestSdkVersion>16.8.3</NetTestSdkVersion>
+		<AspNetCoreVersion>5.0.4</AspNetCoreVersion>
+		<NetTestSdkVersion>16.9.1</NetTestSdkVersion>
 		<XUnitVersion>2.4.1</XUnitVersion>
 		<XUnitVsVersion>2.4.3</XUnitVsVersion>
-		<CoverletVersion>3.0.1</CoverletVersion>
+		<CoverletVersion>3.0.3</CoverletVersion>
     </PropertyGroup>
 
 </Project>
