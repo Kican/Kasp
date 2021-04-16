@@ -1,0 +1,11 @@
+@using Kasp.Panel
+<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+	<Found Context="routeData">
+		<RouteView RouteData="@routeData" DefaultLayout="@typeof(KaspPanelLayout)"/>
+	</Found>
+	<NotFound>
+		<LayoutView Layout="@typeof(KaspPanelLayout)">
+			  <Result Status="404" />
+		</LayoutView>
+	</NotFound>
+</Router>

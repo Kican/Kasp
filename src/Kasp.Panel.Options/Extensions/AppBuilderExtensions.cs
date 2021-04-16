@@ -1,8 +1,3 @@
-using Kasp.Panel.Builder;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-
 namespace Kasp.Panel.Options.Extensions {
 	public static class AppBuilderExtensions {
 		// public static PanelRoutingOptionBuilder MapEntityManager(this PanelRoutingOptionBuilder builder, string endPoint = "api/discovery/options") {

@@ -1,11 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 	<Import Project="..\version.props" />
 
 	<PropertyGroup>
-		<id>Kasp.Panel</id>
+		<PackageId>Kasp.Panel</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion)" />
+		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+		<PackageReference Include="AntDesign" Version="0.8.0" />
 	</ItemGroup>
 </Project>
