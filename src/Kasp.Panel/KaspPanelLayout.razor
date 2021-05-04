@@ -1,72 +1,87 @@
-﻿@inherits LayoutComponentBase
-<Layout  Style="min-height: 100vh; ">
-	<Sider Collapsible Collapsed=@collapsed NoTrigger OnCollapse="OnCollapse">
-		<div class="logo"/>
-		<Menu Theme="MenuTheme.Light" Mode="MenuMode.Inline" DefaultSelectedKeys="@(new string[] {})">
-			<MenuItem Key="1" RouterLink="/" RouterMatch="NavLinkMatch.All">
-				<Icon Type="user" Theme="outline"/>
-				<span>home</span>
-			</MenuItem>
-			@for (int i = 0; i < 5; i++) {
-				<MenuItem Key="2" RouterLink="/counter" RouterMatch="NavLinkMatch.All">
-					<Icon Type="video-camera" Theme="outline"/>
-					<span>nav 2</span>
-				</MenuItem>
-			}
-			<MenuItem Key="3" RouterLink="/fetchdata" RouterMatch="NavLinkMatch.All">
-				<Icon Type="upload" Theme="outline"/>
-				<span>nav 3</span>
-			</MenuItem>
-		</Menu>
-	</Sider>
-	<Layout Class="site-layout">
-		<Header Class="site-layout-background" Style="padding: 0;">
-			@if (collapsed) {
-				<Icon Type="menu-unfold" Theme="outline" Class="trigger" OnClick="toggle"/>
-			} else {
-				<Icon Type="menu-fold" Theme="outline" Class="trigger" OnClick="toggle"/>
-			}
-		</Header>
-		<Content Class="site-layout-background" Style="margin: 24px 16px;padding: 24px;min-height: 280px;">
-			@Body
-		</Content>
-	</Layout>
+﻿@using System.Reflection
+@using System.Diagnostics
+@using Kasp.Panel.Services
+@using Kasp.Panel.Shared
+@inherits LayoutComponentBase
+<Layout Style="min-height: 100vh; ">
+    <Sider Collapsible Collapsed=@collapsed NoTrigger OnCollapse="OnCollapse">
+        <div class="logo"/>
+        <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Inline" DefaultSelectedKeys="@(new string[] {})">
+            <MenuItem Key="1" RouterLink="/" RouterMatch="NavLinkMatch.All">
+                <Icon Type="user" Theme="outline"/>
+                <span>home</span>
+            </MenuItem>
+            @for (int i = 0; i < 5; i++)
+            {
+                <MenuItem Key="2" RouterLink="/counter" RouterMatch="NavLinkMatch.All">
+                <Icon Type="video-camera" Theme="outline"/>
+                <span>nav 2</span>
+                          </MenuItem>
+            }
+            <DynamicSidebarMenu></DynamicSidebarMenu>
+
+            <SubMenu Key="sub2" TitleTemplate="@sub4Title">
+                <MenuItem Key="5">Option 5</MenuItem>
+                <MenuItem Key="6">Option 6</MenuItem>
+                <SubMenu Key="sub3" Title="Submenu">
+                    <MenuItem Key="7">Option 7</MenuItem>
+                    <MenuItem Key="8">Option 8</MenuItem>
+                </SubMenu>
+            </SubMenu>
+        </Menu>
+    </Sider>
+    <Layout Class="site-layout">
+        <Header Class="site-layout-background" Style="padding: 0;">
+            @if (collapsed)
+            {
+                <Icon Type="menu-unfold" Theme="outline" Class="trigger" OnClick="toggle"/>
+            }
+            else
+            {
+                <Icon Type="menu-fold" Theme="outline" Class="trigger" OnClick="toggle"/>
+            }
+        </Header>
+        <Content Class="site-layout-background" Style="margin: 24px 16px;padding: 24px;min-height: 280px;">
+            @Body
+        </Content>
+        <Footer Style="text-align: center; ">Kasp Panel @(AppVersion) Created by <a href="https://github.com/mo3in">mo3in</a></Footer>
+    </Layout>
 </Layout>
 
-<style>
-    #components-layout-demo-custom-trigger .trigger {
-        font-size: 18px;
-        line-height: 64px;
-        padding: 0 24px;
-        cursor: pointer;
-        transition: color 0.3s;
-    }
-
-        #components-layout-demo-custom-trigger .trigger:hover {
-            color: #1890ff;
-        }
-
-    #components-layout-demo-custom-trigger .logo {
-        height: 32px;
-        background: rgba(255, 255, 255, 0.2);
-        margin: 16px;
-    }
-
-    .site-layout .site-layout-background {
-        background: #fff;
-    }
-</style>
-
-
 @code{
-	bool collapsed;
 
-	void toggle() {
-		collapsed = !collapsed;
-	}
+    private string _appVersion;
 
-	void OnCollapse(bool isCollapsed) {
-		Console.WriteLine($"Collapsed: {isCollapsed}");
-	}
+    public string AppVersion
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_appVersion))
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                _appVersion = FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion;
+            }
+            return _appVersion;
+        }
+    }
+
+    RenderFragment sub4Title =
+        @<span>
+            <Icon Type="setting" Theme="outline"></Icon>
+            <span>Navigation Three</span>
+        </span>;
+
+    bool collapsed;
+
+    void toggle()
+    {
+        collapsed = !collapsed;
+    }
+
+    void OnCollapse(bool isCollapsed)
+    {
+        Console.WriteLine($"Collapsed: {isCollapsed}");
+    }
+
 
 }

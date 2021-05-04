@@ -1,11 +1,27 @@
 @using Kasp.Panel
+@using Kasp.Panel.Services
+@using MenuItem = Kasp.Panel.Services.MenuItemData
+
 <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
-	<Found Context="routeData">
-		<RouteView RouteData="@routeData" DefaultLayout="@typeof(KaspPanelLayout)"/>
-	</Found>
-	<NotFound>
-		<LayoutView Layout="@typeof(KaspPanelLayout)">
-			  <Result Status="404" />
-		</LayoutView>
-	</NotFound>
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(KaspPanelLayout)"/>
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(KaspPanelLayout)">
+            <Result Status="404"/>
+        </LayoutView>
+    </NotFound>
 </Router>
+
+@code
+{
+
+    [Inject]
+    public ISidebarMenuService SidebarMenuService { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        SidebarMenuService.AddMenu(new MenuItem("Iran","test"));
+    }
+}

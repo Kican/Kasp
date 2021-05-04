@@ -1,0 +1,19 @@
+﻿@using Kasp.Panel.Services
+@inject ISidebarMenuService _sidebarMenuService
+
+@foreach (var menuItem in _sidebarMenuService.GetItems)
+{
+    <MenuItem Key="3" RouterLink="@menuItem.Link" RouterMatch="NavLinkMatch.All">
+    <Icon Type="upload" Theme="outline"/>
+    <span>@menuItem.Title</span>
+                         </MenuItem>
+}
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        // _sidebarMenuService.OnItemsChanged.
+    }
+
+}
