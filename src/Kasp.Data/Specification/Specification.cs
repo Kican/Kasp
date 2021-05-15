@@ -8,5 +8,9 @@ namespace Kasp.Data.Specification {
 		public static implicit operator Expression<Func<T, bool>>(Specification<T> specification) {
 			return specification.ToExpression();
 		}
+
+		public static implicit operator Func<T, bool>(Specification<T> specification) {
+			return specification.ToExpression().Compile();
+		}
 	}
 }
