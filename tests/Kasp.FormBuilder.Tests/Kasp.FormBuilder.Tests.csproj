@@ -5,6 +5,6 @@
 		<ProjectReference Include="..\..\src\Kasp.Test\Kasp.Test.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Dahomey.Json" Version="1.10.3" />
+		<PackageReference Include="Dahomey.Json" Version="1.11.1" />
 	</ItemGroup>
 </Project>

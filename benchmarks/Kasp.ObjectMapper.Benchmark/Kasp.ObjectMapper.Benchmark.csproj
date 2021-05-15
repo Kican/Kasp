@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Boxed.Mapping" Version="5.3.0" />
-		<PackageReference Include="FastExpressionCompiler" Version="3.0.0" />
+		<PackageReference Include="FastExpressionCompiler" Version="3.1.0" />
 		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj" />
 		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.Mapster\Kasp.ObjectMapper.Mapster.csproj" />
 		<PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
