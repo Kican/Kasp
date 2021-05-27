@@ -8,6 +8,7 @@ namespace Kasp.Panel
         public static void AddKaspPanel(this IServiceCollection services)
         {
             services.AddScoped<ISidebarMenuService, SidebarMenuService>();
+            // services.Scan(x=>x.)
         }
     }
 }

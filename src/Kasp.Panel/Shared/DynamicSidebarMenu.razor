@@ -1,5 +1,6 @@
 ﻿@using Kasp.Panel.Services
 @inject ISidebarMenuService _sidebarMenuService
+@implements IDisposable
 
 @foreach (var menuItem in _sidebarMenuService.GetItems)
 {
@@ -13,7 +14,12 @@
 
     protected override void OnInitialized()
     {
-        // _sidebarMenuService.OnItemsChanged.
+        _sidebarMenuService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        _sidebarMenuService.OnChange -= StateHasChanged;
     }
 
 }
