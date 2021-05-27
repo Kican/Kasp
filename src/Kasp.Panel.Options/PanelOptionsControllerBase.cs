@@ -44,7 +44,7 @@ namespace Kasp.Panel.Options {
 			return Ok((HttpContext.RequestServices.GetService(typeof(IOptionsSnapshot<>).MakeGenericType(optionType.Type)) as dynamic).Value);
 		}
 
-		[HttpPatch("{name}")]
+		[HttpPost("{name}")]
 		public async Task<ActionResult> Update(string name, [FromBody] object data) {
 			var optionType = _options.Value.Options.FirstOrDefault(x => x.Name == name.ToLower());
 
@@ -60,7 +60,7 @@ namespace Kasp.Panel.Options {
 			if (jObject["app"] == null)
 				jObject.Add("app", new JObject());
 
-			jObject["app"][optionType.Name] = JObject.Parse(JsonConvert.SerializeObject(data));
+			jObject["app"][optionType.Name] = JObject.Parse(data.ToString() ?? string.Empty);
 
 			await System.IO.File.WriteAllTextAsync(physicalPath, JsonConvert.SerializeObject(jObject, Formatting.Indented));
 
