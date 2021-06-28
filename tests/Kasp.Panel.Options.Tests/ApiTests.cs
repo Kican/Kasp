@@ -33,7 +33,7 @@ namespace Kasp.Panel.Options.Tests {
 		[Fact]
 		public async Task UpdateValue() {
 			var body = new {
-				title = "ok google"
+				title = "ok google 2"
 			};
 
 			var response = await Client.PostAsJsonAsync("/api/panel/options/kasp.panel.options.tests.globalsiteoption", body);
