@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Kasp.FormBuilder.Services;
 using Microsoft.AspNetCore.Hosting;
@@ -8,14 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Kasp.Panel.Options {
 	public abstract class PanelOptionsControllerBase : ControllerBase {
 		private readonly IOptions<PanelOptions> _options;
 		private readonly IFormBuilder _formBuilder;
 		private readonly IWebHostEnvironment _environment;
-
 		protected PanelOptionsControllerBase(IOptions<PanelOptions> options, IFormBuilder formBuilder, IWebHostEnvironment environment) {
 			_options = options;
 			_formBuilder = formBuilder;
@@ -62,7 +59,7 @@ namespace Kasp.Panel.Options {
 				throw new Exception("config-file-not-found");
 
 
-			var newConfig = JsonSerializer.Deserialize(data.ToString(), optionType.Type, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+			var newConfig = JsonSerializer.Deserialize(data.ToString() ?? string.Empty, optionType.Type, new JsonSerializerOptions(JsonSerializerDefaults.Web));
 
 			var configContent = await System.IO.File.ReadAllTextAsync(physicalPath);
 
