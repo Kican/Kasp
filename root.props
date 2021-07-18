@@ -2,11 +2,11 @@
     <PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 
-		<KaspVersionPrefix>0.6.17</KaspVersionPrefix>
+		<KaspVersionPrefix>0.6.18</KaspVersionPrefix>
 
 		<FluentAssertionsVersion>5.10.3</FluentAssertionsVersion>
-		<AspNetCoreVersion>5.0.6</AspNetCoreVersion>
-		<NetTestSdkVersion>16.9.4</NetTestSdkVersion>
+		<AspNetCoreVersion>5.0.8</AspNetCoreVersion>
+		<NetTestSdkVersion>16.10.0</NetTestSdkVersion>
 		<XUnitVersion>2.4.1</XUnitVersion>
 		<XUnitVsVersion>2.4.3</XUnitVsVersion>
 		<CoverletVersion>3.0.3</CoverletVersion>
