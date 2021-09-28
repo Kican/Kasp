@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-	<Import Project="..\version.props"/>
+	<Import Project="..\version.props" />
 
 	<PropertyGroup>
 		<PackageId>Kasp.Identity.Core</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Kasp.Data\Kasp.Data.csproj"/>
+		<ProjectReference Include="..\Kasp.Core\Kasp.Core.csproj" />
+		<ProjectReference Include="..\Kasp.Data\Kasp.Data.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetCoreVersion)"/>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetCoreVersion)" />
 	</ItemGroup>
 </Project>
