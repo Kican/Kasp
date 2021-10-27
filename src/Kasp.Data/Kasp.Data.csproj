@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\version.props"/>
+	<Import Project="..\version.props" />
 
 	<PropertyGroup>
 		<PackageId>Kasp.Data</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.12"/>
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.13" />
 	</ItemGroup>
 </Project>
