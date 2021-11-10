@@ -3,26 +3,26 @@ using Kasp.Data.Models.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Kasp.Data.EF.Helpers {
+namespace Kasp.Data.EF.Helpers;
+
 // https://stackoverflow.com/questions/29261734/add-filter-to-all-query-entity-framework
 // https://gist.github.com/nphmuller/05ff66dfa67e1d02cdefcd785661a34d
-	public interface IEntityHelper {
+public interface IEntityHelper {
 //		Expression<Func<T, bool>> QueryFilter<T>();
-		void EntityModifier(ChangeTracker tracker);
-	}
+	void EntityModifier(ChangeTracker tracker);
+}
 
-
-	public abstract class EntityHelper<THelper> : IEntityHelper {
-		// filter
+public abstract class EntityHelper<THelper> : IEntityHelper {
+	// filter
 //		public virtual Expression<Func<THelper, bool>> QueryFilter() {
 //			return arg => true;
 //		}
 
-		// entity modifier
+	// entity modifier
 
-		public virtual void EntityModifier(ChangeTracker tracker) {
-		}
+	public virtual void EntityModifier(ChangeTracker tracker) {
 	}
+}
 
 //	public class EnableEntityHelper : EntityHelper<IEnable> {
 ////		public override IQueryable<T> QueryFilter<T>(IQueryable<T> queryable) {
@@ -44,22 +44,21 @@ namespace Kasp.Data.EF.Helpers {
 ////		}
 //	}
 
-	public class CreateTimeEntityHelper : EntityHelper<ICreateTime> {
-		public override void EntityModifier(ChangeTracker tracker) {
-			foreach (var entityEntry in tracker.Entries()) {
-				if (entityEntry.State != EntityState.Added) continue;
-				(entityEntry.Entity as ICreateTime)?.Create();
-			}
+public class CreateTimeEntityHelper : EntityHelper<ICreateTime> {
+	public override void EntityModifier(ChangeTracker tracker) {
+		foreach (var entityEntry in tracker.Entries()) {
+			if (entityEntry.State != EntityState.Added) continue;
+			(entityEntry.Entity as ICreateTime)?.Create();
 		}
 	}
+}
 
-	public class UpdateTimeEntityHelper : EntityHelper<IUpdateTime> {
-		public override void EntityModifier(ChangeTracker tracker) {
-			foreach (var entityEntry in tracker.Entries()) {
-				if (entityEntry.State != EntityState.Modified) continue;
-				if (entityEntry.Entity is IUpdateTime time)
-					time.Update();
-			}
+public class UpdateTimeEntityHelper : EntityHelper<IUpdateTime> {
+	public override void EntityModifier(ChangeTracker tracker) {
+		foreach (var entityEntry in tracker.Entries()) {
+			if (entityEntry.State != EntityState.Modified) continue;
+			if (entityEntry.Entity is IUpdateTime time)
+				time.Update();
 		}
 	}
 }

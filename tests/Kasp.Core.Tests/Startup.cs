@@ -6,28 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.Core.Tests {
-	public class Startup {
-		public Startup(IConfiguration configuration) {
-			Configuration = configuration;
-		}
+namespace Kasp.Core.Tests;
 
-		public IConfiguration Configuration { get; }
+public class Startup {
+	public Startup(IConfiguration configuration) {
+		Configuration = configuration;
+	}
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services) {
-			services.AddControllers();
-		}
+	public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-			app.UseKasp()
-				.UseExceptionHandler()
-				.UseIndexSpa(new[] {"/panel"});
+	// This method gets called by the runtime. Use this method to add services to the container.
+	public void ConfigureServices(IServiceCollection services) {
+		services.AddControllers();
+	}
 
-			app.UseStaticFiles();
-			app.UseRouting();
-			app.UseEndpoints(builder => builder.MapControllers());
-		}
+	// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+	public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+		app.UseKasp()
+			.UseExceptionHandler()
+			.UseIndexSpa(new[] {"/panel"});
+
+		app.UseStaticFiles();
+		app.UseRouting();
+		app.UseEndpoints(builder => builder.MapControllers());
 	}
 }

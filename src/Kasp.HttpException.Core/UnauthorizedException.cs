@@ -1,17 +1,16 @@
 using System.Net;
 
-namespace Kasp.HttpException.Core {
-	public class UnauthorizedException : HttpExceptionBase {
-		public override HttpStatusCode StatusCode { get; } = HttpStatusCode.Unauthorized;
+namespace Kasp.HttpException.Core; 
 
-		public UnauthorizedException() {
-		}
+public class UnauthorizedException : HttpExceptionBase {
+	public override HttpStatusCode StatusCode { get; } = HttpStatusCode.Unauthorized;
 
-		public UnauthorizedException(string message) : base(message) {
-		}
-
-		public UnauthorizedException(string message, System.Exception innerException) : base(message, innerException) {
-		}
+	public UnauthorizedException() {
 	}
-	
+
+	public UnauthorizedException(string message) : base(message) {
+	}
+
+	public UnauthorizedException(string message, System.Exception innerException) : base(message, innerException) {
+	}
 }

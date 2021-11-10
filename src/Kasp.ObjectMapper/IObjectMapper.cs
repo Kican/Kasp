@@ -1,13 +1,13 @@
 using System.Linq;
 
-namespace Kasp.ObjectMapper {
-	public interface IObjectMapper {
-		TDestination MapTo<TDestination>(object source);
-		TDestination MapTo<TSource, TDestination>(TSource source, TDestination destination);
+namespace Kasp.ObjectMapper;
 
-		IQueryable<TDestination> MapTo<TDestination>(IQueryable source);
-	}
+public interface IObjectMapper {
+	TDestination MapTo<TDestination>(object source);
+	TDestination MapTo<TSource, TDestination>(TSource source, TDestination destination);
 
-	public interface IObjectMapper<T> where T : IObjectMapper {
-	}
+	IQueryable<TDestination> MapTo<TDestination>(IQueryable source);
+}
+
+public interface IObjectMapper<T> where T : IObjectMapper {
 }

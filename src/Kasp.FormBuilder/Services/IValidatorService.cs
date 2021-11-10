@@ -1,5 +1,5 @@
-namespace Kasp.FormBuilder.Services {
-	public interface IValidatorService {
+namespace Kasp.FormBuilder.Services; 
+
+public interface IValidatorService {
 		
-	}
 }

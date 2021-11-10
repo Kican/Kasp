@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 
-namespace Kasp.HttpException {
-	public class ProblemDetailsResult : ObjectResult {
-		public new ProblemDetails Value {
-			get => (ProblemDetails) base.Value;
-			set => base.Value = value;
-		}
+namespace Kasp.HttpException;
 
-		public ProblemDetailsResult(ProblemDetails problemDetails) : base(problemDetails) {
-			StatusCode = problemDetails.Status;
-			DeclaredType = problemDetails.GetType();
-			Value = problemDetails;
+public class ProblemDetailsResult : ObjectResult {
+	public new ProblemDetails Value {
+		get => (ProblemDetails) base.Value;
+		set => base.Value = value;
+	}
 
-			ContentTypes.Add(new MediaTypeHeaderValue("application/problem+json"));
-			ContentTypes.Add(new MediaTypeHeaderValue("application/problem+xml"));
-		}
+	public ProblemDetailsResult(ProblemDetails problemDetails) : base(problemDetails) {
+		StatusCode = problemDetails.Status;
+		DeclaredType = problemDetails.GetType();
+		Value = problemDetails;
+
+		ContentTypes.Add(new MediaTypeHeaderValue("application/problem+json"));
+		ContentTypes.Add(new MediaTypeHeaderValue("application/problem+xml"));
 	}
 }

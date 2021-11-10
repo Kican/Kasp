@@ -5,49 +5,49 @@ using System.Threading.Tasks;
 using Kasp.FormBuilder.Components;
 using Kasp.FormBuilder.Models;
 
-namespace Kasp.FormBuilder.Services {
-	public class FormBuilder : IFormBuilder {
-		public FormBuilder(FormBuilderOptions formBuilderOptions, IServiceProvider serviceProvider, IEnumerable<IValidatorResolver> validatorResolvers) {
-			FormBuilderOptions = formBuilderOptions;
-			ServiceProvider = serviceProvider;
-			ValidatorResolvers = validatorResolvers;
-		}
+namespace Kasp.FormBuilder.Services; 
 
-		private FormBuilderOptions FormBuilderOptions { get; }
-		private IServiceProvider ServiceProvider { get; }
-		private IEnumerable<IValidatorResolver> ValidatorResolvers { get; }
+public class FormBuilder : IFormBuilder {
+	public FormBuilder(FormBuilderOptions formBuilderOptions, IServiceProvider serviceProvider, IEnumerable<IValidatorResolver> validatorResolvers) {
+		FormBuilderOptions = formBuilderOptions;
+		ServiceProvider = serviceProvider;
+		ValidatorResolvers = validatorResolvers;
+	}
 
-		public async Task<IComponent> FromModel<TModel>() where TModel : class => await FromModel(typeof(TModel));
+	private FormBuilderOptions FormBuilderOptions { get; }
+	private IServiceProvider ServiceProvider { get; }
+	private IEnumerable<IValidatorResolver> ValidatorResolvers { get; }
 
-		public async Task<IComponent> FromModel(Type type) {
-			var options = GetOptions(type);
+	public async Task<IComponent> FromModel<TModel>() where TModel : class => await FromModel(typeof(TModel));
 
-			var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(options).GetResolverType();
-			var resolver = (IComponentResolver) ServiceProvider.GetService(resolverType);
+	public async Task<IComponent> FromModel(Type type) {
+		var options = GetOptions(type);
 
-			return await resolver.ResolveAsync(options);
-		}
+		var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(options).GetResolverType();
+		var resolver = (IComponentResolver) ServiceProvider.GetService(resolverType);
 
-		public async Task<IComponent> FromProperty(PropertyInfo type) {
-			var options = GetOptions(type);
+		return await resolver.ResolveAsync(options);
+	}
 
-			var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(options).GetResolverType();
-			var resolver = (IComponentResolver) ServiceProvider.GetService(resolverType);
+	public async Task<IComponent> FromProperty(PropertyInfo type) {
+		var options = GetOptions(type);
 
-			return await resolver.ResolveAsync(options);
-		}
+		var resolverType = FormBuilderOptions.ComponentHandlers.FindHandler(options).GetResolverType();
+		var resolver = (IComponentResolver) ServiceProvider.GetService(resolverType);
 
-		private ComponentOptions GetOptions(Type type) {
-			return new ComponentOptions {Type = type, Name = type.Name};
-		}
+		return await resolver.ResolveAsync(options);
+	}
 
-		private ComponentOptions GetOptions(PropertyInfo propertyInfo) {
-			var validators = new List<IValidator>();
+	private ComponentOptions GetOptions(Type type) {
+		return new ComponentOptions {Type = type, Name = type.Name};
+	}
+
+	private ComponentOptions GetOptions(PropertyInfo propertyInfo) {
+		var validators = new List<IValidator>();
 			
-			foreach (var resolver in ValidatorResolvers)
-				validators.AddRange(resolver.GetValidators(propertyInfo));
+		foreach (var resolver in ValidatorResolvers)
+			validators.AddRange(resolver.GetValidators(propertyInfo));
 
-			return new ComponentOptions {Type = propertyInfo.PropertyType, PropertyInfo = propertyInfo, Name = propertyInfo.Name, Validators = validators};
-		}
+		return new ComponentOptions {Type = propertyInfo.PropertyType, PropertyInfo = propertyInfo, Name = propertyInfo.Name, Validators = validators};
 	}
 }

@@ -6,79 +6,79 @@ using System.Reflection;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Kasp.FormBuilder.Extensions {
-	public static class Extensions {
-		public static string GetDisplayName(this PropertyInfo model) {
-			var name = "";
+namespace Kasp.FormBuilder.Extensions; 
 
-			var attr = model.GetCustomAttribute<DisplayAttribute>();
+public static class Extensions {
+	public static string GetDisplayName(this PropertyInfo model) {
+		var name = "";
 
-			if (attr == null) {
-				var attr2 = model.GetCustomAttribute<DisplayNameAttribute>();
-				if (attr2 != null)
-					name = attr2.DisplayName;
-			}
-			else
-				name = attr.Name;
+		var attr = model.GetCustomAttribute<DisplayAttribute>();
 
-			return !string.IsNullOrEmpty(name) ? name : model.Name;
+		if (attr == null) {
+			var attr2 = model.GetCustomAttribute<DisplayNameAttribute>();
+			if (attr2 != null)
+				name = attr2.DisplayName;
 		}
+		else
+			name = attr.Name;
 
-		public static string GetDisplayName(this Type model) {
-			var name = "";
+		return !string.IsNullOrEmpty(name) ? name : model.Name;
+	}
 
-			var attr = model.GetCustomAttribute<DisplayAttribute>();
+	public static string GetDisplayName(this Type model) {
+		var name = "";
 
-			if (attr == null) {
-				var attr2 = model.GetCustomAttribute<DisplayNameAttribute>();
-				if (attr2 != null)
-					name = attr2.DisplayName;
-			}
-			else
-				name = attr.Name;
+		var attr = model.GetCustomAttribute<DisplayAttribute>();
 
-			return !string.IsNullOrEmpty(name) ? name : model.Name;
+		if (attr == null) {
+			var attr2 = model.GetCustomAttribute<DisplayNameAttribute>();
+			if (attr2 != null)
+				name = attr2.DisplayName;
 		}
+		else
+			name = attr.Name;
 
-		public static string GetDisplayName(this FieldInfo model) {
-			var name = "";
+		return !string.IsNullOrEmpty(name) ? name : model.Name;
+	}
 
-			var attr = model.GetCustomAttribute<DisplayAttribute>();
+	public static string GetDisplayName(this FieldInfo model) {
+		var name = "";
 
-			if (attr == null) {
-				var attr2 = model.GetCustomAttribute<DisplayNameAttribute>();
-				if (attr2 != null)
-					name = attr2.DisplayName;
-			}
-			else
-				name = attr.Name;
+		var attr = model.GetCustomAttribute<DisplayAttribute>();
 
-			return !string.IsNullOrEmpty(name) ? name : model.Name;
+		if (attr == null) {
+			var attr2 = model.GetCustomAttribute<DisplayNameAttribute>();
+			if (attr2 != null)
+				name = attr2.DisplayName;
 		}
+		else
+			name = attr.Name;
 
-		public static string GetString(this TagBuilder content) {
-			var writer = new StringWriter();
-			content.WriteTo(writer, HtmlEncoder.Default);
-			return writer.ToString();
-		}
+		return !string.IsNullOrEmpty(name) ? name : model.Name;
+	}
 
-		public static bool IsNumberic(this Type type) {
-			switch (Type.GetTypeCode(type)) {
-				case TypeCode.Byte:
-				case TypeCode.Decimal:
-				case TypeCode.Double:
-				case TypeCode.Int16:
-				case TypeCode.Int32:
-				case TypeCode.Int64:
-				case TypeCode.SByte:
-				case TypeCode.Single:
-				case TypeCode.UInt16:
-				case TypeCode.UInt32:
-				case TypeCode.UInt64:
-					return true;
-				default:
-					return false;
-			}
+	public static string GetString(this TagBuilder content) {
+		var writer = new StringWriter();
+		content.WriteTo(writer, HtmlEncoder.Default);
+		return writer.ToString();
+	}
+
+	public static bool IsNumberic(this Type type) {
+		switch (Type.GetTypeCode(type)) {
+			case TypeCode.Byte:
+			case TypeCode.Decimal:
+			case TypeCode.Double:
+			case TypeCode.Int16:
+			case TypeCode.Int32:
+			case TypeCode.Int64:
+			case TypeCode.SByte:
+			case TypeCode.Single:
+			case TypeCode.UInt16:
+			case TypeCode.UInt32:
+			case TypeCode.UInt64:
+				return true;
+			default:
+				return false;
 		}
 	}
 }

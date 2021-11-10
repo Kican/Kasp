@@ -1,9 +1,9 @@
-﻿namespace Kasp.ObjectMapper.Benchmark {
-	using BenchmarkDotNet.Running;
+﻿namespace Kasp.ObjectMapper.Benchmark;
 
-	class Program {
-		static void Main(string[] args) {
-			BenchmarkRunner.Run<MapObjectBenchmark>();
-		}
+using BenchmarkDotNet.Running;
+
+class Program {
+	static void Main(string[] args) {
+		BenchmarkRunner.Run<MapObjectBenchmark>();
 	}
 }

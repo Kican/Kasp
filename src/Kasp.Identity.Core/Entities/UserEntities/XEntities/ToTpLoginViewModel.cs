@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Kasp.Identity.Core.Entities.UserEntities.XEntities {
-	public class ToTpLoginViewModel {
-		[Required, Phone]
-		public string Phone { get; set; }
+namespace Kasp.Identity.Core.Entities.UserEntities.XEntities; 
 
-		[Required]
-		public string Code { get; set; }
-	}
+public class ToTpLoginViewModel {
+	[Required, Phone]
+	public string Phone { get; set; }
+
+	[Required]
+	public string Code { get; set; }
 }

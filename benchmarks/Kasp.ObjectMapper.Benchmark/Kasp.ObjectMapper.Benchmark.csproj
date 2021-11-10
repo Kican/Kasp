@@ -7,15 +7,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Boxed.Mapping" Version="5.3.0" />
-		<PackageReference Include="FastExpressionCompiler" Version="3.2.1" />
+		<PackageReference Include="Boxed.Mapping" Version="6.0.0"/>
+		<PackageReference Include="FastExpressionCompiler" Version="3.2.1"/>
 
-		<PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-		<PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" Version="1.2.0-beta.354" />
+		<PackageReference Include="BenchmarkDotNet" Version="0.13.1"/>
+		<PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" Version="1.2.0-beta.354"/>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj" />
-		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.Mapster\Kasp.ObjectMapper.Mapster.csproj" />
+		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.AutoMapper\Kasp.ObjectMapper.AutoMapper.csproj"/>
+		<ProjectReference Include="..\..\src\Kasp.ObjectMapper.Mapster\Kasp.ObjectMapper.Mapster.csproj"/>
 	</ItemGroup>
+
+	<!--	<Target Name="Mapster" AfterTargets="AfterBuild">-->
+	<!--		<Exec WorkingDirectory="$(ProjectDir)" Command="dotnet tool restore" />-->
+	<!--		<Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster model -a &quot;$(TargetDir)$(ProjectName).dll&quot;" />-->
+	<!--		<Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster extension -a &quot;$(TargetDir)$(ProjectName).dll&quot;" />-->
+	<!--		<Exec WorkingDirectory="$(ProjectDir)" Command="dotnet mapster mapper -a &quot;$(TargetDir)$(ProjectName).dll&quot;" />-->
+	<!--	</Target>-->
 </Project>

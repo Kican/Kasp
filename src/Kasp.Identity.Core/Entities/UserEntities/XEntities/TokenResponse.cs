@@ -1,17 +1,17 @@
 using System.Text.Json.Serialization;
 
-namespace Kasp.Identity.Core.Entities.UserEntities.XEntities {
-	public class TokenResponse {
-		[JsonPropertyName("access_token")]
-		public string AccessToken { get; set; }
+namespace Kasp.Identity.Core.Entities.UserEntities.XEntities; 
 
-		[JsonPropertyName("token_type")]
-		public string TokenType { get; set; } = "Bearer";
+public class TokenResponse {
+	[JsonPropertyName("access_token")]
+	public string AccessToken { get; set; }
 
-		[JsonPropertyName("refresh_token")]
-		public string RefreshToken { get; set; }
+	[JsonPropertyName("token_type")]
+	public string TokenType { get; set; } = "Bearer";
 
-		[JsonPropertyName("expires_in")]
-		public long Expires { get; set; }
-	}
+	[JsonPropertyName("refresh_token")]
+	public string RefreshToken { get; set; }
+
+	[JsonPropertyName("expires_in")]
+	public long Expires { get; set; }
 }
