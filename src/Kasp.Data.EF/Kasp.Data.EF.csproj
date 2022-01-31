@@ -12,6 +12,5 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFCoreVersion)" />
-		<PackageReference Include="Scrutor" Version="3.3.0" />
 	</ItemGroup>
 </Project>
