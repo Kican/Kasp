@@ -6,34 +6,34 @@ using FluentValidation;
 using FluentValidation.Internal;
 using IValidator = Kasp.FormBuilder.Models.IValidator;
 
-namespace Kasp.FormBuilder.FluentValidation {
-	public class FluentValidationValidatorResolver : IValidatorResolver {
-		public FluentValidationValidatorResolver(IServiceProvider serviceProvider, FormBuilderOptions formBuilderOptions) {
-			ServiceProvider = serviceProvider;
-			FormBuilderOptions = formBuilderOptions;
-		}
+namespace Kasp.FormBuilder.FluentValidation;
 
-		private FormBuilderOptions FormBuilderOptions { get; }
-		private IServiceProvider ServiceProvider { get; }
+public class FluentValidationValidatorResolver : IValidatorResolver {
+	public FluentValidationValidatorResolver(IServiceProvider serviceProvider, FormBuilderOptions formBuilderOptions) {
+		ServiceProvider = serviceProvider;
+		FormBuilderOptions = formBuilderOptions;
+	}
 
-		public IValidator[] GetValidators(PropertyInfo propertyInfo) {
-			var validatorType = typeof(IValidator<>).MakeGenericType(propertyInfo.DeclaringType);
-			var validatorService = ServiceProvider.GetService(validatorType) as IEnumerable<IValidationRule>;
+	private FormBuilderOptions FormBuilderOptions { get; }
+	private IServiceProvider ServiceProvider { get; }
 
-			if (validatorService == null)
-				return new IValidator[] { };
+	public IValidator[] GetValidators(PropertyInfo propertyInfo) {
+		var validatorType = typeof(IValidator<>).MakeGenericType(propertyInfo.DeclaringType);
+		var validatorService = ServiceProvider.GetService(validatorType) as IEnumerable<IValidationRule>;
 
-			var propRule = validatorService.FirstOrDefault(x => ((PropertyRule) x).PropertyName == propertyInfo.Name);
-			var validators = new List<IValidator>();
+		if (validatorService == null)
+			return new IValidator[] { };
 
-			if (propRule == null || !propRule.Validators.Any())
-				return validators.ToArray();
+		var propRule = validatorService.FirstOrDefault(x => ((PropertyRule) x).PropertyName == propertyInfo.Name);
+		var validators = new List<IValidator>();
 
-			validators.AddRange(propRule.Validators.Select(fluentValidator =>
-						FormBuilderOptions.ValidatorCollection.Convert(fluentValidator)).Where(validator => validator != null)
-				);
-
+		if (propRule == null || !propRule.Validators.Any())
 			return validators.ToArray();
-		}
+
+		validators.AddRange(propRule.Validators.Select(fluentValidator =>
+				FormBuilderOptions.ValidatorCollection.Convert(fluentValidator)).Where(validator => validator != null)
+		);
+
+		return validators.ToArray();
 	}
 }

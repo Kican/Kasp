@@ -10,69 +10,69 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Kasp.Identity.Controllers {
-	public abstract class OtpAccountApiController<TUser, TRegisterModel, TViewModel, TEditModel> : EmailPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel>
-		where TUser : KaspUser, new()
-		where TRegisterModel : IUserRegisterModel
-		where TViewModel : UserPartialVmBase
-		where TEditModel : UserEditModelBase {
-		public IAuthOtpSmsSender OtpSmsSender { get; }
+namespace Kasp.Identity.Controllers; 
 
-		[HttpPost, AllowAnonymous]
-		public virtual async Task<ActionResult<PhoneRequestResponse>> PhoneRequest([FromBody] ToTpRegisterViewModel model) {
-			if (!ModelState.IsValid) return BadRequest(ModelState);
+public abstract class OtpAccountApiController<TUser, TRegisterModel, TViewModel, TEditModel> : EmailPassAccountApiControllerBase<TUser, TRegisterModel, TViewModel, TEditModel>
+	where TUser : KaspUser, new()
+	where TRegisterModel : IUserRegisterModel
+	where TViewModel : UserPartialVmBase
+	where TEditModel : UserEditModelBase {
+	public IAuthOtpSmsSender OtpSmsSender { get; }
 
-			var user = await UserManager.FindByNameAsync(model.Phone);
+	[HttpPost, AllowAnonymous]
+	public virtual async Task<ActionResult<PhoneRequestResponse>> PhoneRequest([FromBody] ToTpRegisterViewModel model) {
+		if (!ModelState.IsValid) return BadRequest(ModelState);
 
-			var isRegistered = false;
+		var user = await UserManager.FindByNameAsync(model.Phone);
 
-			if (user == null) {
-				user = new TUser {UserName = model.Phone, PhoneNumber = model.Phone};
-				var result = await UserManager.CreateAsync(user);
+		var isRegistered = false;
 
-				if (!result.Succeeded) {
-					AddErrors(result);
-					return BadRequest(ModelState);
-				}
+		if (user == null) {
+			user = new TUser {UserName = model.Phone, PhoneNumber = model.Phone};
+			var result = await UserManager.CreateAsync(user);
 
-				await OnRegisterSuccess(user);
-				isRegistered = true;
+			if (!result.Succeeded) {
+				AddErrors(result);
+				return BadRequest(ModelState);
 			}
 
-			var code = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider);
-			var smsResult = await OtpSmsSender.SendSmsAsync(model.Phone, code); 
-			
-			if (!smsResult.isSuccess) 
-				throw new Exception("error in sending otp ...");
-			
-			return new PhoneRequestResponse(smsResult.number, isRegistered);
+			await OnRegisterSuccess(user);
+			isRegistered = true;
 		}
 
-		[HttpPost, AllowAnonymous]
-		public virtual async Task<ActionResult<TokenResponse>> LoginOtp([FromBody] ToTpLoginViewModel model) {
-			if (!ModelState.IsValid) return BadRequest(ModelState);
-
-			var user = await UserManager.FindByNameAsync(model.Phone);
+		var code = await UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider);
+		var smsResult = await OtpSmsSender.SendSmsAsync(model.Phone, code); 
 			
-			if (user == null)
-				throw new Exception("user not found");
+		if (!smsResult.isSuccess) 
+			throw new Exception("error in sending otp ...");
+			
+		return new PhoneRequestResponse(smsResult.number, isRegistered);
+	}
+
+	[HttpPost, AllowAnonymous]
+	public virtual async Task<ActionResult<TokenResponse>> LoginOtp([FromBody] ToTpLoginViewModel model) {
+		if (!ModelState.IsValid) return BadRequest(ModelState);
+
+		var user = await UserManager.FindByNameAsync(model.Phone);
+			
+		if (user == null)
+			throw new Exception("user not found");
 			
 
-			var result = await UserManager.VerifyTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider, model.Code);
+		var result = await UserManager.VerifyTwoFactorTokenAsync(user, TokenOptions.DefaultPhoneProvider, model.Code);
 
-			if (result) {
-				var claims = await GetClaims(user);
+		if (result) {
+			var claims = await GetClaims(user);
 
-				return await GetToken(claims);
-			}
-			
-			throw new Exception("user/totp incurrect ...");
+			return await GetToken(claims);
 		}
+			
+		throw new Exception("user/totp incurrect ...");
+	}
 
-		protected OtpAccountApiController(IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager, IObjectMapper objectMapper, IAuthOtpSmsSender otpSmsSender) :
-			base(config, userManager,
-				signInManager, objectMapper) {
-			OtpSmsSender = otpSmsSender;
-		}
+	protected OtpAccountApiController(IOptions<JwtConfig> config, UserManager<TUser> userManager, SignInManager<TUser> signInManager, IObjectMapper objectMapper, IAuthOtpSmsSender otpSmsSender) :
+		base(config, userManager,
+			signInManager, objectMapper) {
+		OtpSmsSender = otpSmsSender;
 	}
 }

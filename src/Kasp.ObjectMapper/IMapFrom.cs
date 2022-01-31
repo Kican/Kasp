@@ -1,4 +1,4 @@
-namespace Kasp.ObjectMapper {
-	public interface IMapFrom<T> {
-	}
+namespace Kasp.ObjectMapper;
+
+public interface IMapFrom<T> {
 }

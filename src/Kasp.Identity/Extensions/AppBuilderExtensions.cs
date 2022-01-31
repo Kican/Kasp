@@ -1,5 +1,4 @@
-namespace Kasp.Identity.Extensions {
-	public class AppBuilderExtensions {
-		
-	}
+namespace Kasp.Identity.Extensions;
+
+public class AppBuilderExtensions {
 }

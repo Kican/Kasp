@@ -1,26 +1,25 @@
 using System.Collections.ObjectModel;
 using System.Linq;
-using Kasp.FormBuilder.Components.Elements;
 using Kasp.FormBuilder.Components.Handlers;
 using Kasp.FormBuilder.Components.Layouts;
 
-namespace Kasp.FormBuilder.Components {
-	public class ComponentHandlerCollection : Collection<IComponentHandler> {
-		public ComponentHandlerCollection() {
-			Add<LinearLayoutComponentHandler>();
-			Add<SelectComponentHandler>();
+namespace Kasp.FormBuilder.Components;
 
-			Add<DateTimeComponentHandler>();
-			Add<NumberFieldComponentHandler>();
-			Add<EnumComponentHandler>();
-			
-			Add<TextFieldComponentHandler>();
-		}
+public class ComponentHandlerCollection : Collection<IComponentHandler> {
+	public ComponentHandlerCollection() {
+		Add<LinearLayoutComponentHandler>();
+		Add<SelectComponentHandler>();
 
-		public void Add<THandler>() where THandler : class, IComponentHandler, new() {
-			Add(new THandler());
-		}
+		Add<DateTimeComponentHandler>();
+		Add<NumberFieldComponentHandler>();
+		Add<EnumComponentHandler>();
 
-		public IComponentHandler FindHandler(ComponentOptions options) => this.First(x => x.IsOwner(options));
+		Add<TextFieldComponentHandler>();
 	}
+
+	public void Add<THandler>() where THandler : class, IComponentHandler, new() {
+		Add(new THandler());
+	}
+
+	public IComponentHandler FindHandler(ComponentOptions options) => this.First(x => x.IsOwner(options));
 }

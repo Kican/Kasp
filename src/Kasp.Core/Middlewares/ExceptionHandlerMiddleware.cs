@@ -7,62 +7,62 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
-namespace Kasp.Core.Middlewares {
-	public static class ExceptionHandlerMiddleware {
-		public static KaspAppBuilder UseExceptionHandler(this KaspAppBuilder app) {
-			app.ApplicationBuilder.UseExceptionHandler(builder => {
-				builder.Run(async context => {
-					context.Response.ContentType = "application/json";
+namespace Kasp.Core.Middlewares; 
 
-					var error = new ErrorDetails();
+public static class ExceptionHandlerMiddleware {
+	public static KaspAppBuilder UseExceptionHandler(this KaspAppBuilder app) {
+		app.ApplicationBuilder.UseExceptionHandler(builder => {
+			builder.Run(async context => {
+				context.Response.ContentType = "application/json";
 
-					var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+				var error = new ErrorDetails();
+
+				var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
 					
-					if (contextFeature.Error is KaspRuntimeException exception) {
-						error.Status = (int) exception.StatusCode;
-						error.Message = exception.Message;
-					} else {
-						error.Status = (int) HttpStatusCode.InternalServerError;
-						error.Message = contextFeature.Error.Message;
-					}
+				if (contextFeature.Error is KaspRuntimeException exception) {
+					error.Status = (int) exception.StatusCode;
+					error.Message = exception.Message;
+				} else {
+					error.Status = (int) HttpStatusCode.InternalServerError;
+					error.Message = contextFeature.Error.Message;
+				}
 
-					context.Response.StatusCode = error.Status;
+				context.Response.StatusCode = error.Status;
 
-					await context.Response.WriteAsync(JsonSerializer.Serialize(error));
-				});
+				await context.Response.WriteAsync(JsonSerializer.Serialize(error));
 			});
+		});
 
-			return app;
-		}
+		return app;
 	}
+}
 
-	public class ErrorDetails {
-		public string Message { get; set; }
-		public int Status { get; set; }
-		public DateTimeOffset Time { get; set; } = DateTimeOffset.Now;
-		public Dictionary<string, string[]> Errors { get; set; }
+public class ErrorDetails {
+	public string Message { get; set; }
+	public int Status { get; set; }
+	public DateTimeOffset Time { get; set; } = DateTimeOffset.Now;
+	public Dictionary<string, string[]> Errors { get; set; }
+}
+
+public abstract class KaspRuntimeException : Exception {
+	public abstract HttpStatusCode StatusCode { get; }
+
+	public KaspRuntimeException(string message) : base(message) {
 	}
+}
 
-	public abstract class KaspRuntimeException : Exception {
-		public abstract HttpStatusCode StatusCode { get; }
+public class EntityNotFoundException : KaspRuntimeException {
+	public object Key { get; }
+	public override HttpStatusCode StatusCode => HttpStatusCode.NotFound;
 
-		public KaspRuntimeException(string message) : base(message) {
-		}
+	public EntityNotFoundException(object key) : base($"Entity {key} not found ...") {
+		Key = key;
 	}
+}
 
-	public class EntityNotFoundException : KaspRuntimeException {
-		public object Key { get; }
-		public override HttpStatusCode StatusCode => HttpStatusCode.NotFound;
+public class EntityAlreadyExistException : KaspRuntimeException {
+	public override HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
 
-		public EntityNotFoundException(object key) : base($"Entity {key} not found ...") {
-			Key = key;
-		}
-	}
-
-	public class EntityAlreadyExistException : KaspRuntimeException {
-		public override HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
-
-		public EntityAlreadyExistException(object key) : base($"Entity {key} is exist ...") {
-		}
+	public EntityAlreadyExistException(object key) : base($"Entity {key} is exist ...") {
 	}
 }

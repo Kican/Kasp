@@ -1,16 +1,16 @@
 using System.Net;
 
-namespace Kasp.HttpException.Core {
-	public class NotFoundException : HttpExceptionBase {
-		public override HttpStatusCode StatusCode { get; } = HttpStatusCode.NotFound;
+namespace Kasp.HttpException.Core; 
 
-		public NotFoundException() {
-		}
+public class NotFoundException : HttpExceptionBase {
+	public override HttpStatusCode StatusCode { get; } = HttpStatusCode.NotFound;
 
-		public NotFoundException(string message) : base(message) {
-		}
+	public NotFoundException() {
+	}
 
-		public NotFoundException(string message, System.Exception innerException) : base(message, innerException) {
-		}
+	public NotFoundException(string message) : base(message) {
+	}
+
+	public NotFoundException(string message, System.Exception innerException) : base(message, innerException) {
 	}
 }

@@ -3,25 +3,25 @@ using Kasp.FormBuilder.Components;
 using Kasp.FormBuilder.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kasp.FormBuilder.Extensions {
-	public static class ServiceCollectionExtensions {
-		public static IServiceCollection AddFormBuilder(this IServiceCollection services) {
-			services.AddFormBuilder(options => { });
-			return services;
-		}
+namespace Kasp.FormBuilder.Extensions; 
 
-		public static IServiceCollection AddFormBuilder(this IServiceCollection services, Action<FormBuilderOptions> setupAction) {
-			services.AddTransient<IFormBuilder, Services.FormBuilder>();
-			services.AddTransient<IValidatorResolver, MvcValidatorResolver>();
+public static class ServiceCollectionExtensions {
+	public static IServiceCollection AddFormBuilder(this IServiceCollection services) {
+		services.AddFormBuilder(options => { });
+		return services;
+	}
 
-			var options = new FormBuilderOptions(services);
-			setupAction(options);
-			services.AddSingleton(options);
+	public static IServiceCollection AddFormBuilder(this IServiceCollection services, Action<FormBuilderOptions> setupAction) {
+		services.AddTransient<IFormBuilder, Services.FormBuilder>();
+		services.AddTransient<IValidatorResolver, MvcValidatorResolver>();
 
-			foreach (var handler in options.ComponentHandlers)
-				services.AddTransient(handler.GetResolverType());
+		var options = new FormBuilderOptions(services);
+		setupAction(options);
+		services.AddSingleton(options);
 
-			return services;
-		}
+		foreach (var handler in options.ComponentHandlers)
+			services.AddTransient(handler.GetResolverType());
+
+		return services;
 	}
 }
