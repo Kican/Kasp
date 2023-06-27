@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\version.props" />
 
 	<PropertyGroup>
@@ -6,6 +6,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.15" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.0" />
 	</ItemGroup>
 </Project>
